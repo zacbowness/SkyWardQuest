@@ -1,5 +1,6 @@
 # Godot 4+ specific ignores
 .godot/
+demo/project.godot
 
 # This is the SCons database file for quick compilation; should probably be local and not pulled
 .sconsign.dblite
