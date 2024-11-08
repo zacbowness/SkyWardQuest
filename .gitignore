@@ -1,5 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
+demo/project.godot
+
 # This is the SCons database file for quick compilation; should probably be local and not pulled
 .sconsign.dblite
 # The binaries should be local, BUT you need to have the .gdextension
@@ -12,5 +14,38 @@ demo/bin/~lib*
 # ignore all object files
 *.obj
 
+# ignore all log files
+*.log
+logs/*
+
 # Ignore godot-cpp/bin
-godot-cpp/bin/
+godot-cpp/bin/*
+
+# ignore default cache directory
+godot-cpp/cashe/
+
+#ignore scons generated files
+godot-cpp/*.gen.*
+godot-cpp/gen/
+godot-cpp/.import/
+godot-cpp/.godot/
+godot-cpp/src/gen
+godot-cpp/include/gen
+
+#ignore godot-cpp binaries
+godot-cpp/*.o
+godot-cpp/*.os
+godot-cpp/*.so
+godot-cpp/*.obj
+godot-cpp/*.bc
+godot-cpp/*.pyc
+godot-cpp/*.dblite
+godot-cpp/*.pdb
+godot-cpp/*.lib
+godot-cpp/bin
+godot-cpp/*.config
+godot-cpp/*.creator
+godot-cpp/*.creator.user
+godot-cpp/*.files
+godot-cpp/*.includes
+godot-cpp/*.idb
