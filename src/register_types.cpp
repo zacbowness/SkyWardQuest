@@ -1,6 +1,6 @@
 #include "register_types.h"
 
-#include "powerup.h"
+#include "debug_rect.h"
 
 // include the headers from your classes
 #include "quat_camera.h"
@@ -22,7 +22,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<CustomScene3501>();
 	ClassDB::register_class<RaceBeacon>();
 	ClassDB::register_class<Enemy>();
-	ClassDB::register_class<Powerup>();
+	ClassDB::register_class<DebugRect>();
 	
 }
 
