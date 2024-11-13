@@ -31,7 +31,7 @@
 #include "quat_camera.h"
 #include "race_beacon.h"
 #include "enemy.h"
-#include "powerup.h"
+#include "debug_rect.h"
 
 
 // everything in gdextension is defined in this namespace
@@ -44,47 +44,15 @@ private:
 	double time_passed;
 
 	QuatCamera* main_camera;
-	Vector<RaceBeacon*> beacon_instances;
-	Vector<Enemy*> enemy_instances;
-	Vector<Powerup*> powerup_instances;
-
-	Vector3 beaconPositions[10] = { //define positions of beacons
-		Vector3(-10, 10, -34),
-		Vector3(18, 27, -116),
-		Vector3(2, 44, -199),
-		Vector3(61, 33, -253),
-		Vector3(126, 70, -298),
-		Vector3(232, 21, -277),
-		Vector3(309, 85, -233),
-		Vector3(374, 101, -136),
-		Vector3(412, 82, -47),
-		Vector3(423, 151, 58)
-	};
-
-	const float beaconRadius = 2.5;
-	const float playerRadius = 1;
-	const float enemyRadius = 1;
-
-	bool GameOver;
 	
-	//Setup Functions
-	void setup_beacons();
-	void setup_enemy();
-	void set_enemy_pos();
-	void setup_powerups();
-	void set_powerup_pos();
+	Vector<DebugRect*> rect_instances;
+	
+	//Setup Functions (NEW - IMPLEMENT LIKE THIS)
+	void init_debug_rects();
+	void create_rect(Vector3 size, Vector3 pos, Node* parentNode, String name);
 
-	//Collision Functions
-	bool detect_collision(float rad_a, float rad_b, Vector3 pos_a, Vector3 pos_b);
-	void check_beacon_collisions();
-	void check_enemy_collisions();
-	void check_powerup_collisions();
-
-	//other beacon functions
-	void highlight_next_beacon();
-
-	//other
-	void end_game(bool win);
+	//Create Rect Polymorphs
+	void create_rect(String type, Vector3 pos, Node* parentNode);
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
