@@ -32,7 +32,10 @@ void DebugRect::_enter_tree() {
 void DebugRect::setup_rect(Vector3 scale_in, Vector3 pos){
     scale = scale_in;
     position = pos;
-    set_global_position(position);
+}
+
+void DebugRect::update_rect(){
+    set_position(position);
     set_scale(scale);
 }
 

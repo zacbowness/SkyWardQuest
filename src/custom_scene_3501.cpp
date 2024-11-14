@@ -30,6 +30,9 @@ void CustomScene3501::_ready ( ){
 
 	// now that we have set the camera's starting state, let's reinitialize its variables
 	main_camera->_ready();
+
+	//Update DebugRect objects to set their location and otherwise
+	for(DebugRect* obj : rect_instances){obj->update_rect();}
 }
 
 // called every frame (as often as possible)
