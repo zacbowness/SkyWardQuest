@@ -5,6 +5,7 @@
 // include the headers from your classes
 #include "quat_camera.h"
 #include "custom_scene_3501.h"
+#include "slime.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -23,6 +24,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<RaceBeacon>();
 	ClassDB::register_class<Enemy>();
 	ClassDB::register_class<DebugRect>();
+	ClassDB::register_class<Slime>();
 	
 }
 
