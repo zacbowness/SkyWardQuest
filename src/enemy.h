@@ -21,7 +21,7 @@ protected:
 	static void _bind_methods();
 	float speed;	
 	float radius;
-	void approachPlayer();
+	void approachPlayer(double);
 	QuatCamera* player;
 
 private:	
