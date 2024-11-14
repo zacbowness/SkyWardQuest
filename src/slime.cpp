@@ -7,7 +7,9 @@ using namespace godot;
 void Slime::_bind_methods() {}
 
 Slime::Slime() {
-	
+	//Inherited From Enemy
+	speed = 10.0f;
+	radius = 10.0f;
 }
 
 Slime::~Slime() {}
