@@ -19,21 +19,22 @@ class Enemy : public  MeshInstance3D{
 
 protected:
 	static void _bind_methods();
-	
-
-private:
+	float speed;	
+	float radius;
+	void approachPlayer(double);
 	QuatCamera* player;
-	float speed = 15.0f;
-	bool GameOver;
 
+private:	
+	bool GameOver;
+	
 public:
 	Enemy();
 	~Enemy();
 
-	void _process(double delta) override;
-
+	void _process(double delta) override;	
 	void setPlayerPointer(QuatCamera* player);
 	void game_over() {GameOver = true;}
+	
 };
 
 }
