@@ -1,10 +1,15 @@
 #include "quat_camera.h"
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/mesh.hpp>
+#include <godot_cpp/classes/node3d.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/input_event.hpp>
+#include <godot_cpp/classes/input_event_mouse_motion.hpp>
+#include <godot_cpp/core/class_db.hpp>
 
 using namespace godot;
+
+
 
 void QuatCamera::_bind_methods() {}
 
@@ -32,6 +37,8 @@ void QuatCamera::_ready(){
 	accel_factor = 0.005f; //initialize acceleration factor at 0.005f
 
 	GameOver = false; //initialize game over bool
+	//Viewport* viewport = Engine::get_singleton()->get_main_viewport();
+	//last_mouse_position = get_viewport();
 }
 
 QuatCamera::~QuatCamera() {
@@ -47,47 +54,39 @@ void QuatCamera::_process(double delta){
 	
 	//Handle Forward Movement
 	//set position every frame even if no input
-	set_position(get_position() + GetForward() * delta * translation_factor * throttle);
+	//set_position(get_position() + GetForward() * delta * translation_factor * throttle);
 	
+	//Movement
 	Input* _input = Input::get_singleton();
 	if(_input->is_action_pressed("move_forward")){
-		if(throttle < 1) throttle += accel_factor;// If throttle is less than 1.0f, increase it by acceleration factor
+		set_position(get_position() + GetForward() * delta * translation_factor);
 	}
 	if(_input->is_action_pressed("move_backward")){
-		if(throttle > 0) throttle -= 0.005f;// If throttle is more than 0, decrease it by acceleration factor
-		else if(throttle < 0) throttle = 0.0f;
-		//UtilityFunctions::print(throttle); //debug output
+		set_position(get_position() - GetForward() * delta * translation_factor);
 	}
-	
 	if(_input->is_action_pressed("move_right")){
 		set_position(get_position() + GetSide() * delta * translation_factor);
 	}
 	if(_input->is_action_pressed("move_left")){
 		set_position(get_position() - GetSide() * delta * translation_factor);
 	}
-	if(_input->is_action_pressed("move_up")){
-		set_position(get_position() + GetUp() * delta * translation_factor);
-	}
-	if(_input->is_action_pressed("move_down")){
-		set_position(get_position() - GetUp() * delta * translation_factor);
-	}
-	if(_input->is_action_pressed("yaw_increase")){
-		Yaw(1.0f * delta * rotation_factor);
-	}
-	if(_input->is_action_pressed("yaw_decrease")){
+
+	//Looking Around
+
+	//Detect Mouse Inputs
+
+
+	if(_input->is_action_pressed("look_right")){
 		Yaw(-1.0f * delta * rotation_factor);
 	}
-	if(_input->is_action_pressed("pitch_increase")){
+	if(_input->is_action_pressed("look_left")){
+		Yaw(1.0f * delta * rotation_factor);
+	}
+	if(_input->is_action_pressed("look_up")){
 		Pitch(1.0f * delta * rotation_factor);
 	}
-	if(_input->is_action_pressed("pitch_decrease")){
+	if(_input->is_action_pressed("look_down")){
 		Pitch(-1.0f * delta * rotation_factor);
-	}
-	if(_input->is_action_pressed("roll_increase")){
-		Roll(1.0f * delta * rotation_factor);
-	}
-	if(_input->is_action_pressed("roll_decrease")){
-		Roll(-1.0f * delta * rotation_factor);
 	}
 }
 
@@ -100,7 +99,7 @@ Vector3 QuatCamera::GetForward(void) const {
 Vector3 QuatCamera::GetSide(void) const {
 	//replaced static vector with value derrived from current rotation quaternion
     Vector3 current_side = (our_quaternion.xform(side_));
-    return current_side;
+    return current_side.normalized();
 }
 
 
@@ -113,8 +112,7 @@ Vector3 QuatCamera::GetUp(void) const {
 
 
 void QuatCamera::Pitch(float angle){
-	//The angle value is negative because I wanted the controlls to better allign with flight simulators *typically pitch controlls are inverted
-    Quaternion rotation = Quaternion(GetSide(), -angle);//create a quaternion, rotated by angle around side axis
+    Quaternion rotation = Quaternion(GetSide(), angle);//create a quaternion, rotated by angle around side axis
 	Quaternion new_quat = rotation * our_quaternion;//make new quaternion that takes current orientation and multiplies it by our new quaternion to rotate it
 	our_quaternion = new_quat.normalized();//set our_quaternion to a normalized version of the new one
 	set_quaternion((rotation*get_quaternion()).normalized());
@@ -122,7 +120,7 @@ void QuatCamera::Pitch(float angle){
 
 
 void QuatCamera::Yaw(float angle){
-    Quaternion rotation = Quaternion(GetUp(),angle); // not the correct axis
+    Quaternion rotation = Quaternion(Vector3(0,1,0),angle); // not the correct axis
     Quaternion new_quat = rotation * our_quaternion;
 	our_quaternion = (new_quat.normalized());
     set_quaternion((rotation * get_quaternion()).normalized());	// we need to keep the internal quaternion separate from our quaternion representation

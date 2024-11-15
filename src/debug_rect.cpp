@@ -13,18 +13,21 @@ DebugRect::DebugRect() {
     position = Vector3(0,0,0);//origin
 }
 
+void DebugRect::_ready(){
+	
+}
+
 void DebugRect::_enter_tree() {
-    //if(DEBUG) UtilityFunctions::print("Enter Tree - CustomScene3501."); 
+	
+	//if(DEBUG) UtilityFunctions::print("Enter Tree - CustomScene3501.");
     BoxMesh* box = memnew(BoxMesh);
+	
+	material = memnew(StandardMaterial3D);
+
+	material->set_albedo(color);
+	box->surface_set_material(0, material);
 	box->set_size(scale);
-		
-	StandardMaterial3D* box_material = memnew(StandardMaterial3D);
-
-	box_material->set_albedo(color);
-	box->surface_set_material(0, box_material);
-
-    material = box_material;
-		
+	
 	set_mesh(box);
     set_position(position);
 }
@@ -32,6 +35,24 @@ void DebugRect::_enter_tree() {
 void DebugRect::setup_rect(Vector3 scale_in, Vector3 pos){
     scale = scale_in;
     position = pos;
+	
+	/*
+	//create shape of the rectangle
+	collider = memnew(StaticBody3D);
+	Ref<BoxShape3D> shape;
+	shape.instantiate();
+	shape->set_size(scale);
+	
+	//set the shape to the CollisionShape3D
+	collision_shape = memnew(CollisionShape3D);
+	collision_shape->set_shape(shape);
+
+	collider->add_child(collision_shape);
+	//collision_shape->set_owner(get_tree()->get_edited_scene_root());
+	collider->set_transform(get_transform());
+	add_child(collider);
+	//Apply positioning
+	*/
 }
 
 void DebugRect::update_rect(){
