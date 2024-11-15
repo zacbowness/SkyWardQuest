@@ -7,8 +7,13 @@
 #include <godot_cpp/variant/utility_functions.hpp>
 
 #include <godot_cpp/classes/mesh_instance3d.hpp>
+#include <godot_cpp/classes/static_body3d.hpp>
+#include <godot_cpp/classes/collision_shape3d.hpp>
+
+
 #include <godot_cpp/classes/standard_material3d.hpp>
 #include <godot_cpp/classes/box_mesh.hpp>
+#include <godot_cpp/classes/box_shape3d.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 
 #include <godot_cpp/godot.hpp>
@@ -28,11 +33,14 @@ private:
 	Vector3 position;
 
 	StandardMaterial3D* material;
+	CollisionShape3D* collision_shape;
+	StaticBody3D* collider;
 
 public:
 	DebugRect();
 	~DebugRect();
 	void _enter_tree ( ) override;
+	void _ready()override;
 
 	void setup_rect(Vector3 scale, Vector3 pos);
 	void update_rect();

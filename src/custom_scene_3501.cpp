@@ -24,7 +24,7 @@ void CustomScene3501::_enter_tree (){
 void CustomScene3501::_ready ( ){
 	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501."); 
 
-	// set the player's position (the camera) 
+	// set the player's position (the camera)
 	main_camera->set_global_position(Vector3(5.0, 5.0, 25.0f));
 	main_camera->look_at(Vector3(0, 0, 0)); // there are some bugs with this function if the up vector is parallel to the look-at position; check the manual for a link to more info
 
@@ -53,9 +53,7 @@ void CustomScene3501::init_debug_rects(){
 void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name){
 	DebugRect* rect;
 	bool isNew = create_and_add_as_child_of_Node<DebugRect>(rect, name, parentNode);
-	if(isNew){
-		rect->setup_rect(scale, pos);
-	}
+	rect->setup_rect(scale, pos);
 	rect_instances.push_back(rect);
 }
 

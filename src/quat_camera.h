@@ -12,6 +12,9 @@
 #include <godot_cpp/variant/array.hpp>
 #include <godot_cpp/variant/packed_vector3_array.hpp>
 #include <godot_cpp/variant/quaternion.hpp>
+#include <godot_cpp/classes/engine.hpp>
+#include <godot_cpp/classes/viewport.hpp>
+
 
 // everything in gdextension is defined in this namespace
 namespace godot {
@@ -40,7 +43,10 @@ private:
 	float top_speed;// maximum speed of the rocket
 	float accel_factor;// how fast the rocket can accelerate forwards
 
-	bool GameOver;
+	bool GameOver;//OLD - DELETE THIS
+
+	Vector2 last_mouse_position;
+	
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
