@@ -25,6 +25,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Enemy>();
 	ClassDB::register_class<DebugRect>();
 	ClassDB::register_class<Slime>();
+	ClassDB::register_class<Npc>();
 	
 }
 
