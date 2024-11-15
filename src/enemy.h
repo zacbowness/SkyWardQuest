@@ -10,30 +10,31 @@
 #include <godot_cpp/godot.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/engine.hpp>
+#include "npc.h"
 
 namespace godot {
 
+enum EnemyType{
+	SLIME,
+	WOLF
+};
+
 class QuatCamera;
-class Enemy : public  MeshInstance3D{
-	GDCLASS(Enemy, MeshInstance3D);
+class Enemy : public  Npc{
+	GDCLASS(Enemy, Npc);
 
 protected:
 	static void _bind_methods();
-	float speed;	
-	float radius;
-	void approachPlayer(double);
-	QuatCamera* player;
+	enum EnemyType enemyType;
 
 private:	
-	bool GameOver;
 	
 public:
 	Enemy();
 	~Enemy();
 
 	void _process(double delta) override;	
-	void setPlayerPointer(QuatCamera* player);
-	void game_over() {GameOver = true;}
+
 	
 };
 
