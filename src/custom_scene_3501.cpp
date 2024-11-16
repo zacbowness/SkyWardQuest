@@ -52,7 +52,7 @@ void CustomScene3501::init_debug_rects(){
 
 void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name){
 	DebugRect* rect;
-	bool isNew = create_and_add_as_child_of_Node<DebugRect>(rect, name, parentNode);
+	create_and_add_as_child_of_Node<DebugRect>(rect, name, parentNode);
 	rect->setup_rect(scale, pos);
 	rect_instances.push_back(rect);
 }

@@ -1,11 +1,14 @@
 #include "register_types.h"
 
-#include "debug_rect.h"
+
 
 // include the headers from your classes
 #include "quat_camera.h"
 #include "custom_scene_3501.h"
+#include "debug_rect.h"
 #include "slime.h"
+#include "world_obj.h"
+#include "collision_obj.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -18,12 +21,17 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
 		return;
 	}
-    // register classes you made 
+    // Misc Classes
 	ClassDB::register_class<QuatCamera>();
 	ClassDB::register_class<CustomScene3501>();
-	ClassDB::register_class<RaceBeacon>();
-	ClassDB::register_class<Enemy>();
+	
+	//World Object Classes
+	ClassDB::register_class<WorldObject>();
+	ClassDB::register_class<CollisionObject>();
 	ClassDB::register_class<DebugRect>();
+	
+	//Enemy Classes
+	ClassDB::register_class<Enemy>();
 	ClassDB::register_class<Slime>();
 	ClassDB::register_class<Npc>();
 	
