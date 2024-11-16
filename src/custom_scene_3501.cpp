@@ -47,7 +47,8 @@ void CustomScene3501::init_debug_rects(){
 	Node* rectGroup;
 	create_and_add_as_child<Node>(rectGroup, "Debug Rect Group");//create grouping node
 
-	create_rect(Vector3(20,1,20), Vector3(5,-1,5), rectGroup, "rect_floor");
+	create_rect(Vector3(20,1,20), Vector3(5,-1,5), rectGroup, "Floor Rect");
+	create_rect(Vector3(1,1,1), Vector3(0,2,5), rectGroup, "Test Cube");
 }
 
 void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name){

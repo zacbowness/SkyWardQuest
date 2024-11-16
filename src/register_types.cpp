@@ -9,6 +9,7 @@
 #include "slime.h"
 #include "world_obj.h"
 #include "collision_obj.h"
+#include "npc.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
