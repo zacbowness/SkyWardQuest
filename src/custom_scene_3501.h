@@ -29,7 +29,6 @@
 
 #include "defs.h"
 #include "quat_camera.h"
-#include "race_beacon.h"
 #include "enemy.h"
 #include "debug_rect.h"
 
