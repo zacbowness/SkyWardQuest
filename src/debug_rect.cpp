@@ -18,41 +18,48 @@ void DebugRect::_ready(){
 }
 
 void DebugRect::_enter_tree() {
+	if(DEBUG) UtilityFunctions::print("Enter Tree - DebugRect");
 	
-	//if(DEBUG) UtilityFunctions::print("Enter Tree - CustomScene3501.");
+	CollisionObject::_enter_tree(); //Call Parent _enter_tree() function !!IMPORTANT!!
+	
+	//Set Object Starting Position
+	set_position(position);	
+}
+
+//Initialize and return mesh for the object
+Mesh* DebugRect::init_mesh(){
     BoxMesh* box = memnew(BoxMesh);
-	
 	material = memnew(StandardMaterial3D);
 
 	material->set_albedo(color);
 	box->surface_set_material(0, material);
 	box->set_size(scale);
+	set_mesh(box);//apply the mesh
 	
-	set_mesh(box);
-    set_position(position);
+	return(box);//return mesh once initialized to be stored in WorldObject::_enter_tree()
 }
+
+StaticBody3D* DebugRect::init_collider(){
+	StaticBody3D* collider = memnew(StaticBody3D);
+	Ref<BoxShape3D> shape = memnew(BoxShape3D);
+	collision_shape = memnew(CollisionShape3D);
+	
+	shape->set_size(scale);
+
+	create_or_add_child<StaticBody3D>(collider, "ColliderBody");
+	create_or_add_child<CollisionShape3D>(collision_shape, String("Collider_Shape"), collider);//add collision shape as child of collider node
+
+	//Apply shape to collision shape (this needs to be done after its been added to the scene for some reason)
+	collision_shape->set_shape(shape);
+
+	return collider;//Return collider so that CollisionObject can keep the pointer
+}
+
+
 
 void DebugRect::setup_rect(Vector3 scale_in, Vector3 pos){
     scale = scale_in;
     position = pos;
-	
-	/*
-	//create shape of the rectangle
-	collider = memnew(StaticBody3D);
-	Ref<BoxShape3D> shape;
-	shape.instantiate();
-	shape->set_size(scale);
-	
-	//set the shape to the CollisionShape3D
-	collision_shape = memnew(CollisionShape3D);
-	collision_shape->set_shape(shape);
-
-	collider->add_child(collision_shape);
-	//collision_shape->set_owner(get_tree()->get_edited_scene_root());
-	collider->set_transform(get_transform());
-	add_child(collider);
-	//Apply positioning
-	*/
 }
 
 void DebugRect::update_rect(){

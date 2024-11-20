@@ -2,30 +2,25 @@
 #define POWERUP_H
 
 #include <godot_cpp/classes/node3d.hpp>
-#include <godot_cpp/classes/sphere_mesh.hpp>
-
 #include <godot_cpp/variant/utility_functions.hpp>
-
-#include <godot_cpp/classes/mesh_instance3d.hpp>
-#include <godot_cpp/classes/static_body3d.hpp>
-#include <godot_cpp/classes/collision_shape3d.hpp>
-
 
 #include <godot_cpp/classes/standard_material3d.hpp>
 #include <godot_cpp/classes/box_mesh.hpp>
 #include <godot_cpp/classes/box_shape3d.hpp>
-#include <godot_cpp/classes/scene_tree.hpp>
+#include <godot_cpp/classes/mesh_instance3d.hpp>
+#include <godot_cpp/classes/static_body3d.hpp>
+#include <godot_cpp/classes/collision_shape3d.hpp>
 
-#include <godot_cpp/godot.hpp>
-#include <godot_cpp/core/class_db.hpp>
-#include <godot_cpp/classes/engine.hpp>
+#include "collision_obj.h"
 
 namespace godot {
-class DebugRect : public  MeshInstance3D{
-	GDCLASS(DebugRect, MeshInstance3D);
+class DebugRect : public  CollisionObject{
+	GDCLASS(DebugRect, CollisionObject);
 
 protected:
 	static void _bind_methods();
+
+	
 
 private:
 	Vector3 scale;
@@ -34,13 +29,17 @@ private:
 
 	StandardMaterial3D* material;
 	CollisionShape3D* collision_shape;
-	StaticBody3D* collider;
 
 public:
 	DebugRect();
 	~DebugRect();
-	void _enter_tree ( ) override;
-	void _ready()override;
+
+	void _enter_tree() override;
+	void _ready() override;
+
+	StaticBody3D* init_collider() override;//initialize and return StaticBody3D for this object
+	Mesh* init_mesh()override;//initialize and return mesh for this object
+	
 
 	void setup_rect(Vector3 scale, Vector3 pos);
 	void update_rect();

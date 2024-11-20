@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp1hkrg2i3h82"]
+[gd_scene load_steps=7 format=3 uid="uid://bp1hkrg2i3h82"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7q6xi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -13,11 +13,12 @@ sky = SubResource("Sky_opf1y")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mreep"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6hc4f"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_pprwg"]
-material = SubResource("StandardMaterial3D_mreep")
-size = Vector3(20, 1, 20)
+[sub_resource type="BoxMesh" id="BoxMesh_u4kd7"]
+material = SubResource("StandardMaterial3D_6hc4f")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ta4py"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -31,6 +32,11 @@ transform = Transform3D(0.980581, -0.0377426, 0.19245, 0, 0.981307, 0.19245, -0.
 
 [node name="Debug Rect Group" type="Node" parent="CustomScene3501"]
 
-[node name="rect_floor" type="DebugRect" parent="CustomScene3501/Debug Rect Group"]
-transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 5, -1, 5)
-mesh = SubResource("BoxMesh_pprwg")
+[node name="Test Cube" type="DebugRect" parent="CustomScene3501/Debug Rect Group"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
+mesh = SubResource("BoxMesh_u4kd7")
+
+[node name="ColliderBody" type="StaticBody3D" parent="CustomScene3501/Debug Rect Group/Test Cube"]
+
+[node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Test Cube/ColliderBody"]
+shape = SubResource("BoxShape3D_ta4py")
