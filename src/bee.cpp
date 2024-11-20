@@ -1,21 +1,21 @@
-#include "slime.h"
+#include "bee.h"
 #include <godot_cpp/classes/resource_loader.hpp>
 
 
 using namespace godot;
 
-void Slime::_bind_methods() {}
+void Bee::_bind_methods() {}
 
-Slime::Slime() {
+Bee::Bee() {
 	//Inherited From Npc
 	speed = 10.0f;
 	radius = 10.0f;
-	enemyType = SLIME;
+	enemyType = BEE;
 }
 
-Slime::~Slime() {}
+Bee::~Bee() {}
 
-void Slime::_ready (){
+void Bee::_ready (){
 	//Initalize Slime to be a Sphere Mesh Based Maybe (Softbody)
 	//Create Sphere and Mesh
 	SphereMesh* sphere = memnew(SphereMesh);
@@ -29,8 +29,6 @@ void Slime::_ready (){
 	set_position(Vector3(0,5,0));
 }
 
-void Slime::_process(double delta){
-	if (playerInRadius()){
-		approachPlayer(delta);
-	}
+void Bee::_process(double delta){
+	
 }
