@@ -9,6 +9,7 @@ void Player::_bind_methods() {}
 
 Player::Player() : CharacterBody3D() {
 	time_passed = 0.0;
+	accel = 0.0;
 	player_quat = Quaternion(Vector3(0, 0, 1), 0.0f);
 }
 
@@ -46,11 +47,17 @@ void Player::_process(double delta) {
 	
 	
 	//Apply Gravity
-	if(!is_on_floor())velocity.y -= GRAVITY*delta;
+	if(!is_on_floor())velocity.y -= GRAVITY*delta;//if player is not on the ground, apply gravity
+	if(is_on_floor()&&velocity.y<0)velocity.y = 0.0f;//if player is falling and hits the ground->stop downward momentum
+	if(!is_on_floor()&&is_on_ceiling()&&velocity.y>0){
+		velocity.y = 0.0f;
+		UtilityFunctions::print("Bonk!");
+	}//if player jumps and hits a ceiling->stop upward momentum
 	//else velocity.y = 0.0;
 
 	//Apply Velocity
-	move_and_slide();
+	UtilityFunctions::print(velocity);
+	move_and_slide();//move and slide allows for smoother movement on non flat surfaces
 	set_velocity(velocity);
 	//UtilityFunctions::print(velocity);
 }
@@ -88,11 +95,20 @@ void Player::init_body(){
 
 //==== MOVEMENT AND TRANSFORMATION FUNCTIONS ====//
 Vector3 Player::apply_input(Vector3 current_vel, double delta){
-	Vector3 velocity = current_vel;
+	Vector3 velocity = Vector3(0,0,0);
+	//Vector3 velocity = Vector3(current_vel.x,0,current_vel.z);
+
+	if(accel>1.0)accel = 1.0;
+	if(accel<0)accel = 0.0;
+
+	float movement_factor = PLAYER_SPEED*60;
 
 	Input* _input = Input::get_singleton();//get input singleton
+	
+	//Movement Inputs
 	if(_input->is_action_pressed("move_forward")){
 		velocity = move_in_direction(get_forward(), velocity, delta);
+		
 		//UtilityFunctions::print("Forward");
 	}
 	if(_input->is_action_pressed("move_backward")){
@@ -104,12 +120,48 @@ Vector3 Player::apply_input(Vector3 current_vel, double delta){
 	if(_input->is_action_pressed("move_left")){
 		velocity = move_in_direction(-get_side(), velocity, delta);
 	}
+
+	if(
+		_input->is_action_pressed("move_forward")||
+		_input->is_action_pressed("move_backward")||
+		_input->is_action_pressed("move_right")||
+		_input->is_action_pressed("move_left")
+	){
+		if(accel<1.0)accel+=PLAYER_ACCEL;
+	}else if(accel>0.0)accel-=PLAYER_ACCEL;
+
+	//velocity = velocity.normalized()*movement_factor*delta*accel;
+	velocity = velocity.normalized()*movement_factor*delta;
+
+	velocity.y = current_vel.y;
+	if(_input->is_action_just_pressed("jump")&&is_on_floor()){
+		velocity.y+=PLAYER_JUMP_STR;
+		//UtilityFunctions::print("Jump!");
+	}
+
+	//Turning/looking around inputs
+	if(_input->is_action_pressed("look_right")){
+		turn_player(-1.0f * delta * PLAYER_SENSITIVITY);
+	}
+	if(_input->is_action_pressed("look_left")){
+		turn_player(1.0f * delta * PLAYER_SENSITIVITY);
+	}
+
 	return velocity;
 }
 
 Vector3 Player::move_in_direction(Vector3 dir, Vector3 velocity, double delta){
-	velocity.x = dir.x*PLAYER_SPEED*delta;
-	velocity.z = dir.z*PLAYER_SPEED*delta;
+
+	//Scale up speed by 60 to have PLAYER_SPEED be similar to other movement constants
+	//delta value is likely to be about 1/60 if the game is running at 60fps, so rescale accordingly
+	float speed_factor = PLAYER_SPEED*60.0f;
+	
+	//velocity.x += dir.x*speed_factor*delta;
+	//velocity.z += dir.z*speed_factor*delta;
+	velocity.x += dir.x;
+	velocity.z += dir.z;
+
+	//apply speed factor and delta after velocity direction is applied so that diagonal movement is the same speed as forward
 	return velocity;
 }
 
@@ -122,6 +174,13 @@ Vector3 Player::get_side(){
 	//replaced static vector with value derrived from current rotation quaternion
     Vector3 current_side = (player_quat.xform(side_));
     return current_side.normalized();
+}
+
+void Player::turn_player(float angle){
+	Quaternion rotation = Quaternion(Vector3(0,1,0),angle);
+    Quaternion new_quat = rotation * player_quat;
+	player_quat = (new_quat.normalized());
+    set_quaternion((rotation * get_quaternion()).normalized());	// we need to keep the internal quaternion separate from our quaternion representation
 }
 
 

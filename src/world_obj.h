@@ -17,12 +17,13 @@ class WorldObject : public  MeshInstance3D{
 
 protected:
 	static void _bind_methods();
+	Mesh* object_mesh;
 
 	//Virtual Functions to override
 	virtual Mesh* init_mesh(){return nullptr;}//function returns the mesh for the object and is set in _ready()
 
 private:
-	Mesh* object_mesh;
+	
 
 public:
 	WorldObject();

@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://bhk7lci6v14gh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6hpl"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xxmsy"]
 albedo_color = Color(0.4, 0.4, 0.4, 1)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_a4y20"]
-material = SubResource("StandardMaterial3D_x6hpl")
-top_radius = 0.4
-bottom_radius = 0.4
+[sub_resource type="CylinderMesh" id="CylinderMesh_v41w4"]
+material = SubResource("StandardMaterial3D_xxmsy")
+top_radius = 0.35
+bottom_radius = 0.35
 height = 1.7
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_odkaj"]
-radius = 0.4
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6uj4"]
+radius = 0.35
 height = 1.7
 
 [node name="Player" type="Player"]
@@ -20,8 +20,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 
 [node name="Player Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
-mesh = SubResource("CylinderMesh_a4y20")
+mesh = SubResource("CylinderMesh_v41w4")
 
 [node name="Player Body" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
-shape = SubResource("CapsuleShape3D_odkaj")
+shape = SubResource("CapsuleShape3D_h6uj4")

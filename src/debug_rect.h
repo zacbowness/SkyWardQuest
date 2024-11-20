@@ -42,6 +42,7 @@ public:
 	
 
 	void setup_rect(Vector3 scale, Vector3 pos);
+	void setup_rect(Vector3 scale, Vector3 pos, Vector3 color);
 	void update_rect();
 	void set_color(Vector3 color);
 };

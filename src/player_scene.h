@@ -40,7 +40,7 @@
 //Definitions
 #define PLAYER_HEIGHT 1.7f
 #define PLAYER_EYELINE 1.4f
-#define PLAYER_RADIUS 0.4f
+#define PLAYER_RADIUS 0.35f
 
 
 // everything in gdextension is defined in this namespace
@@ -51,6 +51,8 @@ class Player : public CharacterBody3D {
 
 private:
 	double time_passed;
+	float accel;
+	void increment_accel();
 
 	//Object Pointers
 	QuatCamera* main_camera;
@@ -72,6 +74,7 @@ protected:
 
 	Vector3 apply_input(Vector3 velocity, double delta);
 	Vector3 move_in_direction(Vector3 dir, Vector3 velocity, double delta);
+	void turn_player(float angle);//for rotation left and right
 	Vector3 get_forward();
 	Vector3 get_side();
 

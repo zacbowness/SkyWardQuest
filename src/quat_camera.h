@@ -15,6 +15,8 @@
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/viewport.hpp>
 
+#include "defs.h"
+
 
 // everything in gdextension is defined in this namespace
 namespace godot {
@@ -34,6 +36,7 @@ private:
 	Vector3 GetForward() const;
 	Vector3 GetUp() const;
 	Vector3 GetSide() const;
+	float angle_diff(Vector3 vec1, Vector3 vec2);
 
 	void Pitch(float angle);
 	void Roll(float angle);
