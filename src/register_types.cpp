@@ -10,6 +10,8 @@
 #include "world_obj.h"
 #include "collision_obj.h"
 #include "npc.h"
+#include "enemy.h"
+#include "player_scene.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -23,8 +25,11 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 		return;
 	}
     // Misc Classes
-	ClassDB::register_class<QuatCamera>();
 	ClassDB::register_class<CustomScene3501>();
+
+	//Player Classes
+	ClassDB::register_class<Player>();
+	ClassDB::register_class<QuatCamera>();
 	
 	//World Object Classes
 	ClassDB::register_class<WorldObject>();

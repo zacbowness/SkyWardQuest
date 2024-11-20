@@ -31,6 +31,7 @@
 #include "quat_camera.h"
 #include "enemy.h"
 #include "debug_rect.h"
+#include "player_scene.h"
 
 
 // everything in gdextension is defined in this namespace
@@ -42,16 +43,16 @@ class CustomScene3501 : public Node3D {
 private:
 	double time_passed;
 
-	QuatCamera* main_camera;
+	Player* player;
 	
 	Vector<DebugRect*> rect_instances;
 	
 	//Setup Functions (NEW - IMPLEMENT LIKE THIS)
 	void init_debug_rects();
 	void create_rect(Vector3 size, Vector3 pos, Node* parentNode, String name);
+	void create_rect(Vector3 size, Vector3 pos, Node* parentNode, String name, Vector3 color);
 
-	//Create Rect Polymorphs
-	void create_rect(String type, Vector3 pos, Node* parentNode);
+	void init_player(Vector3 start_pos);
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes

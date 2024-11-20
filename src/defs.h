@@ -5,8 +5,14 @@
 #define DEBUG true
 
 //Player Control Values
-#define CAMERA_SENS 0.005
+#define PLAYER_SENSITIVITY 1.4
+#define PLAYER_SPEED 3.0
+#define PLAYER_JUMP_STR 6.0
+#define PLAYER_ACCEL 0.125
 
-// add some of your own constants here :)
+//GLOBAL CONSTANTS
+#define GRAVITY 12.0
+#define TERMINAL_V 32.0
+
 
 #endif // DEFS_H
