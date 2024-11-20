@@ -16,21 +16,26 @@ CustomScene3501::~CustomScene3501() {}
 void CustomScene3501::_enter_tree (){
 	if(DEBUG) UtilityFunctions::print("Enter Tree - CustomScene3501."); 
 
-	create_and_add_as_child<QuatCamera>(main_camera, "QuatCamera");
+	//Add Nodes to Scene
+	create_and_add_as_child<Player>(player, "Player");
 
 	init_debug_rects();//add temp rect meshes to scene
 }
 
+void CustomScene3501::init_debug_rects(){
+	Node* rectGroup;
+	create_and_add_as_child<Node>(rectGroup, "Debug Rect Group");//create grouping node
+
+	create_rect(Vector3(20,1,20), Vector3(5,-1,5), rectGroup, "Floor Rect");
+	create_rect(Vector3(1,1,1), Vector3(0,2,-5), rectGroup, "Test Cube");
+}
+
 void CustomScene3501::_ready ( ){
-	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501."); 
+	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
 
-	// set the player's position (the camera)
-	main_camera->set_global_position(Vector3(5.0, 5.0, 25.0f));
-	main_camera->look_at(Vector3(0, 0, 0)); // there are some bugs with this function if the up vector is parallel to the look-at position; check the manual for a link to more info
-
-	// now that we have set the camera's starting state, let's reinitialize its variables
-	main_camera->_ready();
-
+	//Initialization Functions
+	init_player(Vector3(1,3,1));
+	
 	//Update DebugRect objects to set their location and otherwise
 	for(DebugRect* obj : rect_instances){obj->update_rect();}
 }
@@ -42,14 +47,12 @@ void CustomScene3501::_process(double delta) {
 	time_passed += delta;
 }
 
-
-void CustomScene3501::init_debug_rects(){
-	Node* rectGroup;
-	create_and_add_as_child<Node>(rectGroup, "Debug Rect Group");//create grouping node
-
-	create_rect(Vector3(20,1,20), Vector3(5,-1,5), rectGroup, "Floor Rect");
-	create_rect(Vector3(1,1,1), Vector3(0,2,5), rectGroup, "Test Cube");
+void CustomScene3501::init_player(Vector3 start_pos){
+	player->set_position(start_pos);
+	player->_ready();//call the player's ready function after we set the attributes we want !!IMPORTANT!!
 }
+
+
 
 void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name){
 	DebugRect* rect;

@@ -49,7 +49,7 @@ void QuatCamera::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()||GameOver) return; // Early return if we are in editor
 
 	// you can speed up by changing these, if desired. 
-	float rotation_factor = 1.0f;	
+	float rotation_factor = 1.0f;
 	float translation_factor = top_speed;
 	
 	//Handle Forward Movement
@@ -58,18 +58,7 @@ void QuatCamera::_process(double delta){
 	
 	//Movement
 	Input* _input = Input::get_singleton();
-	if(_input->is_action_pressed("move_forward")){
-		set_position(get_position() + GetForward() * delta * translation_factor);
-	}
-	if(_input->is_action_pressed("move_backward")){
-		set_position(get_position() - GetForward() * delta * translation_factor);
-	}
-	if(_input->is_action_pressed("move_right")){
-		set_position(get_position() + GetSide() * delta * translation_factor);
-	}
-	if(_input->is_action_pressed("move_left")){
-		set_position(get_position() - GetSide() * delta * translation_factor);
-	}
+	
 
 	//Looking Around
 
