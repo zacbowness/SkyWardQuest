@@ -27,7 +27,15 @@ void CustomScene3501::init_debug_rects(){
 	create_and_add_as_child<Node>(rectGroup, "Debug Rect Group");//create grouping node
 
 	create_rect(Vector3(20,1,20), Vector3(5,-1,5), rectGroup, "Floor Rect");
-	create_rect(Vector3(1,1,1), Vector3(0,2,-5), rectGroup, "Test Cube");
+	create_rect(Vector3(1,1,1), Vector3(0,2,-5), rectGroup, "Test Cube", Vector3(0.8, 0.1, 0.1));
+
+	Node* jumpBlocksGroup;
+	create_and_add_as_child_of_Node<Node>(jumpBlocksGroup, "Jumping Blocks Group", rectGroup);//create grouping node for jumping blocks
+	for(int i=0;i<6;i++){
+		Vector3 pos = Vector3(1+(1*i), 1.2+(1*i), 2+(3*i));
+		create_rect(Vector3(1.0,0.3,1.0), pos, jumpBlocksGroup, String("Jump Test Block "+i), Vector3(0.1,0.1,0.9));
+	}
+
 }
 
 void CustomScene3501::_ready ( ){
@@ -53,7 +61,6 @@ void CustomScene3501::init_player(Vector3 start_pos){
 }
 
 
-
 void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name){
 	DebugRect* rect;
 	create_and_add_as_child_of_Node<DebugRect>(rect, name, parentNode);
@@ -61,6 +68,13 @@ void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, 
 	rect_instances.push_back(rect);
 }
 
+void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name, Vector3 color){
+	DebugRect* rect;
+	create_and_add_as_child_of_Node<DebugRect>(rect, name, parentNode);
+	rect->setup_rect(scale, pos, color);
+	//rect->set_color(color);
+	rect_instances.push_back(rect);
+}
 
 template <class T>
 // returns true if pointer is brand-new; false if retrieved from SceneTree

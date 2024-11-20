@@ -50,7 +50,7 @@ private:
 	//Setup Functions (NEW - IMPLEMENT LIKE THIS)
 	void init_debug_rects();
 	void create_rect(Vector3 size, Vector3 pos, Node* parentNode, String name);
-	void create_rect(String type, Vector3 pos, Node* parentNode);
+	void create_rect(Vector3 size, Vector3 pos, Node* parentNode, String name, Vector3 color);
 
 	void init_player(Vector3 start_pos);
 

@@ -62,14 +62,22 @@ void DebugRect::setup_rect(Vector3 scale_in, Vector3 pos){
     position = pos;
 }
 
+void DebugRect::setup_rect(Vector3 scale_in, Vector3 pos, Vector3 color_in){
+    scale = scale_in;
+    position = pos;
+	color = Color(color_in.x, color_in.y, color_in.z);
+}
+
 void DebugRect::update_rect(){
     set_position(position);
     set_scale(scale);
+	material->set_albedo(color);
+	object_mesh->surface_set_material(0,material);
+	set_mesh(object_mesh);
 }
 
 void DebugRect::set_color(Vector3 color_in){
-    color = Color(color_in);
-    material->set_albedo(Color(color));
+    color = Color(color_in.x, color_in.y, color_in.z);
 }
 
 DebugRect::~DebugRect() {}
