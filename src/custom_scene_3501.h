@@ -32,6 +32,7 @@
 #include "enemy.h"
 #include "debug_rect.h"
 #include "player_scene.h"
+#include "slime.h"
 
 
 // everything in gdextension is defined in this namespace
@@ -44,6 +45,7 @@ private:
 	double time_passed;
 
 	Player* player;
+	Slime* slime;
 	
 	Vector<DebugRect*> rect_instances;
 	

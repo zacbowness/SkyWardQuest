@@ -19,6 +19,9 @@ void CustomScene3501::_enter_tree (){
 	//Add Nodes to Scene
 	create_and_add_as_child<Player>(player, "Player");
 
+	
+	create_and_add_as_child<Slime>(slime, "Test Slime");
+
 	init_debug_rects();//add temp rect meshes to scene
 }
 
@@ -44,6 +47,8 @@ void CustomScene3501::_ready ( ){
 	//Initialization Functions
 	init_player(Vector3(1,3,1));
 	
+	slime->setPlayerPointer(player);
+	slime->_ready();
 	//Update DebugRect objects to set their location and otherwise
 	for(DebugRect* obj : rect_instances){obj->update_rect();}
 }
