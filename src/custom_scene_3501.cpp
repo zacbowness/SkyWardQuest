@@ -33,7 +33,7 @@ void CustomScene3501::init_debug_rects(){
 	create_and_add_as_child_of_Node<Node>(jumpBlocksGroup, "Jumping Blocks Group", rectGroup);//create grouping node for jumping blocks
 	for(int i=0;i<6;i++){
 		Vector3 pos = Vector3(1+(1*i), 1.2+(1*i), 2+(3*i));
-		create_rect(Vector3(1.0,0.3,1.0), pos, jumpBlocksGroup, String("Jump Test Block "+i), Vector3(0.1,0.1,0.9));
+		create_rect(Vector3(1.0,0.3,1.0), pos, jumpBlocksGroup, String("Jump Test Block "+String::num_int64(i)), Vector3(0.1,0.1,0.9));
 	}
 
 }
