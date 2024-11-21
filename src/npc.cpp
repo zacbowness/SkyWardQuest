@@ -13,7 +13,7 @@ Npc::Npc() {GameOver = false;}
 Npc::~Npc() {}
 
 //pass a pointer to the player object to this enemy
-void Npc::setPlayerPointer(QuatCamera* player){this->player = player;}
+void Npc::setPlayerPointer(CharacterBody3D* player){this->player = player;}
 
 void Npc::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()||GameOver) return;

@@ -25,7 +25,7 @@ void Bee::_ready (){
 	StandardMaterial3D* material = memnew(StandardMaterial3D);
 	material->set_albedo(Color(0, 0, 1, 1));
 	sphere->surface_set_material(0, material);
-	set_mesh(sphere);
+	//set_mesh(sphere);
 	set_position(Vector3(0,5,0));
 }
 

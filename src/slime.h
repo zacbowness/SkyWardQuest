@@ -7,6 +7,7 @@
 #include <godot_cpp/variant/utility_functions.hpp>
 
 #include <godot_cpp/classes/mesh_instance3d.hpp>
+#include <godot_cpp/classes/sphere_shape3d.hpp>
 #include <godot_cpp/godot.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/engine.hpp>
@@ -32,6 +33,7 @@ protected:
 private:
 	bool checkForPlayer();
 	void chasePlayer();
+	void init_body();
 	
 	
 
@@ -39,6 +41,7 @@ public:
 	Slime();
 	~Slime();
 
+	void _enter_tree ( ) override;
     void _ready() override;
 	void _process(double delta) override;
 
