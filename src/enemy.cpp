@@ -12,7 +12,6 @@ Enemy::Enemy() {}
 
 Enemy::~Enemy() {}
 
-//pass a pointer to the player object to this enemy
 void Enemy::_process(double delta){
 
 }

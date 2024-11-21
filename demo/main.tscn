@@ -13,6 +13,90 @@ sky = SubResource("Sky_opf1y")
 tonemap_mode = 2
 glow_enabled = true
 
+<<<<<<< HEAD
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m5yrv"]
+albedo_color = Color(0.8, 0.1, 0.1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_s7rl3"]
+material = SubResource("StandardMaterial3D_m5yrv")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_utdoo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gu2mc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bwxgc"]
+material = SubResource("StandardMaterial3D_gu2mc")
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_30plg"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rk2xm"]
+albedo_color = Color(0.1, 0.1, 0.9, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mn56j"]
+material = SubResource("StandardMaterial3D_rk2xm")
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5e5a8"]
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1413"]
+albedo_color = Color(0.1, 0.1, 0.9, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xdtse"]
+material = SubResource("StandardMaterial3D_n1413")
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tsul5"]
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fposp"]
+albedo_color = Color(0.1, 0.1, 0.9, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lophk"]
+material = SubResource("StandardMaterial3D_fposp")
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0gclr"]
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h6prj"]
+albedo_color = Color(0.1, 0.1, 0.9, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ymlkd"]
+material = SubResource("StandardMaterial3D_h6prj")
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n6ri6"]
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_54a1j"]
+albedo_color = Color(0.1, 0.1, 0.9, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8eefb"]
+material = SubResource("StandardMaterial3D_54a1j")
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o23lk"]
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qijnc"]
+albedo_color = Color(0.1, 0.1, 0.9, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bo7v5"]
+material = SubResource("StandardMaterial3D_qijnc")
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4txqn"]
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wnapu"]
+albedo_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7hnph"]
+material = SubResource("StandardMaterial3D_wnapu")
+=======
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p6ett"]
 albedo_color = Color(0.8, 0.1, 0.1, 1)
 
@@ -95,11 +179,16 @@ albedo_color = Color(0.4, 0.4, 0.4, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ipcma"]
 material = SubResource("StandardMaterial3D_jtafk")
+>>>>>>> origin/main
 top_radius = 0.35
 bottom_radius = 0.35
 height = 1.6
 
+<<<<<<< HEAD
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tu4m1"]
+=======
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fby6t"]
+>>>>>>> origin/main
 radius = 0.35
 height = 1.6
 
@@ -114,77 +203,147 @@ environment = SubResource("Environment_sgphw")
 
 [node name="Test Cube" type="DebugRect" parent="CustomScene3501/Debug Rect Group"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -5)
+<<<<<<< HEAD
+mesh = SubResource("BoxMesh_s7rl3")
+=======
 mesh = SubResource("BoxMesh_nvgq3")
+>>>>>>> origin/main
 
 [node name="ColliderBody" type="StaticBody3D" parent="CustomScene3501/Debug Rect Group/Test Cube"]
 
 [node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Test Cube/ColliderBody"]
+<<<<<<< HEAD
+shape = SubResource("BoxShape3D_utdoo")
+
+[node name="Floor Rect" type="DebugRect" parent="CustomScene3501/Debug Rect Group"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 5, -1, 5)
+mesh = SubResource("BoxMesh_bwxgc")
+=======
 shape = SubResource("BoxShape3D_6swnq")
 
 [node name="Floor Rect" type="DebugRect" parent="CustomScene3501/Debug Rect Group"]
 transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 5, -1, 5)
 mesh = SubResource("BoxMesh_jarqb")
+>>>>>>> origin/main
 
 [node name="ColliderBody" type="StaticBody3D" parent="CustomScene3501/Debug Rect Group/Floor Rect"]
 
 [node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Floor Rect/ColliderBody"]
+<<<<<<< HEAD
+shape = SubResource("BoxShape3D_30plg")
+=======
 shape = SubResource("BoxShape3D_j3sil")
+>>>>>>> origin/main
 
 [node name="Jumping Blocks Group" type="Node" parent="CustomScene3501/Debug Rect Group"]
 
 [node name="Jump Test Block 0" type="DebugRect" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group"]
 transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 1, 1, 1.2, 2)
+<<<<<<< HEAD
+mesh = SubResource("BoxMesh_mn56j")
+=======
 mesh = SubResource("BoxMesh_ui1oi")
+>>>>>>> origin/main
 
 [node name="ColliderBody" type="StaticBody3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 0"]
 
+<<<<<<< HEAD
+[node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block /ColliderBody"]
+shape = SubResource("BoxShape3D_5e5a8")
+=======
 [node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 0/ColliderBody"]
 shape = SubResource("BoxShape3D_mgm2d")
+>>>>>>> origin/main
 
 [node name="Jump Test Block 1" type="DebugRect" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group"]
 transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 1, 2, 2.2, 5)
+<<<<<<< HEAD
+mesh = SubResource("BoxMesh_xdtse")
+=======
 mesh = SubResource("BoxMesh_6p6es")
+>>>>>>> origin/main
 
 [node name="ColliderBody" type="StaticBody3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 1"]
 
+<<<<<<< HEAD
+[node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/ump Test Block /ColliderBody"]
+shape = SubResource("BoxShape3D_tsul5")
+=======
 [node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 1/ColliderBody"]
 shape = SubResource("BoxShape3D_y18ek")
+>>>>>>> origin/main
 
 [node name="Jump Test Block 2" type="DebugRect" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group"]
 transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 1, 3, 3.2, 8)
+<<<<<<< HEAD
+mesh = SubResource("BoxMesh_lophk")
+=======
 mesh = SubResource("BoxMesh_xxtat")
+>>>>>>> origin/main
 
 [node name="ColliderBody" type="StaticBody3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 2"]
 
+<<<<<<< HEAD
+[node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/mp Test Block /ColliderBody"]
+shape = SubResource("BoxShape3D_0gclr")
+=======
 [node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 2/ColliderBody"]
 shape = SubResource("BoxShape3D_y0q4f")
+>>>>>>> origin/main
 
 [node name="Jump Test Block 3" type="DebugRect" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group"]
 transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 1, 4, 4.2, 11)
+<<<<<<< HEAD
+mesh = SubResource("BoxMesh_ymlkd")
+=======
 mesh = SubResource("BoxMesh_u3wi4")
+>>>>>>> origin/main
 
 [node name="ColliderBody" type="StaticBody3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 3"]
 
+<<<<<<< HEAD
+[node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/p Test Block /ColliderBody"]
+shape = SubResource("BoxShape3D_n6ri6")
+=======
 [node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 3/ColliderBody"]
 shape = SubResource("BoxShape3D_d6ett")
+>>>>>>> origin/main
 
 [node name="Jump Test Block 4" type="DebugRect" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group"]
 transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 1, 5, 5.2, 14)
+<<<<<<< HEAD
+mesh = SubResource("BoxMesh_8eefb")
+=======
 mesh = SubResource("BoxMesh_chtn6")
+>>>>>>> origin/main
 
 [node name="ColliderBody" type="StaticBody3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 4"]
 
+<<<<<<< HEAD
+[node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/ Test Block /ColliderBody"]
+shape = SubResource("BoxShape3D_o23lk")
+=======
 [node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 4/ColliderBody"]
 shape = SubResource("BoxShape3D_gi7ug")
+>>>>>>> origin/main
 
 [node name="Jump Test Block 5" type="DebugRect" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group"]
 transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 1, 6, 6.2, 17)
+<<<<<<< HEAD
+mesh = SubResource("BoxMesh_bo7v5")
+=======
 mesh = SubResource("BoxMesh_8sjg0")
+>>>>>>> origin/main
 
 [node name="ColliderBody" type="StaticBody3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 5"]
 
+<<<<<<< HEAD
+[node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Test Block /ColliderBody"]
+shape = SubResource("BoxShape3D_4txqn")
+=======
 [node name="Collider_Shape" type="CollisionShape3D" parent="CustomScene3501/Debug Rect Group/Jumping Blocks Group/Jump Test Block 5/ColliderBody"]
 shape = SubResource("BoxShape3D_d8oa4")
+>>>>>>> origin/main
 
 [node name="Player" type="Player" parent="CustomScene3501"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, 1)
@@ -193,9 +352,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 
 [node name="Player Mesh" type="MeshInstance3D" parent="CustomScene3501/Player"]
+<<<<<<< HEAD
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+mesh = SubResource("CylinderMesh_7hnph")
+
+[node name="Player Body" type="CollisionShape3D" parent="CustomScene3501/Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("CapsuleShape3D_tu4m1")
+=======
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 mesh = SubResource("CylinderMesh_ipcma")
 
 [node name="Player Body" type="CollisionShape3D" parent="CustomScene3501/Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("CapsuleShape3D_fby6t")
+>>>>>>> origin/main
