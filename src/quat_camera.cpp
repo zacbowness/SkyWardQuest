@@ -68,8 +68,7 @@ void QuatCamera::_process(double delta){
 	bool restrict_down = false;
 	//UtilityFunctions::print(Math::rad_to_deg(GetForward().angle_to(Vector3(0,1,0))));
 
-	if(angle_diff(GetForward(), Vector3(0,1,0)) <= 10.0) restrict_up = true;
-	if(angle_diff(GetForward(), Vector3(0,-1,0)) <= 15.0) restrict_down = true;
+
 
 	//restrict_pitch = false;
 	
@@ -83,6 +82,14 @@ void QuatCamera::_process(double delta){
 
 float QuatCamera::angle_diff(Vector3 vec1, Vector3 vec2){
 	return Math::rad_to_deg(vec1.angle_to(vec2));
+}
+
+void QuatCamera::pitch_camera(float dist, double delta){
+	if(dist>0 && angle_diff(GetForward(), Vector3(0,1,0)) >= 10.0){
+		Pitch(dist*delta*PLAYER_SENSITIVITY);
+	} else if (dist<0 && angle_diff(GetForward(), Vector3(0,-1,0)) >= 15.0){
+		Pitch(dist*delta*PLAYER_SENSITIVITY);
+	}
 }
 
 Vector3 QuatCamera::GetForward(void) const {
