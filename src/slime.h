@@ -27,7 +27,7 @@ class Slime : public  Enemy{
 
 protected:
 	static void _bind_methods();
-	
+	void approachPlayer(double) override;
 
 
 private:

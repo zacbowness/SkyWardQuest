@@ -32,7 +32,7 @@ protected:
 	static void _bind_methods();
 	float speed;	
 	float radius;
-	void approachPlayer(double);
+	virtual void approachPlayer(double);
 	CharacterBody3D* player;
 	enum NpcType type;
 	MeshInstance3D* npc_mesh;

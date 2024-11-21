@@ -8,8 +8,8 @@ void Slime::_bind_methods() {}
 
 Slime::Slime() {
 	//Inherited From Npc
-	speed = 10.0f;
-	radius = 10.0f;
+	speed = 1.0f;
+	radius = 2.0f;
 	enemyType = SLIME;
 }
 
@@ -33,7 +33,7 @@ void Slime::_ready (){
 void Slime::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
 	if (playerInRadius()){
-		approachPlayer(delta);
+		//approachPlayer(delta);
 	}
 }
 
@@ -52,3 +52,11 @@ void Slime::init_body(){
 	SphereShape3D* sphereColider = memnew(SphereShape3D);
 	npc_body->set_shape(sphereColider);	
 }
+
+//Sets Poisition Of Slime 
+void Slime::approachPlayer(double delta){
+	Vector3 toPlayer = (get_position() - player->get_position()).normalized();
+	set_position(get_position() - toPlayer * delta * speed);
+}
+
+

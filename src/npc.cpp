@@ -17,16 +17,12 @@ void Npc::setPlayerPointer(CharacterBody3D* player){this->player = player;}
 
 void Npc::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()||GameOver) return;
-	approachPlayer(delta);
-	
 }
 
-void Npc::approachPlayer(double delta){
-	Vector3 toPlayer = (get_position() - player->get_position()).normalized();
-	set_position(get_position() - toPlayer * delta * speed);
-}
+void Npc::approachPlayer(double delta){}
 
 bool Npc::playerInRadius(){
 	//Checks if the Distance to the player is within the radius 
-	return get_position().distance_to(player->get_position()) <= radius;
+	float distance = get_position().distance_to(player->get_position());
+	return distance <= radius;
 }
