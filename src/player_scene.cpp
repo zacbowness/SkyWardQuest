@@ -52,7 +52,7 @@ void Player::_process(double delta) {
 	//else velocity.y = 0.0;
 
 	//Apply Velocity To Player
-	//if(PLAYER_DEBUG&&DEBUG)UtilityFunctions::print(velocity);
+	if(PLAYER_DEBUG&&DEBUG)UtilityFunctions::print(velocity);
 	move_and_slide();//move and slide allows for smoother movement on non flat surfaces
 	set_velocity(velocity);
 }
@@ -151,7 +151,7 @@ Vector3 Player::apply_input(Vector3 current_vel, double delta){
 		turn_player(1.0f * delta * PLAYER_SENSITIVITY);
 	}
 
-	if(DEBUG&&PLAYER_DEBUG) UtilityFunctions::print(_input->Input::get_last_mouse_velocity());
+	//if(DEBUG&&PLAYER_DEBUG) UtilityFunctions::print(_input->Input::get_last_mouse_velocity());
 
 	return velocity;
 }

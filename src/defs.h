@@ -7,7 +7,7 @@
 #define CURSOR_LOCK true
 
 //Player Control Values
-#define PLAYER_SENSITIVITY 0.001
+#define PLAYER_SENSITIVITY 0.0005
 #define PLAYER_SPEED 3.5
 #define PLAYER_JUMP_STR 6.0
 
