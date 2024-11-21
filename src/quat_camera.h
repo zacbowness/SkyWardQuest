@@ -63,9 +63,7 @@ public:
 	void _ready() override;
 	void _process(double delta) override;
 
-	void game_over(){GameOver = true;}
-
-	void powerup(){top_speed+=5.0f;}//add 5 units to speed when collecting powerup
+	void pitch_camera(float dist, double delta);
 };
 
 }

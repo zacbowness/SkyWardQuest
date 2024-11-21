@@ -38,7 +38,7 @@
 #include "quat_camera.h"
 
 //Definitions
-#define PLAYER_HEIGHT 1.7f
+#define PLAYER_HEIGHT 1.6f
 #define PLAYER_EYELINE 1.4f
 #define PLAYER_RADIUS 0.35f
 
@@ -51,8 +51,6 @@ class Player : public CharacterBody3D {
 
 private:
 	double time_passed;
-	float accel;
-	void increment_accel();
 
 	//Object Pointers
 	QuatCamera* main_camera;
