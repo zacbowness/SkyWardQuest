@@ -9,7 +9,7 @@ void Bee::_bind_methods() {}
 Bee::Bee() {
 	//Inherited From Npc
 	speed = 10.0f;
-	radius = 10.0f;
+	detectionRadius = 10.0f;
 	enemyType = BEE;
 }
 

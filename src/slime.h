@@ -27,13 +27,17 @@ class Slime : public  Enemy{
 
 protected:
 	static void _bind_methods();
-	void approachPlayer(double) override;
+	void approachDirection(Vector3, double) override;
+	Vector3 calculateMovement(Vector3 direction, Vector3 velocity, double delta);
 
 
 private:
 	bool checkForPlayer();
 	void chasePlayer();
 	void init_body();
+	State slimeState;
+	Vector3 getRandomPointInRadius(float);
+	
 	
 	
 
