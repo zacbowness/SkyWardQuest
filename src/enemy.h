@@ -26,6 +26,7 @@ class Enemy : public  Npc{
 protected:
 	static void _bind_methods();
 	enum EnemyType enemyType;
+	float aggroRadius;
 
 private:	
 	
