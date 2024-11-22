@@ -10,6 +10,7 @@ void Player::_bind_methods() {}
 Player::Player() : CharacterBody3D() {
 	time_passed = 0.0;
 	player_quat = Quaternion(Vector3(0, 0, 1), 0.0f);
+	perspective_change = Vector2(0,0);
 }
 
 Player::~Player() {}
@@ -43,7 +44,6 @@ void Player::_process(double delta) {
 	//Current velocity vector
 	Vector3 velocity = get_velocity();
 	velocity = apply_input(velocity, delta);
-	
 	
 	//Apply Gravity
 	if(!is_on_floor())velocity.y -= GRAVITY*delta;//if player is not on the ground, apply gravity
@@ -97,30 +97,37 @@ Vector3 Player::apply_input(Vector3 current_vel, double delta){
 
 	//Mouse Inputs
 	Vector2 mouse_input = _input->get_last_mouse_velocity()*-1;
-	main_camera->pitch_camera(mouse_input.y, delta);
-	turn_player(mouse_input.x * delta * PLAYER_SENSITIVITY);
 	
-	//Movement Inputs
-	if(_input->is_action_pressed("move_forward")){
-		velocity = move_in_direction(get_forward(), velocity, delta);
-	}
-	if(_input->is_action_pressed("move_backward")){
-		velocity = move_in_direction(-get_forward(), velocity, delta);
-	}
-	if(_input->is_action_pressed("move_right")){
-		velocity = move_in_direction(get_side(), velocity, delta);
-	}
-	if(_input->is_action_pressed("move_left")){
-		velocity = move_in_direction(-get_side(), velocity, delta);
+	//main_camera->Yaw(mouse_input.x*delta*PLAYER_SENSITIVITY);
+	//turn_player(mouse_input.x * delta * PLAYER_SENSITIVITY);
+	player_look(mouse_input, delta);
+	
+	//Turning/looking around inputs for arrow keys
+	if(ARROW_KEY_LOOK){
+		if(_input->is_action_pressed("look_right")) turn_player(-1.0f * delta * PLAYER_SENSITIVITY);
+		if(_input->is_action_pressed("look_left")) turn_player(1.0f * delta * PLAYER_SENSITIVITY);
+		if(_input->is_action_pressed("look_up")) main_camera->pitch_camera(-1.0f, delta);
+		if(_input->is_action_pressed("look_down")) main_camera->pitch_camera(1.0f, delta);
 	}
 
-	bool has_input = false;
-	if(
-		_input->is_action_pressed("move_forward")||
-		_input->is_action_pressed("move_backward")||
-		_input->is_action_pressed("move_right")||
-		_input->is_action_pressed("move_left")
-	)has_input = true;
+	bool has_input = false;//default to false, set to true if player is recieving movement input
+	//Movement Inputs
+	if(_input->is_action_pressed("move_forward")){
+		velocity = move_in_direction(get_forward(), velocity);
+		has_input = true;
+	}
+	if(_input->is_action_pressed("move_backward")){
+		velocity = move_in_direction(-get_forward(), velocity);
+		has_input = true;
+	}
+	if(_input->is_action_pressed("move_right")){
+		velocity = move_in_direction(get_side(), velocity);
+		has_input = true;
+	}
+	if(_input->is_action_pressed("move_left")){
+		velocity = move_in_direction(-get_side(), velocity);
+		has_input = true;
+	}
 
 	Vector3 target_velocity = velocity.normalized()*PLAYER_SPEED;
 	
@@ -143,31 +150,27 @@ Vector3 Player::apply_input(Vector3 current_vel, double delta){
 		velocity.y+=PLAYER_JUMP_STR;
 	}
 
-	//Turning/looking around inputs for arrow keys
-	if(_input->is_action_pressed("look_right")){
-		turn_player(-1.0f * delta * PLAYER_SENSITIVITY);
-	}
-	if(_input->is_action_pressed("look_left")){
-		turn_player(1.0f * delta * PLAYER_SENSITIVITY);
-	}
-
 	//if(DEBUG&&PLAYER_DEBUG) UtilityFunctions::print(_input->Input::get_last_mouse_velocity());
 
 	return velocity;
 }
 
-Vector3 Player::move_in_direction(Vector3 dir, Vector3 velocity, double delta){
-
-	//Scale up speed by 60 to have PLAYER_SPEED be similar to other movement constants
-	//delta value is likely to be about 1/60 if the game is running at 60fps, so rescale accordingly
-	float speed_factor = PLAYER_SPEED*60.0f;
+void Player::player_look(Vector2 input, double delta){
+	Vector2 target_perspective = input;
 	
-	//velocity.x += dir.x*speed_factor*delta;
-	//velocity.z += dir.z*speed_factor*delta;
+	Vector2 perspective = perspective_change.lerp(target_perspective, delta*PLAYER_MOUSE_SMOOTHING);
+	perspective_change = perspective;
+	
+	main_camera->pitch_camera(perspective.y, delta);
+	turn_player(perspective.x * delta * PLAYER_SENSITIVITY);
+	UtilityFunctions::print(perspective);
+}
+
+//Add velocity depending on the direction the player wants to move in and return the new value
+Vector3 Player::move_in_direction(Vector3 dir, Vector3 velocity){
 	velocity.x += dir.x;
 	velocity.z += dir.z;
 
-	//apply speed factor and delta after velocity direction is applied so that diagonal movement is the same speed as forward
 	return velocity;
 }
 
