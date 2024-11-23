@@ -31,6 +31,8 @@
 #include "quat_camera.h"
 #include "enemy.h"
 #include "debug_rect.h"
+#include "terrain.h"
+#include "map.h"
 
 
 // everything in gdextension is defined in this namespace
@@ -43,6 +45,9 @@ private:
 	double time_passed;
 
 	QuatCamera* main_camera;
+
+	Terrain* terrain;
+	Map* map;
 	
 	Vector<DebugRect*> rect_instances;
 	

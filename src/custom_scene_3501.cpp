@@ -17,6 +17,8 @@ void CustomScene3501::_enter_tree (){
 	if(DEBUG) UtilityFunctions::print("Enter Tree - CustomScene3501."); 
 
 	create_and_add_as_child<QuatCamera>(main_camera, "QuatCamera");
+	create_and_add_as_child<Terrain>(terrain, "Terrain");
+	create_and_add_as_child<Map>(map, "Map");
 
 	init_debug_rects();//add temp rect meshes to scene
 }
@@ -31,10 +33,22 @@ void CustomScene3501::_ready ( ){
 	// now that we have set the camera's starting state, let's reinitialize its variables
 	main_camera->_ready();
 
+	map->generate_terrain(
+		464,      // Width
+		464,      // Height
+		4,        // Octaves (keep it at 4 for more detail, but adjust if needed)
+		0.7f,     // Persistence (adjust for smoother or more jagged terrain)
+		10.0f,    // Scale (higher scale spreads out the features more)
+		200.0f,    // Max height (increase for taller mountains)
+		20.0f    // Mountain scale (increase for taller and more exaggerated mountains)
+	);
+
+	terrain->generate_terrain(100, 100, 1.0f, 10.0f);
+
 	//Update DebugRect objects to set their location and otherwise
 	for(DebugRect* obj : rect_instances){obj->update_rect();}
-}
 
+}
 // called every frame (as often as possible)
 void CustomScene3501::_process(double delta) {
 	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor

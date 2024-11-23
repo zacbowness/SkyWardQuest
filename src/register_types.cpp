@@ -10,6 +10,8 @@
 #include "world_obj.h"
 #include "collision_obj.h"
 #include "npc.h"
+#include "terrain.h"
+#include "map.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -35,6 +37,11 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Enemy>();
 	ClassDB::register_class<Slime>();
 	ClassDB::register_class<Npc>();
+
+	//Making the world class
+	ClassDB::register_class<Terrain>();
+	ClassDB::register_class<Map>();
+
 	
 }
 

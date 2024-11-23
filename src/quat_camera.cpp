@@ -33,8 +33,8 @@ void QuatCamera::_ready(){
 	// do not save _up as a member -- derive it. You will get a bad grade if you add it as a member variable like these two are. 
 
 	throttle = 0.0f; //Initialize throttle to 0
-	top_speed = 10.0f; //Initialize top speed at 10
-	accel_factor = 0.005f; //initialize acceleration factor at 0.005f
+	top_speed = 100.0f; //Initialize top speed at 10
+	accel_factor = 0.5f; //initialize acceleration factor at 0.005f
 
 	GameOver = false; //initialize game over bool
 	//Viewport* viewport = Engine::get_singleton()->get_main_viewport();
