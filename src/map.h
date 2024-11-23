@@ -29,6 +29,9 @@ private:
     float mountain_scale;
     Vector<Vector<float>> heightfield;
 
+	CollisionShape3D* collision_shape;
+	StaticBody3D* static_body;
+
     ArrayMesh* mesh;
 
     // Noise generation methods
@@ -49,6 +52,9 @@ protected:
 public:
     Map();
     ~Map();
+
+	void _ready();
+	void _enter_tree();
 
 
     // Terrain generation method with customizable parameters

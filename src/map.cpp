@@ -12,6 +12,13 @@ Map::Map()
 
 Map::~Map() {}
 
+void Map::_ready(){}
+
+void Map::_enter_tree(){
+	create_and_add_as_child<StaticBody3D>(static_body, "static_body");
+	create_and_add_as_child_of_Node<CollisionShape3D>(collision_shape, "Collider_Shape", static_body);
+}
+
 float Map::perlin_noise(float x, float y) const {
     int n = static_cast<int>(x) + static_cast<int>(y) * 57;
     n = (n << 13) ^ n;
@@ -120,8 +127,7 @@ void Map::advanced_smooth_heightfield() {
 }
 
 Ref<ArrayMesh> Map::generate_3d_mesh() {
-    Ref<SurfaceTool> surface_tool;
-    surface_tool.instantiate();
+    SurfaceTool* surface_tool = memnew(SurfaceTool);
     surface_tool->begin(Mesh::PRIMITIVE_TRIANGLES);
 
     for (int y = 0; y < height - 1; ++y) {
@@ -146,10 +152,10 @@ Ref<ArrayMesh> Map::generate_3d_mesh() {
         }
     }
 
-    Ref<ArrayMesh> mesh = surface_tool->commit();
+	Ref<ArrayMesh> newMesh = surface_tool->commit();
+    mesh = *newMesh;
 
-    Ref<StandardMaterial3D> material;
-    material.instantiate();
+	StandardMaterial3D* material = memnew(StandardMaterial3D);
     material->set_albedo(Color(0.1, 0.9, 0.1));
     mesh->surface_set_material(0, material);
 
@@ -166,22 +172,16 @@ void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_per
     mountain_scale = p_mountain_scale;
 
     generate_heightfield();
-    Ref<ArrayMesh> mesh = generate_3d_mesh();
+    Ref<ArrayMesh> newMesh = generate_3d_mesh();
 
-    if (!mesh.is_null()) {
-        set_mesh(mesh);  // Directly set the mesh for MeshInstance3D
+	set_mesh(newMesh);  // Directly set the mesh for MeshInstance3D
 
-        // Add StaticBody3D
-        StaticBody3D* static_body = memnew(StaticBody3D);
-        create_and_add_as_child(static_body, "static_body");
+    // Add StaticBody3D
+    
+    // Create collision shape
+    Ref<ConcavePolygonShape3D> collision_shape_mesh = newMesh->create_trimesh_shape();
+	collision_shape->set_shape(collision_shape_mesh);
 
-        // Create collision shape
-        CollisionShape3D* collision_shape = memnew(CollisionShape3D);
-        Ref<Shape3D> collision_shape_mesh = mesh->create_trimesh_shape();
-
-        collision_shape->set_shape(collision_shape_mesh);
-        create_and_add_as_child_of_Node(collision_shape, "Collider_Shape", static_body);
-    }
     set_position(Vector3(0, 0, 0));
 }
 
@@ -222,10 +222,7 @@ bool Map::create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent
 	}
 }
 
-void Map::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("generate_terrain", "width", "height", "octaves", "persistence", "scale", "max_height", "mountain_scale"), &Map::generate_terrain);
-}
-
+void Map::_bind_methods() {}
 /*
 void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale) {
     width = p_width;
