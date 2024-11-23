@@ -19,8 +19,9 @@ void CustomScene3501::_enter_tree (){
 	//Add Nodes to Scene
 	create_and_add_as_child<Player>(player, "Player");
 
-	
 	create_and_add_as_child<Slime>(slime, "Test Slime");
+
+	create_and_add_as_child<Map>(map,"Map");
 
 	init_debug_rects();//add temp rect meshes to scene
 }
@@ -49,6 +50,17 @@ void CustomScene3501::_ready ( ){
 	
 	slime->setPlayerPointer(player);
 	slime->_ready();
+
+	map->generate_terrain(
+		200,      // Width
+		200,      // Height
+		4,        // Octaves (keep it at 4 for more detail, but adjust if needed)
+		0.7f,     // Persistence (adjust for smoother or more jagged terrain)
+		10.0f,    // Scale (higher scale spreads out the features more)
+		200.0f,    // Max height (increase for taller mountains)
+		20.0f    // Mountain scale (increase for taller and more exaggerated mountains)
+	);
+	
 	//Update DebugRect objects to set their location and otherwise
 	for(DebugRect* obj : rect_instances){obj->update_rect();}
 }

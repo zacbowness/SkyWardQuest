@@ -33,6 +33,7 @@
 #include "debug_rect.h"
 #include "player_scene.h"
 #include "slime.h"
+#include "map.h"
 
 
 // everything in gdextension is defined in this namespace
@@ -46,6 +47,7 @@ private:
 
 	Player* player;
 	Slime* slime;
+	Map* map;
 	
 	Vector<DebugRect*> rect_instances;
 	
