@@ -161,9 +161,9 @@ void Player::player_look(Vector2 input, double delta){
 	Vector2 perspective = perspective_change.lerp(target_perspective, delta*PLAYER_MOUSE_SMOOTHING);
 	perspective_change = perspective;
 	
-	main_camera->pitch_camera(perspective.y, delta);
-	turn_player(perspective.x * delta * PLAYER_SENSITIVITY);
-	UtilityFunctions::print(perspective);
+	main_camera->pitch_camera(input.y, delta);
+	turn_player(input.x * delta * PLAYER_SENSITIVITY);
+	//UtilityFunctions::print(perspective);
 }
 
 //Add velocity depending on the direction the player wants to move in and return the new value

@@ -36,7 +36,7 @@ void CustomScene3501::_ready ( ){
 	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
 
 	//Initialization Functions
-	init_player(Vector3(200,50,200));
+	init_player(Vector3(200,4.5,200));
 	
 	slime->setPlayerPointer(player);
 	slime->_ready();

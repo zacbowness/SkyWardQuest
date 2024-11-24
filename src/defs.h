@@ -8,8 +8,8 @@
 #define ARROW_KEY_LOOK true
 
 //Player Control Values
-#define PLAYER_SENSITIVITY 0.002
-#define PLAYER_MOUSE_SMOOTHING 18.0
+#define PLAYER_SENSITIVITY 0.0005
+#define PLAYER_MOUSE_SMOOTHING 75.0
 #define PLAYER_SPEED 3.5
 #define PLAYER_JUMP_STR 6.0
 
