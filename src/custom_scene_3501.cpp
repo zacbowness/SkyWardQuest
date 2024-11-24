@@ -29,36 +29,26 @@ void CustomScene3501::_enter_tree (){
 void CustomScene3501::init_debug_rects(){
 	Node* rectGroup;
 	create_and_add_as_child<Node>(rectGroup, "Debug Rect Group");//create grouping node
-
-	create_rect(Vector3(20,1,20), Vector3(5,-1,5), rectGroup, "Floor Rect");
 	create_rect(Vector3(1,1,1), Vector3(0,2,-5), rectGroup, "Test Cube", Vector3(0.8, 0.1, 0.1));
-
-	Node* jumpBlocksGroup;
-	create_and_add_as_child_of_Node<Node>(jumpBlocksGroup, "Jumping Blocks Group", rectGroup);//create grouping node for jumping blocks
-	for(int i=0;i<6;i++){
-		Vector3 pos = Vector3(1+(1*i), 1+(1*i), 2+(3*i));
-		create_rect(Vector3(1.0,0.3,1.0), pos, jumpBlocksGroup, String("Jump Test Block "+String::num_int64(i)), Vector3(0.1,0.1,0.9));
-	}
-
 }
 
 void CustomScene3501::_ready ( ){
 	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
 
 	//Initialization Functions
-	init_player(Vector3(1,3,1));
+	init_player(Vector3(200,50,200));
 	
 	slime->setPlayerPointer(player);
 	slime->_ready();
 
 	map->generate_terrain(
-		200,      // Width
-		200,      // Height
-		4,        // Octaves (keep it at 4 for more detail, but adjust if needed)
-		0.7f,     // Persistence (adjust for smoother or more jagged terrain)
-		10.0f,    // Scale (higher scale spreads out the features more)
-		200.0f,    // Max height (increase for taller mountains)
-		20.0f    // Mountain scale (increase for taller and more exaggerated mountains)
+		15,      // Width
+		15,      // Height
+		8,        // Octaves (keep it at 4 for more detail, but adjust if needed)
+		3.0f,     // Persistence (adjust for smoother or more jagged terrain)
+		20.0f,    // Scale (higher scale spreads out the features more)
+		40.0f,    // Max height (increase for taller mountains)
+		30.0f    // Mountain scale (increase for taller and more exaggerated mountains)
 	);
 	
 	//Update DebugRect objects to set their location and otherwise
