@@ -12,6 +12,7 @@
 #include "npc.h"
 #include "enemy.h"
 #include "player_scene.h"
+#include "map.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -40,6 +41,9 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Npc>();
 	ClassDB::register_class<Enemy>();
 	ClassDB::register_class<Slime>();
+
+	//Map Class
+	ClassDB::register_class<Map>();
 	
 	
 }
