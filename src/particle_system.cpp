@@ -20,13 +20,13 @@ void ParticleSystem::_bind_methods() {
 }
 
 ParticleSystem::ParticleSystem() : GPUParticles3D() {
-	shader_name = "default_value"; 
-	texture_name = "default_value";
+	
 }
 
-ParticleSystem::ParticleSystem(String shader_prefix, String texture_prefix) : GPUParticles3D() {
+ParticleSystem::ParticleSystem(String shader_prefix, String texture_prefix, Vector2 newSize) : GPUParticles3D() {
 	shader_name = shader_prefix;
 	texture_name = texture_prefix;
+	size = newSize;
 }
 
 void ParticleSystem::_enter_tree(){
@@ -35,8 +35,8 @@ void ParticleSystem::_enter_tree(){
 
 void ParticleSystem::_ready(){
 	// Particle system properties, can be changed from the custom scene code as well
-	set_amount(25000);
-	set_lifetime(2.0);
+	set_amount(amount);
+	set_lifetime(lifetime);
 	
 	// set up the material to attach to the quad
 	ShaderMaterial* spatial_material = memnew(ShaderMaterial);
@@ -45,10 +45,11 @@ void ParticleSystem::_ready(){
 	// this will be the default texture of the spatial material unless you change it 
 	
 	spatial_material->set_shader_parameter("texture_image", ResourceLoader::get_singleton()->load(vformat("res://textures/%s.png", texture_name)));
+	//spatial_material->set_shader_parameter("texture_image", ResourceLoader::get_singleton()->load("res://textures/droplet_texture.png"));
 
 	// Set up the quad to use for each particle
 	QuadMesh* mesh = memnew(QuadMesh);
-	mesh->set_size(Vector2(1.0, 1.0));
+	mesh->set_size(size);
 	
 	// set up process material
 	ShaderMaterial* process_material = memnew(ShaderMaterial);

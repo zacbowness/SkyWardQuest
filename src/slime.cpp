@@ -137,8 +137,3 @@ Vector3 Slime::calculateMovement(Vector3 direction, Vector3 curr_vel, double del
 	return velocity;
 }
 
-Vector3 Slime::getRandomPointInRadius(float radius){
-	float theta = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * 2.0f * Math_PI; //Insures its constrained to [0, 2Pi] 
-    float r = sqrt(static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * radius; 
-	return Vector3(r*cos(theta), get_position().y, r*sin(theta));
-}

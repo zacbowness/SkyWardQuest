@@ -34,6 +34,8 @@
 #include "player_scene.h"
 #include "slime.h"
 #include "map.h"
+#include "particle_system.h"
+
 
 
 // everything in gdextension is defined in this namespace
@@ -48,6 +50,7 @@ private:
 	Player* player;
 	Slime* slime;
 	Map* map;
+	Vector<ParticleSystem*> particle_systems;
 	
 	Vector<DebugRect*> rect_instances;
 	
@@ -78,6 +81,11 @@ public:
 	
 	template <class T>
 	bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent);
+
+	void create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size);
+
+	template <class T>
+	bool add_as_child(T* &pointer, String name, bool search = false);
 
 };
 

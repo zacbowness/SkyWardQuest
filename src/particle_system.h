@@ -27,8 +27,13 @@ class ParticleSystem : public GPUParticles3D {
 private:
 	int something; 
 
-	String shader_name; 
-	String texture_name; 
+	//Set up Inital Values 
+	String shader_name = "default_value";  
+	String texture_name = "default_value";  
+	Vector2 size = Vector2(1.0,1.0);
+	int32_t amount = 20000;
+	double lifetime = 2.0;
+
 	void initalizeSystem();
 	
 
@@ -38,7 +43,7 @@ protected:
 
 public:
 	ParticleSystem();
-	ParticleSystem(String shader_name, String texture_name);
+	ParticleSystem(String shader_name, String texture_name, Vector2 size);
 	~ParticleSystem();
 
 	void _enter_tree() override;

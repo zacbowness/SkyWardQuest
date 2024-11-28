@@ -24,6 +24,8 @@ void CustomScene3501::_enter_tree (){
 	create_and_add_as_child<Map>(map,"Map");
 
 	init_debug_rects();//add temp rect meshes to scene
+
+	create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0)); //Make a temp Particle System
 }
 
 void CustomScene3501::init_debug_rects(){
@@ -63,6 +65,19 @@ void CustomScene3501::_ready ( ){
 	
 	//Update DebugRect objects to set their location and otherwise
 	for(DebugRect* obj : rect_instances){obj->update_rect();}
+
+	//Update Particle Systems with Location and Otherwise 
+	for(int index = 0; index < particle_systems.size(); index++){
+		// the current particle system we are setting up
+		ParticleSystem* particle_system = particle_systems[index];
+
+		// this should never be needed, but can't hurt to have. 
+		if(particle_system == nullptr) continue; 
+		
+		particle_system->set_global_position(Vector3(15.0f * index - 15.0f * (particle_systems.size() - index), 0, 0));
+		dynamic_cast<ShaderMaterial*>(*particle_system->get_draw_pass_mesh(0)->surface_get_material(0))->set_shader_parameter("num_particles", particle_system->get_amount());
+        dynamic_cast<ShaderMaterial*>(*particle_system->get_process_material())->set_shader_parameter("num_particles", particle_system->get_amount());
+	}
 }
 
 // called every frame (as often as possible)
@@ -90,6 +105,13 @@ void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, 
 	create_and_add_as_child_of_Node<DebugRect>(rect, name, parentNode);
 	rect->setup_rect(scale, pos, color);
 	rect_instances.push_back(rect);
+}
+
+void CustomScene3501::create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size){
+	// if you want to use non-zero argument constructors, here is an example of how to do that
+	ParticleSystem* system = memnew(ParticleSystem(shader_name, texture_name, size));
+	add_as_child(system, node_name, true); 
+	particle_systems.push_back(system);
 }
 
 template <class T>
@@ -126,6 +148,40 @@ bool CustomScene3501::create_and_add_as_child_of_Node(T* &pointer, String name, 
 		return true;
 	} else {
 		pointer = dynamic_cast<T*>(child);//if node with name already exists, assign it to pointer
+		return false;
+	}
+}
+
+template <class T>
+bool CustomScene3501::add_as_child(T* &pointer, String name, bool search){
+	// this is the default behaviour
+	// added the search parameter so that we can skip the slow "find_child" call during runtime
+	if(search == false){
+		pointer->set_name(name);
+		add_child(pointer);
+		pointer->set_owner(get_tree()->get_edited_scene_root());
+		return true;
+	}
+
+	// always only have to search once if we save it here
+	Node* child = find_child(name);
+	
+	// if the node hasn't been added to the SceneTree yet
+	if(child == nullptr){
+		pointer->set_name(name);
+		add_child(pointer);
+		pointer->set_owner(get_tree()->get_edited_scene_root());
+		return true;
+	}
+	// if we are grabbing the existent one, clean up the memory to the new one that was just made and passed as an argument
+	else{
+		if(pointer == nullptr){
+			UtilityFunctions::print("There is a nullptr being passed to add_as_child...");
+		}
+		else{
+			memdelete(pointer);
+		}
+		pointer = dynamic_cast<T*>(child);
 		return false;
 	}
 }

@@ -24,7 +24,7 @@ void Flower::_enter_tree(){
 
 void Flower::_ready (){
 	//Initalize Flower's Body
-	init_body();
+	//init_body();
 }
 
 void Flower::_process(double delta){
