@@ -33,3 +33,9 @@ Vector3 Npc::moveInDirection(Vector3 dir, Vector3 velocity, double delta){
 
 	return velocity;
 }
+
+Vector3 Npc::getRandomPointInRadius(float radius){
+	float theta = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * 2.0f * Math_PI; //Insures its constrained to [0, 2Pi] 
+    float r = sqrt(static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * radius; 
+	return Vector3(r*cos(theta), get_position().y, r*sin(theta));
+}

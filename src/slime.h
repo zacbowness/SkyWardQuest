@@ -36,7 +36,6 @@ private:
 	void chasePlayer();
 	void init_body();
 	State slimeState;
-	Vector3 getRandomPointInRadius(float);
 	
 	
 	

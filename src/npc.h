@@ -43,6 +43,7 @@ protected:
 	Vector3 moveInDirection(Vector3 dir, Vector3 velocity, double delta);
 	inline float distanceFromPlayer(){return get_position().distance_to(player->get_position());}
 	inline bool inRadiusFromDest(float radius){return get_position().distance_to(destination) <= radius;}
+	Vector3 getRandomPointInRadius(float radius);
 
 private:	
 	bool GameOver;
