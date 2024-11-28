@@ -23,10 +23,11 @@ ParticleSystem::ParticleSystem() : GPUParticles3D() {
 	
 }
 
-ParticleSystem::ParticleSystem(String shader_prefix, String texture_prefix, Vector2 newSize) : GPUParticles3D() {
+ParticleSystem::ParticleSystem(String shader_prefix, String texture_prefix, Vector2 newSize, Vector3 newPos) : GPUParticles3D() {
 	shader_name = shader_prefix;
 	texture_name = texture_prefix;
 	size = newSize;
+	set_position(newPos);
 }
 
 void ParticleSystem::_enter_tree(){

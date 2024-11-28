@@ -25,7 +25,7 @@ void CustomScene3501::_enter_tree (){
 
 	init_debug_rects();//add temp rect meshes to scene
 
-	create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0)); //Make a temp Particle System
+	//create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0)); //Make a temp Particle System
 }
 
 void CustomScene3501::init_debug_rects(){
@@ -74,7 +74,6 @@ void CustomScene3501::_ready ( ){
 		// this should never be needed, but can't hurt to have. 
 		if(particle_system == nullptr) continue; 
 		
-		particle_system->set_global_position(Vector3(15.0f * index - 15.0f * (particle_systems.size() - index), 0, 0));
 		dynamic_cast<ShaderMaterial*>(*particle_system->get_draw_pass_mesh(0)->surface_get_material(0))->set_shader_parameter("num_particles", particle_system->get_amount());
         dynamic_cast<ShaderMaterial*>(*particle_system->get_process_material())->set_shader_parameter("num_particles", particle_system->get_amount());
 	}
@@ -107,9 +106,9 @@ void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, 
 	rect_instances.push_back(rect);
 }
 
-void CustomScene3501::create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size){
+void CustomScene3501::create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos){
 	// if you want to use non-zero argument constructors, here is an example of how to do that
-	ParticleSystem* system = memnew(ParticleSystem(shader_name, texture_name, size));
+	ParticleSystem* system = memnew(ParticleSystem(shader_name, texture_name, size, pos));
 	add_as_child(system, node_name, true); 
 	particle_systems.push_back(system);
 }

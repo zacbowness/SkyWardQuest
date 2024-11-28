@@ -43,7 +43,7 @@ protected:
 
 public:
 	ParticleSystem();
-	ParticleSystem(String shader_name, String texture_name, Vector2 size);
+	ParticleSystem(String shader_name, String texture_name, Vector2 size, Vector3 pos);
 	~ParticleSystem();
 
 	void _enter_tree() override;

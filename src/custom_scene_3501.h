@@ -73,6 +73,8 @@ public:
 	void _enter_tree ( ) override;
 	void _ready ( ) override;
 
+	//Takes in The Node Name, Name of the Shader File, Name of the Texture File, Size and Position to make a particle System
+	void create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos);
 
 	// the return type represents whether it existed already; true if it is brand-new; false if it was retrieved from the SceneTree
 	// search defines whether the scenetree should be checked for an instance
@@ -81,8 +83,6 @@ public:
 	
 	template <class T>
 	bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent);
-
-	void create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size);
 
 	template <class T>
 	bool add_as_child(T* &pointer, String name, bool search = false);
