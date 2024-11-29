@@ -34,6 +34,7 @@
 #include "player_scene.h"
 #include "slime.h"
 #include "map.h"
+#include "asset_importer.h"
 
 
 // everything in gdextension is defined in this namespace
@@ -48,6 +49,9 @@ private:
 	Player* player;
 	Slime* slime;
 	Map* map;
+	AssetImporter* import_tool;
+
+	Vector<Node*> objects;
 	
 	Vector<DebugRect*> rect_instances;
 	

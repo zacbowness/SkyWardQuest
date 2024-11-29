@@ -16,6 +16,11 @@ CustomScene3501::~CustomScene3501() {}
 void CustomScene3501::_enter_tree (){
 	if(DEBUG) UtilityFunctions::print("Enter Tree - CustomScene3501."); 
 
+	//Instantiate Asset Importer
+	import_tool = memnew(AssetImporter());
+	
+	
+
 	//Add Nodes to Scene
 	create_and_add_as_child<Player>(player, "Player");
 
@@ -24,6 +29,11 @@ void CustomScene3501::_enter_tree (){
 	create_and_add_as_child<Map>(map,"Map");
 
 	init_debug_rects();//add temp rect meshes to scene
+
+	for(Node* node : objects){
+		if(node){create_and_add_as_child<Node>(node, "Tree");}
+		else{ERR_PRINT("Error Importing Mesh.");}
+	}
 }
 
 void CustomScene3501::init_debug_rects(){
@@ -34,6 +44,8 @@ void CustomScene3501::init_debug_rects(){
 
 void CustomScene3501::_ready ( ){
 	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
+
+	objects.push_back(import_tool->import_mesh_gltf("res://mesh_assets/OakTree1.gltf", "res://mesh_assets/OakTreeTrunk.png"));
 
 	//Initialization Functions
 	init_player(Vector3(200,4.5,200));
@@ -53,6 +65,7 @@ void CustomScene3501::_ready ( ){
 	
 	//Update DebugRect objects to set their location and otherwise
 	for(DebugRect* obj : rect_instances){obj->update_rect();}
+	
 }
 
 // called every frame (as often as possible)
