@@ -100,6 +100,7 @@ void Slime::init_body(){
 
 	//Create Sphere Colider 
 	SphereShape3D* sphereColider = memnew(SphereShape3D);
+	sphereColider->set_radius(1.0);
 	npc_body->set_shape(sphereColider);	
 }
 

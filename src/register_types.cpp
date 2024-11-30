@@ -14,6 +14,7 @@
 #include "player_scene.h"
 #include "map.h"
 #include "particle_system.h"
+#include "collectable.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -48,6 +49,9 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 
 	//Particle System Class
 	ClassDB::register_class<ParticleSystem>();
+
+	//Collectable Class
+	ClassDB::register_class<Collectable>();
 	
 	
 }
