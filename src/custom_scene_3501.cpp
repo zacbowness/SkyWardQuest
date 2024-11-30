@@ -30,9 +30,9 @@ void CustomScene3501::_enter_tree (){
 
 	init_debug_rects();//add temp rect meshes to scene
 
-	for(Node* node : objects){
-		if(node){create_and_add_as_child<Node>(node, "Tree");}
-		else{ERR_PRINT("Error Importing Mesh.");}
+	for(MeshInstance3D* mesh : objects){
+		if(mesh){create_and_add_as_child<MeshInstance3D>(mesh, "Tree");}
+		else{ERR_PRINT("Error Adding Importing Mesh To Scene.");}
 	}
 }
 
@@ -45,7 +45,7 @@ void CustomScene3501::init_debug_rects(){
 void CustomScene3501::_ready ( ){
 	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
 
-	objects.push_back(import_tool->import_mesh_gltf("res://mesh_assets/OakTree1.gltf", "res://mesh_assets/OakTreeTrunk.png"));
+	objects.push_back(import_tool->import_mesh_gltf("res://mesh_assets/OakTree1.gltf", "res://mesh_assets/OakTreeLeaf.png"));
 
 	//Initialization Functions
 	init_player(Vector3(200,4.5,200));

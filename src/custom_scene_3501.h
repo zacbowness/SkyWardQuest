@@ -51,7 +51,7 @@ private:
 	Map* map;
 	AssetImporter* import_tool;
 
-	Vector<Node*> objects;
+	Vector<MeshInstance3D*> objects;
 	
 	Vector<DebugRect*> rect_instances;
 	

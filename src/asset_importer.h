@@ -40,18 +40,15 @@ class AssetImporter : public Node {
 	GDCLASS(AssetImporter, Node);
 
 private:
-	void apply_texture_to_mesh(Node* node, const Ref<ImageTexture> &texture){
-		if(auto *mesh_instance = Object::cast_to<MeshInstance3D>(node)){
+	void apply_textures_to_mesh(MeshInstance3D* mesh_instance, const Ref<ImageTexture> &texture){
+		if(mesh_instance){
 			for(int i=0;i<mesh_instance->get_surface_override_material_count();i++){
 				Ref<StandardMaterial3D> material = memnew(StandardMaterial3D());
 				material->set_texture(StandardMaterial3D::TEXTURE_ALBEDO, texture);
 				mesh_instance->set_surface_override_material(i, material);
 			}
-		}
-
-		//Recursively call this function for child nodes if they exist
-		for(int i=0;i<node->get_child_count();i++){
-			apply_texture_to_mesh(node->get_child(i), texture);
+		} else {
+			ERR_PRINT("Error: Unable Tpo Apply Texture To Mesh (MeshInstance == nullptr)");
 		}
 	}
 
@@ -71,7 +68,7 @@ public:
 
 
 	//Import a mesh from given filepath
-	Node* import_mesh_gltf(const String &model_filepath, const String &texture_filepath){
+	MeshInstance3D* import_mesh_gltf(const String &model_filepath, const String &texture_filepath){
 		//Load Model from GLTF file
 		Ref<PackedScene> gltf_scene = ResourceLoader::get_singleton()->load(model_filepath);
 		
@@ -82,15 +79,17 @@ public:
 		}
 
 		//Create an instance of the scene
+		if(!gltf_scene->can_instantiate())ERR_PRINT("No Nodes In Scene To Instantiate");
+
 		Node* root = gltf_scene->instantiate();
 		//Another error output
-		if(!root){
+		if(root == nullptr){
 			ERR_PRINT("Failed to instantiate scene for gltf model.");
 			return nullptr;
 		}
 
 		//Load Texture from filepath
-		Ref<Image> image = ResourceLoader::get_singleton()->load(texture_filepath);
+		Ref<Image> image = ResourceLoader::get_singleton()->load(texture_filepath, "Image");
 		//Another Error Msg
 		if (image.is_null()) {
             ERR_PRINT("Failed to load texture at provided filepath: "+texture_filepath);
@@ -100,10 +99,15 @@ public:
 		//Create a texture from the png
 		Ref<ImageTexture> texture = ImageTexture::create_from_image(image);
 
-		//Apply texture to mesh
-		apply_texture_to_mesh(root, texture);
+		auto mesh_instance = Object::cast_to<MeshInstance3D>(root);
+		if (mesh_instance) {
+            apply_textures_to_mesh(mesh_instance, texture);
+            return mesh_instance;
+        }
 
-		return root;
+        // If not, search for a MeshInstance3D in its children
+        if(mesh_instance == nullptr)ERR_PRINT("Mesh is nullptr");
+        return nullptr;
 	}
 
 
