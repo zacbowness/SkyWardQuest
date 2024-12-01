@@ -60,6 +60,8 @@ void CustomScene3501::_ready ( ){
 		200.0f,    // Max height (increase for taller mountains)
 		20.0f    // Mountain scale (increase for taller and more exaggerated mountains)
 	);
+
+	map->scatter_circles_on_mesh(100, 1.5);
 	
 	//Update DebugRect objects to set their location and otherwise
 	for(DebugRect* obj : rect_instances){obj->update_rect();}
