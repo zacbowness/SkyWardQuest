@@ -52,6 +52,7 @@ private:
 	AssetImporter* import_tool;
 
 	Vector<MeshInstance3D*> objects;
+	MeshInstance3D* testTree;
 	
 	Vector<DebugRect*> rect_instances;
 	

@@ -40,18 +40,21 @@ class AssetImporter : public Node {
 	GDCLASS(AssetImporter, Node);
 
 private:
-	void apply_textures_to_mesh(MeshInstance3D* mesh_instance, const Ref<ImageTexture> &texture){
-		if(mesh_instance){
-			for(int i=0;i<mesh_instance->get_surface_override_material_count();i++){
-				Ref<StandardMaterial3D> material = memnew(StandardMaterial3D());
-				material->set_texture(StandardMaterial3D::TEXTURE_ALBEDO, texture);
-				mesh_instance->set_surface_override_material(i, material);
-			}
-		} else {
-			ERR_PRINT("Error: Unable Tpo Apply Texture To Mesh (MeshInstance == nullptr)");
+	Ref<ImageTexture> import_img_tex(String filepath){
+		Ref<Image> image = ResourceLoader::get_singleton()->load(filepath, "Image");
+		
+		if(image.is_null()){
+			ERR_PRINT("Image Could Not Be Imported From: "+filepath);
+			return nullptr;
 		}
-	}
 
+		Ref<ImageTexture> texture = ImageTexture::create_from_image(image);
+
+		if(texture.is_null()){
+			ERR_PRINT("Image Could Not Be Converted To Texture");
+			return nullptr;
+		} else return texture;
+	}
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
@@ -68,46 +71,36 @@ public:
 
 
 	//Import a mesh from given filepath
-	MeshInstance3D* import_mesh_gltf(const String &model_filepath, const String &texture_filepath){
+	MeshInstance3D* import_mesh(const String &mesh_filepath, const String texture_filepath[]){
 		//Load Model from GLTF file
-		Ref<PackedScene> gltf_scene = ResourceLoader::get_singleton()->load(model_filepath);
+		
+		Ref<ArrayMesh> mesh_import = ResourceLoader::get_singleton()->load(mesh_filepath);
+
+		//Make new mesh instance to eventually return
+		MeshInstance3D* mesh_instance = memnew(MeshInstance3D);
 		
 		//If not loaded propperly, print error msg and return nullptr
-		if(gltf_scene.is_null()){
-			ERR_PRINT("Failed to load GLTF file at provided filepath: "+model_filepath);
+		if(mesh_import.is_null()){
+			ERR_PRINT("Failed to load res file at provided filepath: "+mesh_filepath);
 			return nullptr;
 		}
 
-		//Create an instance of the scene
-		if(!gltf_scene->can_instantiate())ERR_PRINT("No Nodes In Scene To Instantiate");
+		for(int i=0;i<mesh_import->get_surface_count();i++){
+			StandardMaterial3D* material = memnew(StandardMaterial3D);
+			Ref<ImageTexture> img_tex = import_img_tex(texture_filepath[i]);
 
-		Node* root = gltf_scene->instantiate();
-		//Another error output
-		if(root == nullptr){
-			ERR_PRINT("Failed to instantiate scene for gltf model.");
+			UtilityFunctions::print(texture_filepath[i]);
+			if(!img_tex.is_null()) material->set_texture(StandardMaterial3D::TEXTURE_ALBEDO, img_tex);
+			else return nullptr;
+			if(i<mesh_import->get_surface_count()) mesh_import->surface_set_material(i, material);
+		}
+		
+		if(!mesh_import.is_null())mesh_instance->set_mesh(mesh_import);
+		else {
+			ERR_PRINT("Material Application Error");
 			return nullptr;
 		}
-
-		//Load Texture from filepath
-		Ref<Image> image = ResourceLoader::get_singleton()->load(texture_filepath, "Image");
-		//Another Error Msg
-		if (image.is_null()) {
-            ERR_PRINT("Failed to load texture at provided filepath: "+texture_filepath);
-            return nullptr;
-        }
-
-		//Create a texture from the png
-		Ref<ImageTexture> texture = ImageTexture::create_from_image(image);
-
-		auto mesh_instance = Object::cast_to<MeshInstance3D>(root);
-		if (mesh_instance) {
-            apply_textures_to_mesh(mesh_instance, texture);
-            return mesh_instance;
-        }
-
-        // If not, search for a MeshInstance3D in its children
-        if(mesh_instance == nullptr)ERR_PRINT("Mesh is nullptr");
-        return nullptr;
+		return mesh_instance;
 	}
 
 
