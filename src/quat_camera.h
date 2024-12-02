@@ -40,7 +40,7 @@ private:
 
 	void Pitch(float angle);
 	void Roll(float angle);
-	void Yaw(float angle);
+	
 
 	float throttle;// float value between 0 and 1, to scale speed for both forward and backwards movement
 	float top_speed;// maximum speed of the rocket
@@ -64,6 +64,7 @@ public:
 	void _process(double delta) override;
 
 	void pitch_camera(float dist, double delta);
+	void Yaw(float angle);
 };
 
 }

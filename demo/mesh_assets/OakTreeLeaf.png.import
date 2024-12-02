@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://ctqi3crfkoym3"
+path="res://.godot/imported/OakTreeLeaf.png-a41d6c3541404ca9f0453b20c73264af.image"
+
+[deps]
+
+source_file="res://mesh_assets/OakTreeLeaf.png"
+dest_files=["res://.godot/imported/OakTreeLeaf.png-a41d6c3541404ca9f0453b20c73264af.image"]
+
+[params]
+
