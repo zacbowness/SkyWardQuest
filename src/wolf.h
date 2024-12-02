@@ -1,5 +1,5 @@
-#ifndef SLIME_H
-#define SLIME_H
+#ifndef WOLF_H
+#define WOLF_H
 
 #include <godot_cpp/classes/node3d.hpp>
 #include <godot_cpp/classes/sphere_mesh.hpp>
@@ -22,8 +22,8 @@ enum State {
 namespace godot {
 
 class QuatCamera;
-class Slime : public  Enemy{
-	GDCLASS(Slime, Enemy);
+class Wolf : public  Enemy{
+	GDCLASS(Wolf, Enemy);
 
 protected:
 	static void _bind_methods();
@@ -35,14 +35,14 @@ private:
 	bool checkForPlayer();
 	void chasePlayer();
 	void init_body();
-	State slimeState;
+	State WolfState;
 	
 	
 	
 
 public:
-	Slime();
-	~Slime();
+	Wolf();
+	~Wolf();
 
 	void _enter_tree ( ) override;
     void _ready() override;

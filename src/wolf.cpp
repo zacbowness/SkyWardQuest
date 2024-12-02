@@ -1,4 +1,4 @@
-#include "slime.h"
+#include "wolf.h"
 #include <godot_cpp/classes/resource_loader.hpp>
 
 //Math for Random Point
@@ -8,36 +8,36 @@
 
 using namespace godot;
 
-void Slime::_bind_methods() {}
+void Wolf::_bind_methods() {}
 
-Slime::Slime() {
+Wolf::Wolf() {
 	//Inherited From Npc
-	speed = 1.5f;
-	detectionRadius = 5.0f;
-	enemyType = SLIME;
-	slimeState = IDLE;
-	aggroRadius = 10.0f;
+	speed = 2.0f;
+	detectionRadius = 7.0f;
+	enemyType = WOLF;
+	WolfState = IDLE;
+	aggroRadius = 7.0f;
 	destination = Vector3(0,0,0);
 }
 
-Slime::~Slime() {}
+Wolf::~Wolf() {}
 
-void Slime::_enter_tree(){
+void Wolf::_enter_tree(){
 	
-	//Initalizes The Children that makes up a Slime 
-	create_or_add_child<MeshInstance3D>(npc_mesh, "Slime Mesh");
-	create_or_add_child<CollisionShape3D>(npc_body, "Slime Body");
+	//Initalizes The Children that makes up a Wolf 
+	create_or_add_child<MeshInstance3D>(npc_mesh, "Wolf Mesh");
+	create_or_add_child<CollisionShape3D>(npc_body, "Wolf Body");
 
 }
 
-void Slime::_ready (){
-	//Initalize Slime to be a Sphere Mesh Based Maybe (Softbody)	
+void Wolf::_ready (){
+	//Initalize Wolf to be a Sphere Mesh Based Maybe (Softbody)	
 	init_body();
 }
 
-void Slime::_process(double delta){
+void Wolf::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
-	switch (slimeState)
+	switch (WolfState)
 	{
 	
 	//Idle State
@@ -45,9 +45,9 @@ void Slime::_process(double delta){
 	case IDLE:
 		set_velocity(Vector3(0,0,0));
 		if (playerInRadius()){
-			slimeState = CHASE;
+			WolfState = CHASE;
 		} else {
-			slimeState = WANDER;
+			WolfState = WANDER;
 		}
 		break;
 	//Wander State
@@ -55,7 +55,7 @@ void Slime::_process(double delta){
 	case WANDER:
 		//checks if the player is in range
 		if (playerInRadius()){
-			slimeState = CHASE; 
+			WolfState = CHASE; 
 		} else {
 			//Implement A Wandering Algorithm
 			//If the Enemy is within 2.0f Radius of its destination get a random destination
@@ -73,7 +73,7 @@ void Slime::_process(double delta){
 	case CHASE: 
 		//Checks if the player is in the Aggro Range if not idle
 		if (distanceFromPlayer() >= aggroRadius){
-			slimeState = IDLE;
+			WolfState = IDLE;
 		} else {
 			//Sets destination to Player's Position 
 			destination = player->get_position();
@@ -87,37 +87,36 @@ void Slime::_process(double delta){
 	}
 }
 
-void Slime::init_body(){
+void Wolf::init_body(){
 	//Create Sphere and Mesh
 	SphereMesh* sphereMesh = memnew(SphereMesh);
     sphereMesh->set_height(2.0f);
 	sphereMesh->set_radius(1.0f);
 
 	StandardMaterial3D* material = memnew(StandardMaterial3D);
-	material->set_albedo(Color(0, 0, 1, 1));
+	material->set_albedo(Color(1, 1, 1, 1));
 	sphereMesh->surface_set_material(0, material);
 	npc_mesh->set_mesh(sphereMesh);
 
 	//Create Sphere Colider 
 	SphereShape3D* sphereColider = memnew(SphereShape3D);
-	sphereColider->set_radius(1.0);
 	npc_body->set_shape(sphereColider);	
 }
 
-//Sets Poisition Of Slime 
-void Slime::approachDirection(Vector3 direction, double delta){
+//Sets Poisition Of Wolf 
+void Wolf::approachDirection(Vector3 direction, double delta){
 	Vector3 velocity = get_velocity();
 	velocity = calculateMovement(direction.normalized(), velocity, delta);
 
 	//Apply Gravity
-	if(!is_on_floor())velocity.y -= GRAVITY*delta; //if Slime is not on the ground, apply gravity
-	if(is_on_floor()&&velocity.y<0)velocity.y = 0.0f; //if Slime is falling and hits the ground->stop downward momentum
+	if(!is_on_floor())velocity.y -= GRAVITY*delta; //if Wolf is not on the ground, apply gravity
+	if(is_on_floor()&&velocity.y<0)velocity.y = 0.0f; //if Wolf is falling and hits the ground->stop downward momentum
 
 	move_and_slide(); //move and slide allows for smoother movement on non flat surfaces
 	set_velocity(velocity);
 }
 
-Vector3 Slime::calculateMovement(Vector3 direction, Vector3 curr_vel, double delta){
+Vector3 Wolf::calculateMovement(Vector3 direction, Vector3 curr_vel, double delta){
 	
 	
 	Vector3 velocity = Vector3(0,0,0);

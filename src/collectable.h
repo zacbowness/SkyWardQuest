@@ -1,64 +1,40 @@
-#ifndef NPC_H
-#define NPC_H
+#ifndef COLLECTABLE_H
+#define COLLECTABLE_H
 
+#include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/node3d.hpp>
-#include <godot_cpp/classes/sphere_mesh.hpp>
-#include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/mesh_instance3d.hpp>
-#include <godot_cpp/godot.hpp>
-#include <godot_cpp/core/class_db.hpp>
-#include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/standard_material3d.hpp>
 #include <godot_cpp/classes/shader_material.hpp>
-#include <godot_cpp/classes/scene_tree.hpp>
-#include <godot_cpp/classes/character_body3d.hpp>
+#include <godot_cpp/classes/sphere_mesh.hpp>
+#include <godot_cpp/classes/area3d.hpp>
 #include <godot_cpp/classes/collision_shape3d.hpp>
 #include <godot_cpp/core/memory.hpp> // for memnew
-#include "defs.h"
+#include <godot_cpp/variant/vector3.hpp>
+#include <godot_cpp/classes/sphere_shape3d.hpp>
 
 
-
+// everything in gdextension is defined in this namespace
 namespace godot {
+class Collectable : public Area3D {
+	GDCLASS(Collectable, Area3D);
 
-enum NpcType{
-	ENEMY,
-	FRIENDLY
-};
-
-class CharacterBody3D;
-class Npc : public  CharacterBody3D{
-	GDCLASS(Npc, CharacterBody3D);
-
+private:
+	double time_passed; // maybe you don't need this, just an example
+	void init_body();
+	MeshInstance3D* collectable_mesh;
+	CollisionShape3D* collectable_body;
+	
 protected:
 	static void _bind_methods();
-	float speed;	
-	float detectionRadius;
-	virtual void approachDirection(Vector3, double);
-	CharacterBody3D* player;
-	enum NpcType type;
-	MeshInstance3D* npc_mesh;
-	CollisionShape3D* npc_body;
-	Vector3 direction;
-	Vector3 destination;
-	Vector3 moveInDirection(Vector3 dir, Vector3 velocity, double delta);
-	inline float distanceFromPlayer(){return get_position().distance_to(player->get_position());}
-	inline bool inRadiusFromDest(float radius){return get_position().distance_to(destination) <= radius;}
-	Vector3 getRandomPointInRadius(float radius);
 
-private:	
-	bool GameOver;
-	
 public:
-	Npc();
-	~Npc();
-
-	void _process(double delta) override;	
-	void setPlayerPointer(CharacterBody3D* player);
-	void game_over() {GameOver = true;}
-	//Checks if the player is within Radius
-	//Uses the detectionRadius of the NPC
-	bool playerInRadius();
-	//Checks if you are in a certain radius of your destination
+	Collectable();
+	~Collectable();
+	
+	void _enter_tree ( ) override;
+	void _ready ( ) override;
+	void body_entered(Node3D*);
 	
 
 	// the return type represents whether it existed already; true if it is brand-new; false if it was retrieved from the SceneTree
@@ -96,7 +72,6 @@ public:
 			return false;
 		}
 	}
-	
 };
 
 }

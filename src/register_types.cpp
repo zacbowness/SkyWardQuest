@@ -13,6 +13,8 @@
 #include "enemy.h"
 #include "player_scene.h"
 #include "map.h"
+#include "particle_system.h"
+#include "collectable.h"
 #include "asset_importer.h"
 #include "prop.h"
 
@@ -48,6 +50,12 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 
 	//Map Class
 	ClassDB::register_class<Map>();
+
+	//Particle System Class
+	ClassDB::register_class<ParticleSystem>();
+
+	//Collectable Class
+	ClassDB::register_class<Collectable>();
 	
 	
 }
