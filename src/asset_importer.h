@@ -49,6 +49,7 @@ private:
 		}
 
 		Ref<ImageTexture> texture = ImageTexture::create_from_image(image);
+		UtilityFunctions::print("Image Converted To Texture :)");
 
 		if(texture.is_null()){
 			ERR_PRINT("Image Could Not Be Converted To Texture");
@@ -71,13 +72,10 @@ public:
 
 
 	//Import a mesh from given filepath
-	MeshInstance3D* import_mesh(const String &mesh_filepath, const String texture_filepath[]){
+	Ref<ArrayMesh> import_mesh(String mesh_filepath, Vector<String> texture_filepath){
+		if(DEBUG)UtilityFunctions::print("Importing File: "+mesh_filepath);
 		//Load Model from GLTF file
-		
 		Ref<ArrayMesh> mesh_import = ResourceLoader::get_singleton()->load(mesh_filepath);
-
-		//Make new mesh instance to eventually return
-		MeshInstance3D* mesh_instance = memnew(MeshInstance3D);
 		
 		//If not loaded propperly, print error msg and return nullptr
 		if(mesh_import.is_null()){
@@ -93,14 +91,10 @@ public:
 			if(!img_tex.is_null()) material->set_texture(StandardMaterial3D::TEXTURE_ALBEDO, img_tex);
 			else return nullptr;
 			if(i<mesh_import->get_surface_count()) mesh_import->surface_set_material(i, material);
+			else ERR_PRINT("Not All Textures Applied, Surface Count < Provided Textures");
 		}
-		
-		if(!mesh_import.is_null())mesh_instance->set_mesh(mesh_import);
-		else {
-			ERR_PRINT("Material Application Error");
-			return nullptr;
-		}
-		return mesh_instance;
+
+		return mesh_import;
 	}
 
 
