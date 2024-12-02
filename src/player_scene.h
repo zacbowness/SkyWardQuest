@@ -61,6 +61,8 @@ private:
 	Vector3 forward_;
 	Vector3 side_;
 
+	Vector2 perspective_change;
+
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
@@ -71,7 +73,8 @@ protected:
 	void init_body();
 
 	Vector3 apply_input(Vector3 velocity, double delta);
-	Vector3 move_in_direction(Vector3 dir, Vector3 velocity, double delta);
+	Vector3 move_in_direction(Vector3 dir, Vector3 velocity);
+	void player_look(Vector2 input, double delta);//change the direction the player is looking
 	void turn_player(float angle);//for rotation left and right
 	Vector3 get_forward();
 	Vector3 get_side();

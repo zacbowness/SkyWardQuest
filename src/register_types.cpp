@@ -15,6 +15,8 @@
 #include "map.h"
 #include "particle_system.h"
 #include "collectable.h"
+#include "asset_importer.h"
+#include "prop.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -29,6 +31,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	}
     // Misc Classes
 	ClassDB::register_class<CustomScene3501>();
+	ClassDB::register_class<AssetImporter>();
 
 	//Player Classes
 	ClassDB::register_class<Player>();
@@ -38,6 +41,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<WorldObject>();
 	ClassDB::register_class<CollisionObject>();
 	ClassDB::register_class<DebugRect>();
+	ClassDB::register_class<Prop>();
 	
 	//Enemy Classes
 	ClassDB::register_class<Npc>();
