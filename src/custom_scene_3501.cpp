@@ -81,6 +81,8 @@ void CustomScene3501::_ready ( ){
 	
 	//Update DebugRect objects to set their location and otherwise
 	for(DebugRect* obj : rect_instances) obj->update_rect();
+	
+	//Update Prop Objects to set their location and positions
 	for(Prop* obj : prop_instances) obj->update_prop();
 }
 
