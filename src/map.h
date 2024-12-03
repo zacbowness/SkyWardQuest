@@ -13,7 +13,9 @@
 #include <godot_cpp/classes/collision_shape3d.hpp>
 #include <godot_cpp/classes/concave_polygon_shape3d.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
-
+#include <godot_cpp/classes/random_number_generator.hpp> // Random number generator
+#include <godot_cpp/classes/sphere_mesh.hpp> //Mesh for circles, can be removed for final implementation
+#include <godot_cpp/classes/resource_loader.hpp> //resource loader for textures
 
 namespace godot {
 
@@ -59,6 +61,7 @@ public:
 
     // Terrain generation method with customizable parameters
     void generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale);
+     void scatter_circles_on_mesh(int circle_count, float circle_radius);// function scatters circles across the mesh and can be replaced later
 
     // Add the function declaration for generating the 3D mesh
     Ref<ArrayMesh> generate_3d_mesh();

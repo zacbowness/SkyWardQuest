@@ -79,6 +79,8 @@ void CustomScene3501::_ready ( ){
 		40.0f,    // Max height (increase for taller mountains)
 		30.0f    // Mountain scale (increase for taller and more exaggerated mountains)
 	);
+
+	map->scatter_circles_on_mesh(100, 1.5);
 	
 	
 
