@@ -50,11 +50,9 @@ class CustomScene3501 : public Node3D {
 private:
 	double time_passed;
 
-	Terrain* terrain;
 	Map* map;
 	Player* player;
 	Slime* slime;
-	Map* map;
 
 	Vector<MeshInstance3D*> objects;
 	MeshInstance3D* testTree;

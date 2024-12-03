@@ -86,7 +86,7 @@ void CustomScene3501::_ready ( ){
 	for(Prop* obj : prop_instances) obj->update_prop();
 }
 
-}
+
 // called every frame (as often as possible)
 void CustomScene3501::_process(double delta) {
 	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
