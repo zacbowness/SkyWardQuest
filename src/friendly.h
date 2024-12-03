@@ -1,5 +1,5 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#ifndef FRIENDLY_H
+#define FRIENDLY_H
 
 #include <godot_cpp/classes/node3d.hpp>
 #include <godot_cpp/classes/sphere_mesh.hpp>
@@ -14,25 +14,23 @@
 
 namespace godot {
 
-enum EnemyType{
-	SLIME,
-	WOLF
+enum FriendType{
+	BEE
 };
 
 class QuatCamera;
-class Enemy : public  Npc{
-	GDCLASS(Enemy, Npc);
+class Friend : public  Npc{
+	GDCLASS(Friend, Npc);
 
 protected:
 	static void _bind_methods();
-	enum EnemyType enemyType;
-	float aggroRadius;
+	enum FriendType enemyType;
 
 private:	
 	
 public:
-	Enemy();
-	~Enemy();
+	Friend();
+	~Friend();
 
 	void _process(double delta) override;	
 

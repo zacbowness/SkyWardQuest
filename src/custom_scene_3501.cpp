@@ -9,6 +9,7 @@ void CustomScene3501::_bind_methods() { }
 
 CustomScene3501::CustomScene3501() : Node3D() {
 	time_passed = 0.0;
+	load_filepaths();//load filepaths into hashmaps
 }
 
 CustomScene3501::~CustomScene3501() {}
@@ -16,39 +17,74 @@ CustomScene3501::~CustomScene3501() {}
 void CustomScene3501::_enter_tree (){
 	if(DEBUG) UtilityFunctions::print("Enter Tree - CustomScene3501."); 
 
-	create_and_add_as_child<QuatCamera>(main_camera, "QuatCamera");
-	create_and_add_as_child<Terrain>(terrain, "Terrain");
-	create_and_add_as_child<Map>(map, "Map");
+	//Add Nodes to Scene
+	create_and_add_as_child<Player>(player, "Player");
 
+	create_and_add_as_child<Slime>(slime, "Test Slime");
+
+	create_and_add_as_child<Map>(map,"Map");
+
+	init_debug_rects();	//add temp rect meshes to scene
+	init_props();		//add props to scene
+}
+
+//load filepaths into hashmaps of important resources
+//USE UNIQUE KEY VALUES
+void CustomScene3501::load_filepaths(){
+	String dir = "res://mesh_assets/";
 	
+	//MESH FILEPATHS//
+	mesh_filepaths["OakTree_1"] = dir+"tree_mesh1.res";
+	mesh_filepaths["OakTree_2"] = dir+"tree_mesh2.res";
 
-	init_debug_rects();//add temp rect meshes to scene
+	//TEXTURE FILEPATHS//
+	texture_filepaths["OakLeaf_1"] = dir+"OakTreeLeaf.png";
+	texture_filepaths["OakTrunk_1"] = dir+"OakTreeTrunk.png";
+}
+
+void CustomScene3501::init_debug_rects(){
+	Node* rectGroup;
+	create_and_add_as_child<Node>(rectGroup, "Debug Rect Group");//create grouping node
+	create_rect(Vector3(1,1,1), Vector3(0,2,-5), rectGroup, "Test Cube", Vector3(0.8, 0.1, 0.1));
+}
+
+void CustomScene3501::init_props(){
+	Node* propGroup;
+	create_and_add_as_child<Node>(propGroup, "Game Props");//Create group node
+
+	Node* terrainPropGroup;
+	create_and_add_as_child_of_Node<Node>(terrainPropGroup, "Terrain Props", propGroup);
+
+	String tree_textures[] = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
+	create_prop(Vector3(10,10,10), Vector3(5,5,0), terrainPropGroup,"Test Tree", String(mesh_filepaths["OakTree_1"]), tree_textures, 2);
+	create_prop(Vector3(10,10,10), Vector3(-5,5,0), terrainPropGroup,"Test Tree 2", String(mesh_filepaths["OakTree_2"]), tree_textures, 2);
 }
 
 void CustomScene3501::_ready ( ){
-	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501."); 
+	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
 
-	// set the player's position (the camera)
-	main_camera->set_global_position(Vector3(5.0, 5.0, 25.0f));
-	main_camera->look_at(Vector3(0, 0, 0)); // there are some bugs with this function if the up vector is parallel to the look-at position; check the manual for a link to more info
-
-	// now that we have set the camera's starting state, let's reinitialize its variables
-	main_camera->_ready();
+	//Initialization Functions
+	init_player(Vector3(200,4.5,200));
+	
+	slime->setPlayerPointer(player);
+	slime->_ready();
 
 	map->generate_terrain(
-		200,      // Width
-		200,      // Height
-		4,        // Octaves (keep it at 4 for more detail, but adjust if needed)
-		0.7f,     // Persistence (adjust for smoother or more jagged terrain)
-		10.0f,    // Scale (higher scale spreads out the features more)
-		200.0f,    // Max height (increase for taller mountains)
-		20.0f    // Mountain scale (increase for taller and more exaggerated mountains)
+		15,      // Width
+		15,      // Height
+		8,        // Octaves (keep it at 4 for more detail, but adjust if needed)
+		3.0f,     // Persistence (adjust for smoother or more jagged terrain)
+		20.0f,    // Scale (higher scale spreads out the features more)
+		40.0f,    // Max height (increase for taller mountains)
+		30.0f    // Mountain scale (increase for taller and more exaggerated mountains)
 	);
-
-	terrain->generate_terrain(100, 100, 1.0f, 10.0f);
-
+	
 	//Update DebugRect objects to set their location and otherwise
-	for(DebugRect* obj : rect_instances){obj->update_rect();}
+	for(DebugRect* obj : rect_instances) obj->update_rect();
+	
+	//Update Prop Objects to set their location and positions
+	for(Prop* obj : prop_instances) obj->update_prop();
+}
 
 }
 // called every frame (as often as possible)
@@ -58,13 +94,16 @@ void CustomScene3501::_process(double delta) {
 	time_passed += delta;
 }
 
+void CustomScene3501::init_player(Vector3 start_pos){
+	player->set_position(start_pos);
+	player->_ready();//call the player's ready function after we set the attributes we want !!IMPORTANT!!
+}
 
-void CustomScene3501::init_debug_rects(){
-	Node* rectGroup;
-	create_and_add_as_child<Node>(rectGroup, "Debug Rect Group");//create grouping node
-
-	create_rect(Vector3(20,1,20), Vector3(5,-1,5), rectGroup, "Floor Rect");
-	create_rect(Vector3(1,1,1), Vector3(0,2,5), rectGroup, "Test Cube");
+void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
+	Prop* prop;
+	bool isNew = create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
+	prop->setup_prop(pos, size, mesh_filepath, texture_filepath_arr,num_textures,obj_name);
+	prop_instances.push_back(prop);
 }
 
 void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name){
@@ -74,6 +113,12 @@ void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, 
 	rect_instances.push_back(rect);
 }
 
+void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name, Vector3 color){
+	DebugRect* rect;
+	create_and_add_as_child_of_Node<DebugRect>(rect, name, parentNode);
+	rect->setup_rect(scale, pos, color);
+	rect_instances.push_back(rect);
+}
 
 template <class T>
 // returns true if pointer is brand-new; false if retrieved from SceneTree

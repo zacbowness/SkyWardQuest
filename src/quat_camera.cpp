@@ -49,7 +49,7 @@ void QuatCamera::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()||GameOver) return; // Early return if we are in editor
 
 	// you can speed up by changing these, if desired. 
-	float rotation_factor = 1.0f;	
+	float rotation_factor = PLAYER_SENSITIVITY;
 	float translation_factor = top_speed;
 	
 	//Handle Forward Movement
@@ -58,35 +58,37 @@ void QuatCamera::_process(double delta){
 	
 	//Movement
 	Input* _input = Input::get_singleton();
-	if(_input->is_action_pressed("move_forward")){
-		set_position(get_position() + GetForward() * delta * translation_factor);
-	}
-	if(_input->is_action_pressed("move_backward")){
-		set_position(get_position() - GetForward() * delta * translation_factor);
-	}
-	if(_input->is_action_pressed("move_right")){
-		set_position(get_position() + GetSide() * delta * translation_factor);
-	}
-	if(_input->is_action_pressed("move_left")){
-		set_position(get_position() - GetSide() * delta * translation_factor);
-	}
+	
 
 	//Looking Around
 
 	//Detect Mouse Inputs
 
+	bool restrict_up = false;
+	bool restrict_down = false;
+	//UtilityFunctions::print(Math::rad_to_deg(GetForward().angle_to(Vector3(0,1,0))));
 
-	if(_input->is_action_pressed("look_right")){
-		Yaw(-1.0f * delta * rotation_factor);
-	}
-	if(_input->is_action_pressed("look_left")){
-		Yaw(1.0f * delta * rotation_factor);
-	}
-	if(_input->is_action_pressed("look_up")){
+
+
+	//restrict_pitch = false;
+	
+	if(_input->is_action_pressed("look_up")&&!restrict_up){
 		Pitch(1.0f * delta * rotation_factor);
 	}
-	if(_input->is_action_pressed("look_down")){
+	if(_input->is_action_pressed("look_down")&&!restrict_down){
 		Pitch(-1.0f * delta * rotation_factor);
+	}
+}
+
+float QuatCamera::angle_diff(Vector3 vec1, Vector3 vec2){
+	return Math::rad_to_deg(vec1.angle_to(vec2));
+}
+
+void QuatCamera::pitch_camera(float dist, double delta){
+	if(dist>0 && angle_diff(GetForward(), Vector3(0,1,0)) >= 10.0){
+		Pitch(dist*delta*PLAYER_SENSITIVITY);
+	} else if (dist<0 && angle_diff(GetForward(), Vector3(0,-1,0)) >= 15.0){
+		Pitch(dist*delta*PLAYER_SENSITIVITY);
 	}
 }
 
@@ -120,7 +122,7 @@ void QuatCamera::Pitch(float angle){
 
 
 void QuatCamera::Yaw(float angle){
-    Quaternion rotation = Quaternion(Vector3(0,1,0),angle); // not the correct axis
+    Quaternion rotation = Quaternion(Vector3(0,1,0),angle);
     Quaternion new_quat = rotation * our_quaternion;
 	our_quaternion = (new_quat.normalized());
     set_quaternion((rotation * get_quaternion()).normalized());	// we need to keep the internal quaternion separate from our quaternion representation

@@ -27,12 +27,18 @@
 #include <godot_cpp/classes/control.hpp> // for the anchors preset
 #include <godot_cpp/classes/color_rect.hpp>
 
+//Default C++ Inclusions
+#include <unordered_map>
+
 #include "defs.h"
 #include "quat_camera.h"
 #include "enemy.h"
 #include "debug_rect.h"
-#include "terrain.h"
+#include "player_scene.h"
+#include "slime.h"
 #include "map.h"
+#include "asset_importer.h"
+#include "prop.h"
 
 
 // everything in gdextension is defined in this namespace
@@ -44,19 +50,31 @@ class CustomScene3501 : public Node3D {
 private:
 	double time_passed;
 
-	QuatCamera* main_camera;
-
 	Terrain* terrain;
 	Map* map;
+	Player* player;
+	Slime* slime;
+	Map* map;
+
+	Vector<MeshInstance3D*> objects;
+	MeshInstance3D* testTree;
 	
 	Vector<DebugRect*> rect_instances;
+	Vector<Prop*> prop_instances;
 	
-	//Setup Functions (NEW - IMPLEMENT LIKE THIS)
+	//Setup Functions
 	void init_debug_rects();
 	void create_rect(Vector3 size, Vector3 pos, Node* parentNode, String name);
+	void create_rect(Vector3 size, Vector3 pos, Node* parentNode, String name, Vector3 color);
 
-	//Create Rect Polymorphs
-	void create_rect(String type, Vector3 pos, Node* parentNode);
+	void init_player(Vector3 start_pos);
+
+	void init_props();
+	void create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepaths[], int num_textures);
+
+	Dictionary mesh_filepaths;//Hash Map for mesh filepaths
+	Dictionary texture_filepaths;//Hash Map for texture filepaths
+	void load_filepaths();
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes

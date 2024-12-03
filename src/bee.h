@@ -1,5 +1,5 @@
-#ifndef SLIME_H
-#define SLIME_H
+#ifndef BEE_H
+#define BEE_H
 
 #include <godot_cpp/classes/node3d.hpp>
 #include <godot_cpp/classes/sphere_mesh.hpp>
@@ -7,45 +7,38 @@
 #include <godot_cpp/variant/utility_functions.hpp>
 
 #include <godot_cpp/classes/mesh_instance3d.hpp>
-#include <godot_cpp/classes/sphere_shape3d.hpp>
 #include <godot_cpp/godot.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/engine.hpp>
-#include "enemy.h"
+#include "friendly.h"
 
 enum State {
     IDLE, //Will Stand Still But if a Player enters its range it will Chase
-    WANDER, //Random Walks around if there is a Player in Range it will Chase
-    CHASE //Follow the Last Seen Position in a Radius of a Player
+    WANDER, //Random Walks around if there is a Flower in Range it will Chase
+    CHASE //Follow the Last Seen Position in a Radius of a Flower 
 };
 
 namespace godot {
 
 class QuatCamera;
-class Slime : public  Enemy{
-	GDCLASS(Slime, Enemy);
+class Bee : public  Friend{
+	GDCLASS(Bee, Friend);
 
 protected:
 	static void _bind_methods();
-	void approachDirection(Vector3, double) override;
-	Vector3 calculateMovement(Vector3 direction, Vector3 velocity, double delta);
+	
 
 
 private:
 	bool checkForPlayer();
 	void chasePlayer();
-	void init_body();
-	State slimeState;
-	Vector3 getRandomPointInRadius(float);
-	
 	
 	
 
 public:
-	Slime();
-	~Slime();
+	Bee();
+	~Bee();
 
-	void _enter_tree ( ) override;
     void _ready() override;
 	void _process(double delta) override;
 
