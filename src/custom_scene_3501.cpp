@@ -15,7 +15,7 @@ CustomScene3501::CustomScene3501() : Node3D() {
 CustomScene3501::~CustomScene3501() {}
 
 void CustomScene3501::_enter_tree (){
-	if(DEBUG) UtilityFunctions::print("Enter Tree - CustomScene3501."); 
+	if(DEBUG) UtilityFunctions::print("Enter Tree - CustomScene3501.");
 
 	//Add Nodes to Scene
 	create_and_add_as_child<Player>(player, "Player");
@@ -90,7 +90,7 @@ void CustomScene3501::_ready ( ){
 		ParticleSystem* particle_system = particle_systems[index];
 
 		// this should never be needed, but can't hurt to have. 
-		if(particle_system == nullptr) continue; 
+		if(particle_system == nullptr) continue;
 		
 		dynamic_cast<ShaderMaterial*>(*particle_system->get_draw_pass_mesh(0)->surface_get_material(0))->set_shader_parameter("num_particles", particle_system->get_amount());
         dynamic_cast<ShaderMaterial*>(*particle_system->get_process_material())->set_shader_parameter("num_particles", particle_system->get_amount());
@@ -117,8 +117,8 @@ void CustomScene3501::init_player(Vector3 start_pos){
 
 void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
 	Prop* prop;
-	bool isNew = create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
-	prop->setup_prop(pos, size, mesh_filepath, texture_filepath_arr,num_textures,obj_name);
+	create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
+	prop->setup_prop(pos, size, mesh_filepath, texture_filepath_arr, num_textures, obj_name);
 	prop_instances.push_back(prop);
 }
 
@@ -139,7 +139,7 @@ void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, 
 void CustomScene3501::create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos){
 	// if you want to use non-zero argument constructors, here is an example of how to do that
 	ParticleSystem* system = memnew(ParticleSystem(shader_name, texture_name, size, pos));
-	add_as_child(system, node_name, true); 
+	add_as_child(system, node_name, true);
 	particle_systems.push_back(system);
 }
 
