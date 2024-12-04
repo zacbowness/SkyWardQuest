@@ -33,6 +33,10 @@
 #include <godot_cpp/classes/canvas_item.hpp> // for viewport size
 #include <godot_cpp/classes/control.hpp> // for the anchors preset
 
+//Screen Effects
+#include <godot_cpp/classes/quad_mesh.hpp>
+#include <godot_cpp/classes/shader_material.hpp>
+
 //File Inclusions
 #include "defs.h"
 #include "quat_camera.h"
@@ -63,6 +67,18 @@ private:
 
 	Vector2 perspective_change;
 
+	Vector<Ref<Shader>> effect_array;
+
+	Vector<String> effect_shaders = {
+		"earthquake" //At Location 0...
+	};
+
+	QuadMesh* screen_mesh;
+
+	//Screen Shader
+	MeshInstance3D* screen_quad_instance;
+	ShaderMaterial* screen_space_shader_material;
+
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
@@ -78,6 +94,7 @@ protected:
 	void turn_player(float angle);//for rotation left and right
 	Vector3 get_forward();
 	Vector3 get_side();
+	
 
 public:
 	Player();
@@ -86,6 +103,13 @@ public:
 	void _process(double delta) override;
 	void _enter_tree ( ) override;
 	void _ready ( ) override;
+
+	void init_screen_effects();
+
+	void setEffectScreen(int);
+
+	void resetEffectScreen();
+
 
 	//GETTER AND SETTER FUNCTIONS
 	CollisionShape3D* get_collider(){return player_body;}
@@ -126,6 +150,24 @@ public:
 			return false;
 		}
 	}
+
+	template <class T>
+	// returns true if pointer is brand-new; false if retrieved from SceneTree
+	inline bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent){
+	
+	Node* child = find_child(name);//find node with the given name
+
+	if(child == nullptr){//if child node was not found, create it
+		pointer = memnew(T);
+		pointer->set_name(name);
+		parent->add_child(pointer);
+		pointer->set_owner(get_tree()->get_edited_scene_root());
+		return true;
+	} else {
+		pointer = dynamic_cast<T*>(child);//if node with name already exists, assign it to pointer
+		return false;
+	}
+}
 
 };
 

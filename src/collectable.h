@@ -12,6 +12,7 @@
 #include <godot_cpp/core/memory.hpp> // for memnew
 #include <godot_cpp/variant/vector3.hpp>
 #include <godot_cpp/classes/sphere_shape3d.hpp>
+#include "player_scene.h"
 
 
 // everything in gdextension is defined in this namespace
@@ -24,6 +25,7 @@ private:
 	void init_body();
 	MeshInstance3D* collectable_mesh;
 	CollisionShape3D* collectable_body;
+	Player* player; 
 	
 protected:
 	static void _bind_methods();
@@ -34,8 +36,10 @@ public:
 	
 	void _enter_tree ( ) override;
 	void _ready ( ) override;
+	void _process(double delta) override;
 	void body_entered(Node3D*);
-	
+	inline Player* getPlayer(){return player;}
+	inline void setPlayer(Player* newPlayer){player = newPlayer;}
 
 	// the return type represents whether it existed already; true if it is brand-new; false if it was retrieved from the SceneTree
 	// search defines whether the scenetree should be checked for an instance

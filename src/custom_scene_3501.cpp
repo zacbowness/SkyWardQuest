@@ -112,7 +112,7 @@ void CustomScene3501::_process(double delta) {
 
 void CustomScene3501::init_player(Vector3 start_pos){
 	player->set_position(start_pos);
-	player->_ready();//call the player's ready function after we set the attributes we want !!IMPORTANT!!
+	//player->_ready();//call the player's ready function after we set the attributes we want !!IMPORTANT!!
 }
 
 void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
