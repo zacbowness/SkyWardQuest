@@ -38,41 +38,11 @@ Mesh* Prop::init_mesh(){
 }
 
 StaticBody3D* Prop::init_collider(){
-	StaticBody3D* collider = memnew(StaticBody3D);
-	collision_shape = memnew(CollisionShape3D);
+	StaticBody3D* collider;
 
-	/*
-	//Create Concave Shape From Mesh
-	Ref<ConvexPolygonShape3D> convex_shape;
-	convex_shape.instantiate();
-
-	//Collect all faces of the mesh into a Vector
-	PackedVector3Array collision_faces;
-	for(int i=0;i<obj_mesh->get_surface_count();i++){
-		//get array of surface at index i
-		Array surface_array = object_mesh->surface_get_arrays(i);
-
-		//Extract vertices and indices from surface array
-		PackedVector3Array vertices = surface_array[ArrayMesh::ARRAY_VERTEX];
-		PackedInt32Array indices = surface_array[ArrayMesh::ARRAY_INDEX];
-
-		if(indices.is_empty())continue; //if no indices, skip next step
-
-		//Iterate through faces and add them to the collision face vector
-		for(int j=0;j<indices.size();j+=3){//Iterate by 3 because of each face having 3 vertices
-			collision_faces.push_back(vertices[indices[j]]);
-            collision_faces.push_back(vertices[indices[j + 1]]);
-            collision_faces.push_back(vertices[indices[j + 2]]);
-		}
-	}
-	
-	convex_shape->set_points(collision_faces);
-
-	collision_shape->set_shape(convex_shape);
-	*/
-	//create_or_add_child<StaticBody3D>(collider, "Collision Body");
-	create_or_add_child<CollisionShape3D>(collision_shape, "Collision Shape");
-	
+	create_or_add_child<StaticBody3D>(collider, "Collision Body");
+	create_or_add_child<CollisionShape3D>(collision_shape, "Collision Shape", collider);
+	collision_shape->set_shape(import_tool->shape_from_Arraymesh(obj_mesh));
 
 	return collider;
 }

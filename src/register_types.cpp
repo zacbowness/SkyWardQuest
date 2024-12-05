@@ -24,7 +24,10 @@
 #include "bee_yellowBody.h"
 #include "bee_blackBody.h"
 #include "wolf.h"
+#include "flower.h"
 
+#include "skybox.h"
+#include "populate_mesh.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -50,6 +53,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<CollisionObject>();
 	ClassDB::register_class<DebugRect>();
 	ClassDB::register_class<Prop>();
+	ClassDB::register_class<Flower>();
 	
 	//Enemy Classes
 	ClassDB::register_class<Npc>();
@@ -74,6 +78,9 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<BeeBody>();
 	
 	
+	ClassDB::register_class<Skybox>();
+
+	ClassDB::register_class<Populatemesh>();
 	
 	
 }

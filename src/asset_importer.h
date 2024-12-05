@@ -97,6 +97,14 @@ public:
 		return mesh_import;
 	}
 
+	Ref<ConcavePolygonShape3D> shape_from_Arraymesh(Ref<ArrayMesh> mesh){
+		Ref<ConcavePolygonShape3D> collision_shape_mesh;
+		collision_shape_mesh = mesh->create_trimesh_shape();
+		return collision_shape_mesh;
+	}
+
+	
+
 
 
 
