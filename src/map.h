@@ -61,7 +61,13 @@ public:
 
     // Terrain generation method with customizable parameters
     void generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale);
-     void scatter_circles_on_mesh(int circle_count, float circle_radius);// function scatters circles across the mesh and can be replaced later
+    void scatter_circles_on_mesh(int circle_count, float circle_radius);// function scatters circles across the mesh and can be replaced later
+
+    //Getters
+    const Vector<Vector<float>>& get_heightfield() const;
+    int get_width() const;
+    int get_height() const;
+    float get_scale() const;
 
     // Add the function declaration for generating the 3D mesh
     Ref<ArrayMesh> generate_3d_mesh();

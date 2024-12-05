@@ -24,6 +24,8 @@ void CustomScene3501::_enter_tree (){
 
 	create_and_add_as_child<Map>(map,"Map");
 
+	create_and_add_as_child<Skybox>(skybox,"Skybox");
+
 	//create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0)); //Make a temp Particle System
 	init_debug_rects();	//add temp rect meshes to scene
 	init_props();		//add props to scene
