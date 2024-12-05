@@ -224,6 +224,22 @@ void Map::scatter_circles_on_mesh(int circle_count, float circle_radius) {
     memdelete(rng);
 }
 
+const Vector<Vector<float>>& Map::get_heightfield() const {
+    return heightfield;
+}
+
+int Map::get_width() const {
+    return width;
+}
+
+int Map::get_height() const {
+    return height;
+}
+
+float Map::get_scale() const {
+    return scale;
+}
+
 template <class T>
 // returns true if pointer is brand-new; false if retrieved from SceneTree
 bool Map::create_and_add_as_child(T* &pointer, String name){
