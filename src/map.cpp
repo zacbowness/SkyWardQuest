@@ -74,7 +74,12 @@ void Map::generate_heightfield() {
     for (int y = 0; y < height; ++y) {
         heightfield.write[y].resize(width);
         for (int x = 0; x < width; ++x) {
-            heightfield.write[y].write[x] = mountain_noise(x * scale, y * scale);
+            // Force edge points to y = 0
+            if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+                heightfield.write[y].write[x] = 0.0f; 
+            } else {
+                heightfield.write[y].write[x] = mountain_noise(x * scale, y * scale);
+            }
         }
     }
 
@@ -183,6 +188,97 @@ void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_per
 	collision_shape->set_shape(collision_shape_mesh);
 
     set_position(Vector3(0, 0, 0));
+}
+
+void Map::scatter_circles_on_mesh(int circle_count, float circle_radius) {
+    if (heightfield.is_empty() || heightfield[0].is_empty()) {
+        UtilityFunctions::print("Heightfield is not generated.");
+        return;
+    }
+
+    RandomNumberGenerator* rng = memnew(RandomNumberGenerator);
+    rng->randomize();
+
+    for (int i = 0; i < circle_count; ++i) {
+        int x = rng->randf_range(0, width - 1);
+        int y = rng->randf_range(0, height - 1);
+        float terrain_height = heightfield[y][x];
+
+        Node3D* circle_node = memnew(Node3D);
+        circle_node->set_name("Circle_" + String::num_int64(i));
+        circle_node->set_position(Vector3(x * scale, terrain_height + 0.5, y * scale));
+
+        MeshInstance3D* mesh_instance = memnew(MeshInstance3D);
+        Ref<SphereMesh> sphere_mesh = memnew(SphereMesh);
+        sphere_mesh->set_radius(circle_radius);
+        mesh_instance->set_mesh(sphere_mesh);
+
+        Ref<StandardMaterial3D> material = memnew(StandardMaterial3D);
+        material->set_albedo(Color(1.0, 0.0, 0.0)); // Bright red
+        mesh_instance->set_material_override(material);
+
+        circle_node->add_child(mesh_instance);
+        add_child(circle_node);
+    }
+
+    memdelete(rng);
+}
+
+Vector<Vector3> Map::scatter_props(const Vector<Vector<float>> &heightfield, int width, int height, float scale, int prop_count) {
+    Vector<Vector3> positions;
+
+    if (heightfield.is_empty() || heightfield[0].is_empty()) {
+        UtilityFunctions::print("Heightfield is not generated.");
+        return positions; // Return an empty list if the heightfield is invalid
+    }
+
+    RandomNumberGenerator *rng = memnew(RandomNumberGenerator);
+    rng->randomize();
+
+    for (int i = 0; i < prop_count; ++i) {
+        // Randomly select a position on the heightfield
+        int x = rng->randf_range(0, width - 1);
+        int y = rng->randf_range(0, height - 1);
+        float terrain_height = heightfield[y][x];
+
+        // Calculate the world position for the prop
+        Vector3 position = Vector3(x * scale, terrain_height + 0.5, y * scale);
+        positions.push_back(position); // Add the position to the list
+    }
+
+    memdelete(rng);
+    return positions;
+}
+
+void Map::print_heightfield() const {
+    if (heightfield.is_empty() || heightfield[0].is_empty()) {
+        UtilityFunctions::print("Heightfield is empty.");
+        return;
+    }
+
+    for (int y = 0; y < height; ++y) {
+        String row = "";
+        for (int x = 0; x < width; ++x) {
+            row += String::num_real(heightfield[y][x]) + " ";
+        }
+        UtilityFunctions::print(row);
+    }
+}
+
+const Vector<Vector<float>>& Map::get_heightfield() const {
+    return heightfield;
+}
+
+int Map::get_width() const {
+    return width;
+}
+
+int Map::get_height() const {
+    return height;
+}
+
+float Map::get_scale() const {
+    return scale;
 }
 
 template <class T>

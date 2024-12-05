@@ -37,8 +37,10 @@
 #include "player_scene.h"
 #include "slime.h"
 #include "map.h"
+#include "particle_system.h"
 #include "asset_importer.h"
 #include "prop.h"
+#include "skybox.h"
 
 
 // everything in gdextension is defined in this namespace
@@ -50,12 +52,14 @@ class CustomScene3501 : public Node3D {
 private:
 	double time_passed;
 
-	Map* map;
 	Player* player;
 	Slime* slime;
+	Map* map;
+	Skybox* skybox;
+
+	Vector<ParticleSystem*> particle_systems;
 
 	Vector<MeshInstance3D*> objects;
-	MeshInstance3D* testTree;
 	
 	Vector<DebugRect*> rect_instances;
 	Vector<Prop*> prop_instances;
@@ -86,14 +90,80 @@ public:
 	void _enter_tree ( ) override;
 	void _ready ( ) override;
 
+	//Takes in The Node Name, Name of the Shader File, Name of the Texture File, Size and Position to make a particle System
+	void create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos);
 
-	// the return type represents whether it existed already; true if it is brand-new; false if it was retrieved from the SceneTree
-	// search defines whether the scenetree should be checked for an instance
 	template <class T>
-	bool create_and_add_as_child(T* &pointer, String name);
-	
+	// returns true if pointer is brand-new; false if retrieved from SceneTree
+	bool create_and_add_as_child(T* &pointer, String name){
+
+		Node* child = find_child(name);
+		
+		if(child == nullptr){
+			pointer = memnew(T);
+			pointer->set_name(name);
+			add_child(pointer);
+			pointer->set_owner(get_tree()->get_edited_scene_root());
+			return true;
+		}
+		else{
+			pointer = dynamic_cast<T*>(child);
+			return false;
+		}
+	}
+
+
 	template <class T>
-	bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent);
+	// returns true if pointer is brand-new; false if retrieved from SceneTree
+	bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent){
+		
+		Node* child = find_child(name);//find node with the given name
+
+		if(child == nullptr){//if child node was not found, create it
+			pointer = memnew(T);
+			pointer->set_name(name);
+			parent->add_child(pointer);
+			pointer->set_owner(get_tree()->get_edited_scene_root());
+			return true;
+		} else {
+			pointer = dynamic_cast<T*>(child);//if node with name already exists, assign it to pointer
+			return false;
+		}
+	}
+
+	template <class T>
+	bool add_as_child(T* &pointer, String name, bool search){
+		// this is the default behaviour
+		// added the search parameter so that we can skip the slow "find_child" call during runtime
+		if(search == false){
+			pointer->set_name(name);
+			add_child(pointer);
+			pointer->set_owner(get_tree()->get_edited_scene_root());
+			return true;
+		}
+
+		// always only have to search once if we save it here
+		Node* child = find_child(name);
+		
+		// if the node hasn't been added to the SceneTree yet
+		if(child == nullptr){
+			pointer->set_name(name);
+			add_child(pointer);
+			pointer->set_owner(get_tree()->get_edited_scene_root());
+			return true;
+		}
+		// if we are grabbing the existent one, clean up the memory to the new one that was just made and passed as an argument
+		else{
+			if(pointer == nullptr){
+				UtilityFunctions::print("There is a nullptr being passed to add_as_child...");
+			}
+			else{
+				memdelete(pointer);
+			}
+			pointer = dynamic_cast<T*>(child);
+			return false;
+		}
+	}
 
 };
 

@@ -10,12 +10,15 @@
 #include "world_obj.h"
 #include "collision_obj.h"
 #include "npc.h"
-#include "terrain.h"
 #include "enemy.h"
 #include "player_scene.h"
 #include "map.h"
+#include "particle_system.h"
+#include "collectable.h"
 #include "asset_importer.h"
 #include "prop.h"
+#include "skybox.h"
+#include "populate_mesh.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -47,9 +50,20 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Enemy>();
 	ClassDB::register_class<Slime>();
 
-	//Making the world class
-	ClassDB::register_class<Terrain>();
+	//Map Class
 	ClassDB::register_class<Map>();
+
+	//Particle System Class
+	ClassDB::register_class<ParticleSystem>();
+
+	//Collectable Class
+	ClassDB::register_class<Collectable>();
+
+	ClassDB::register_class<Skybox>();
+
+	ClassDB::register_class<Populatemesh>();
+	
+	
 }
 
 // gets called when godot unloads our plugin
