@@ -242,7 +242,7 @@ Vector<Vector3> Map::scatter_props(const Vector<Vector<float>> &heightfield, int
         float terrain_height = heightfield[y][x];
 
         // Calculate the world position for the prop
-        Vector3 position = Vector3(x * scale, terrain_height + 0.5, y * scale);
+        Vector3 position = Vector3(x * scale, terrain_height - 0.15, y * scale);
         positions.push_back(position); // Add the position to the list
     }
 

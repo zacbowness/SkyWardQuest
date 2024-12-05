@@ -42,6 +42,9 @@
 #include "prop.h"
 #include "skybox.h"
 
+//LOCAL DEFINITIONS
+#define NUM_TERRAIN_PROPS 20
+
 
 // everything in gdextension is defined in this namespace
 namespace godot {
@@ -63,6 +66,7 @@ private:
 	
 	Vector<DebugRect*> rect_instances;
 	Vector<Prop*> prop_instances;
+	Vector<Prop*> terrain_prop_instances;
 	
 	//Setup Functions
 	void init_debug_rects();
@@ -73,6 +77,9 @@ private:
 
 	void init_props();
 	void create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepaths[], int num_textures);
+	void create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepaths[], int num_textures);//Polymorph that takes rotation
+	void create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepaths[], int num_textures);
+	void update_terrain_props(Vector<Vector3> pos_vect);
 
 	Dictionary mesh_filepaths;//Hash Map for mesh filepaths
 	Dictionary texture_filepaths;//Hash Map for texture filepaths
