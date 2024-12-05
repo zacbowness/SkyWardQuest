@@ -34,6 +34,8 @@ void CustomScene3501::_enter_tree (){
 void CustomScene3501::_ready ( ){
 	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
 
+	//String tree_textures[] = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
+
 	//Initialization Functions
 	init_player(Vector3(200,4.5,200));
 	
@@ -49,6 +51,23 @@ void CustomScene3501::_ready ( ){
 		40.0f,    // Max height (increase for taller mountains)
 		30.0f    // Mountain scale (increase for taller and more exaggerated mountains)
 	);
+
+	Vector<Vector<float>> heightfield = map->get_heightfield();
+	//map->print_heightfield(); //This prints the positions in the heightfield
+	Vector<Vector3> map_pos = map->scatter_props(heightfield, 15, 15, 20.0f, 20);
+	/*
+	//The following commented code should print the map positions to the screen and the following for 
+	//loop should put props on the screen but unfortunately adding props in this function crashes the code
+
+	for (int i = 0; i < map_pos.size(); ++i) {
+    	UtilityFunctions::print("Position ", i, ": ", map_pos[i]);
+	}
+	for (int i = 0; i < map_pos.size(); ++i) {
+		create_prop(Vector3(10,10,10), map_pos[i], terrainPropGroup,"Test Tree", String(mesh_filepaths["OakTree_1"]), tree_textures, 2);
+    }
+	*/
+	//populating->scatter_props(terrainPropGroup, heightfield, 15, 15, 20.0f, 10);
+	//map->scatter_circles_on_mesh(100, 1.5);
 
 	map->scatter_circles_on_mesh(100, 1.5);
 	

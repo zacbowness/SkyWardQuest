@@ -224,6 +224,47 @@ void Map::scatter_circles_on_mesh(int circle_count, float circle_radius) {
     memdelete(rng);
 }
 
+Vector<Vector3> Map::scatter_props(const Vector<Vector<float>> &heightfield, int width, int height, float scale, int prop_count) {
+    Vector<Vector3> positions;
+
+    if (heightfield.is_empty() || heightfield[0].is_empty()) {
+        UtilityFunctions::print("Heightfield is not generated.");
+        return positions; // Return an empty list if the heightfield is invalid
+    }
+
+    RandomNumberGenerator *rng = memnew(RandomNumberGenerator);
+    rng->randomize();
+
+    for (int i = 0; i < prop_count; ++i) {
+        // Randomly select a position on the heightfield
+        int x = rng->randf_range(0, width - 1);
+        int y = rng->randf_range(0, height - 1);
+        float terrain_height = heightfield[y][x];
+
+        // Calculate the world position for the prop
+        Vector3 position = Vector3(x * scale, terrain_height + 0.5, y * scale);
+        positions.push_back(position); // Add the position to the list
+    }
+
+    memdelete(rng);
+    return positions;
+}
+
+void Map::print_heightfield() const {
+    if (heightfield.is_empty() || heightfield[0].is_empty()) {
+        UtilityFunctions::print("Heightfield is empty.");
+        return;
+    }
+
+    for (int y = 0; y < height; ++y) {
+        String row = "";
+        for (int x = 0; x < width; ++x) {
+            row += String::num_real(heightfield[y][x]) + " ";
+        }
+        UtilityFunctions::print(row);
+    }
+}
+
 const Vector<Vector<float>>& Map::get_heightfield() const {
     return heightfield;
 }
