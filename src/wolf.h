@@ -13,12 +13,6 @@
 #include <godot_cpp/classes/engine.hpp>
 #include "enemy.h"
 
-enum State {
-    IDLE, //Will Stand Still But if a Player enters its range it will Chase
-    WANDER, //Random Walks around if there is a Player in Range it will Chase
-    CHASE //Follow the Last Seen Position in a Radius of a Player
-};
-
 namespace godot {
 
 class QuatCamera;

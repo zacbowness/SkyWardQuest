@@ -42,6 +42,10 @@ void Collectable::_ready ( ){
 	init_body();
 }
 
+void Collectable::_process(double delta){
+	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
+
+}
 void Collectable::body_entered(Node3D *body) {
     if (body) {
         UtilityFunctions::print("Body entered: ", body->get_name());

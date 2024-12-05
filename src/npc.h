@@ -45,6 +45,13 @@ protected:
 	inline bool inRadiusFromDest(float radius){return get_position().distance_to(destination) <= radius;}
 	Vector3 getRandomPointInRadius(float radius);
 
+	enum State {
+    IDLE, //Will Stand Still But if a Player enters its range it will Chase
+    WANDER, //Random Walks around if there is a Player in Range it will Chase
+    CHASE //Follow the Last Seen Position in a Radius of a Player
+	};
+
+
 private:	
 	bool GameOver;
 	
@@ -54,6 +61,7 @@ public:
 
 	void _process(double delta) override;	
 	void setPlayerPointer(CharacterBody3D* player);
+	inline CharacterBody3D* getPlayerPointer(){return player;}
 	void game_over() {GameOver = true;}
 	//Checks if the player is within Radius
 	//Uses the detectionRadius of the NPC
@@ -96,7 +104,7 @@ public:
 			return false;
 		}
 	}
-	
+
 };
 
 }
