@@ -35,12 +35,11 @@
 #include "enemy.h"
 #include "debug_rect.h"
 #include "player_scene.h"
-#include "slime.h"
 #include "map.h"
 #include "particle_system.h"
 #include "asset_importer.h"
 #include "prop.h"
-
+#include "npc.h"
 
 // everything in gdextension is defined in this namespace
 namespace godot {
@@ -52,9 +51,10 @@ private:
 	double time_passed;
 
 	Player* player;
-	Slime* slime;
 	Map* map;
 	Vector<ParticleSystem*> particle_systems;
+
+	Vector<Npc*> NpcList;
 
 	Vector<MeshInstance3D*> objects;
 	
@@ -70,6 +70,15 @@ private:
 
 	void init_props();
 	void create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepaths[], int num_textures);
+
+	enum NpcType{
+		SlimeNpc,
+		WolfNpc,
+		BeeNpc
+
+	};
+
+	void create_npc(NpcType, Vector3 pos);
 
 	Dictionary mesh_filepaths;//Hash Map for mesh filepaths
 	Dictionary texture_filepaths;//Hash Map for texture filepaths

@@ -17,15 +17,15 @@ Bee::~Bee() {}
 
 void Bee::_enter_tree(){
 	
+	//Initalize Bee's Body
+	init_body();
 	//Initalizes The Children that makes up a Bee 
-	create_or_add_child<MeshInstance3D>(npc_mesh, "Bee Mesh");
 	create_or_add_child<CollisionShape3D>(npc_body, "Bee Body");
 
 }
 
 void Bee::_ready (){
-	//Initalize Bee's Body
-	init_body();
+	
 }
 
 void Bee::_process(double delta){
@@ -80,13 +80,7 @@ void Bee::_process(double delta){
 
 void Bee::init_body(){
 	//Create Sphere and Mesh
-	BoxMesh* boxMesh = memnew(BoxMesh);
-    boxMesh->set_size(Vector3(0.5f,0.5f,0.5f));
-
-	StandardMaterial3D* material = memnew(StandardMaterial3D);
-	material->set_albedo(Color(0, 0, 1, 1));
-	boxMesh->surface_set_material(0, material);
-	npc_mesh->set_mesh(boxMesh);
+	create_and_add_as_child<BeeBody>(body, "Bee Body", true);
 
 	//Create Sphere Colider 
 	BoxShape3D* boxColider = memnew(BoxShape3D);
@@ -139,4 +133,3 @@ bool Bee::flowerInRadius(){
 	}
 	return distanceFromPlayer() <= detectionRadius;
 }
-

@@ -153,7 +153,7 @@ public:
 
 	template <class T>
 	// returns true if pointer is brand-new; false if retrieved from SceneTree
-	inline bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent){
+	bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent){
 	
 	Node* child = find_child(name);//find node with the given name
 

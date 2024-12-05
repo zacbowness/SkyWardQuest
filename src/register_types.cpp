@@ -11,12 +11,20 @@
 #include "collision_obj.h"
 #include "npc.h"
 #include "enemy.h"
+#include "friendly.h"
 #include "player_scene.h"
 #include "map.h"
 #include "particle_system.h"
 #include "collectable.h"
 #include "asset_importer.h"
 #include "prop.h"
+#include "bee.h"
+#include "bee_part.h"
+#include "bee_fullBody.h"
+#include "bee_yellowBody.h"
+#include "bee_blackBody.h"
+#include "wolf.h"
+
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -47,6 +55,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Npc>();
 	ClassDB::register_class<Enemy>();
 	ClassDB::register_class<Slime>();
+	ClassDB::register_class<Wolf>();
 
 	//Map Class
 	ClassDB::register_class<Map>();
@@ -56,6 +65,15 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 
 	//Collectable Class
 	ClassDB::register_class<Collectable>();
+
+	//Bee Classes
+	ClassDB::register_class<Bee>();
+	ClassDB::register_class<BeePart>();
+	ClassDB::register_class<BeeYBody>();
+	ClassDB::register_class<BeeBBody>();
+	ClassDB::register_class<BeeBody>();
+	
+	
 	
 	
 }
