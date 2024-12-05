@@ -35,6 +35,11 @@ void CustomScene3501::init_props(){
 	String tree_textures[] = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
 	create_prop(Vector3(10,10,10), Vector3(5,5,0), terrainPropGroup,"Test Tree", String(mesh_filepaths["OakTree_1"]), tree_textures, 2);
 	create_prop(Vector3(10,10,10), Vector3(-5,5,0), terrainPropGroup,"Test Tree 2", String(mesh_filepaths["OakTree_2"]), tree_textures, 2);
+
+	//INITIALIZE TERRAIN PROPS
+	for(int i=0;i<NUM_TERRAIN_PROPS;i++){
+		create_terrain_prop(Vector3(30.0,30.0,30.0), Vector3(-90.0, 0,0), terrainPropGroup,vformat("Gen_Tree_%d",i), String(mesh_filepaths["OakTree_1"]), tree_textures, 2);
+	}
 }
 
 void CustomScene3501::init_player(Vector3 start_pos){
