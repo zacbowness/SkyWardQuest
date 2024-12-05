@@ -26,6 +26,10 @@ void CustomScene3501::_enter_tree (){
 
 	create_and_add_as_child<Skybox>(skybox,"Skybox");
 
+	create_and_add_as_child<Node>(propGroup, "Game Props");//Create group node
+
+	create_and_add_as_child_of_Node<Node>(terrainPropGroup, "Terrain Props", propGroup);
+
 	//create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0)); //Make a temp Particle System
 	init_debug_rects();	//add temp rect meshes to scene
 	init_props();		//add props to scene
@@ -52,13 +56,10 @@ void CustomScene3501::init_debug_rects(){
 }
 
 void CustomScene3501::init_props(){
-	Node* propGroup;
-	create_and_add_as_child<Node>(propGroup, "Game Props");//Create group node
-
-	Node* terrainPropGroup;
-	create_and_add_as_child_of_Node<Node>(terrainPropGroup, "Terrain Props", propGroup);
-
 	String tree_textures[] = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
+
+	//The old nodes that were created and added to the scene are now in the header file and added to the scene in the _enter_tree() function
+
 	create_prop(Vector3(10,10,10), Vector3(5,5,0), terrainPropGroup,"Test Tree", String(mesh_filepaths["OakTree_1"]), tree_textures, 2);
 	create_prop(Vector3(10,10,10), Vector3(-5,5,0), terrainPropGroup,"Test Tree 2", String(mesh_filepaths["OakTree_2"]), tree_textures, 2);
 }
@@ -66,6 +67,7 @@ void CustomScene3501::init_props(){
 void CustomScene3501::_ready ( ){
 	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
 
+	String tree_textures[] = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
 	//Initialization Functions
 	init_player(Vector3(200,4.5,200));
 	
@@ -82,9 +84,22 @@ void CustomScene3501::_ready ( ){
 		30.0f    // Mountain scale (increase for taller and more exaggerated mountains)
 	);
 
-	map->scatter_circles_on_mesh(100, 1.5);
-	
-	
+	Vector<Vector<float>> heightfield = map->get_heightfield();
+	//map->print_heightfield(); //This prints the positions in the heightfield
+	Vector<Vector3> map_pos = map->scatter_props(heightfield, 15, 15, 20.0f, 20);
+	/*
+	//The following commented code should print the map positions to the screen and the following for 
+	//loop should put props on the screen but unfortunately adding props in this function crashes the code
+
+	for (int i = 0; i < map_pos.size(); ++i) {
+    	UtilityFunctions::print("Position ", i, ": ", map_pos[i]);
+	}
+	for (int i = 0; i < map_pos.size(); ++i) {
+		create_prop(Vector3(10,10,10), map_pos[i], terrainPropGroup,"Test Tree", String(mesh_filepaths["OakTree_1"]), tree_textures, 2);
+    }
+	*/
+	//populating->scatter_props(terrainPropGroup, heightfield, 15, 15, 20.0f, 10);
+	//map->scatter_circles_on_mesh(100, 1.5);
 
 	//Update Particle Systems with Location and Otherwise 
 	for(int index = 0; index < particle_systems.size(); index++){

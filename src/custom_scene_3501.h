@@ -56,6 +56,8 @@ private:
 	Slime* slime;
 	Map* map;
 	Skybox* skybox;
+	Node* propGroup;
+	Node* terrainPropGroup;
 
 	Vector<ParticleSystem*> particle_systems;
 
