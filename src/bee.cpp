@@ -20,7 +20,7 @@ void Bee::_enter_tree(){
 	//Initalize Bee's Body
 	init_body();
 	//Initalizes The Children that makes up a Bee 
-	create_or_add_child<CollisionShape3D>(npc_body, "Bee Body");
+	//create_or_add_child<CollisionShape3D>(npc_body, "Bee Body");
 
 }
 
@@ -81,10 +81,14 @@ void Bee::_process(double delta){
 void Bee::init_body(){
 	//Create Sphere and Mesh
 	create_and_add_as_child<BeeBody>(body, "Bee Body", true);
+	create_and_add_as_child_parent(eye1, "Bee Eye 1", true, body, "Bee Body", Vector3(0.4, 0.075, 0.075));
+	create_and_add_as_child_parent(eye2, "Bee Eye 2", true, body, "Bee Body", Vector3(0.4, 0.075, -0.075));
+	create_and_add_as_child_parent(wing1, "Bee Wing 1", true, body, "Bee Body", Vector3(0.0, 0.125, 0.150));
+	create_and_add_as_child_parent(wing2, "Bee Wing 2", true, body, "Bee Body", Vector3(0.0, 0.125, -0.150));
 
 	//Create Sphere Colider 
-	BoxShape3D* boxColider = memnew(BoxShape3D);
-	npc_body->set_shape(boxColider);	
+	// BoxShape3D* boxColider = memnew(BoxShape3D);
+	// npc_body->set_shape(boxColider);	
 }
 
 //Sets The Direction the Bee wants to approach in

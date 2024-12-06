@@ -23,6 +23,9 @@
 #include "bee_fullBody.h"
 #include "bee_yellowBody.h"
 #include "bee_blackBody.h"
+#include "bee_eyes.h"
+#include "bee_leftwing.h"
+#include "bee_rightwing.h"
 #include "wolf.h"
 #include "flower.h"
 
@@ -71,10 +74,14 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Collectable>();
 
 	//Bee Classes
+	ClassDB::register_class<Friend>();
 	ClassDB::register_class<Bee>();
 	ClassDB::register_class<BeePart>();
 	ClassDB::register_class<BeeYBody>();
 	ClassDB::register_class<BeeBBody>();
+	ClassDB::register_class<BeeEye>();
+	ClassDB::register_class<BeeLWing>();
+	ClassDB::register_class<BeeRWing>();
 	ClassDB::register_class<BeeBody>();
 	
 	

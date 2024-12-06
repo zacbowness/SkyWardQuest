@@ -19,6 +19,10 @@
 #include "flower.h"
 #include "bee_part.h"
 #include "bee_fullBody.h"
+#include "bee_eyes.h"
+#include "bee_leftwing.h"
+#include "bee_rightwing.h"
+
 
 namespace godot {
 
@@ -39,6 +43,10 @@ enum State {
 
 private:
 	BeeBody* body; 
+	BeeEye* eye1; 
+	BeeEye* eye2; 
+	BeeLWing* wing1; 
+	BeeRWing* wing2; 
 	//Vector of Every Flower
 	std::vector<Flower*> flowerVector;
 

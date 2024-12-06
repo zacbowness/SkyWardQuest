@@ -55,6 +55,7 @@ class Player : public CharacterBody3D {
 
 private:
 	double time_passed;
+	int collectableAmount = 0;
 
 	//Object Pointers
 	QuatCamera* main_camera;
@@ -109,6 +110,10 @@ public:
 	void setEffectScreen(int);
 
 	void resetEffectScreen();
+
+	inline int getCollectable(){return collectableAmount;}
+	inline void setCollectable(int newAmount){collectableAmount = newAmount;}
+
 
 
 	//GETTER AND SETTER FUNCTIONS

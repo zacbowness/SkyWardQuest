@@ -22,8 +22,8 @@ void BeeBody::_enter_tree ( ) {
 	create_and_add_as_child<BeeYBody>(yellowBody1, "Yellow Body 1", true);
 	create_and_add_as_child<BeeYBody>(yellowBody2, "Yellow Body 2", true);
 	create_and_add_as_child<BeeBBody>(blackBody1, "Black Body 1", true);
-	yellowBody1->set_local_position(Vector3(yellowBody1->get_position().x + 0.25, yellowBody1->get_position().y, yellowBody1->get_position().z));
-	yellowBody2->set_local_position(Vector3(yellowBody1->get_position().x - 0.25, yellowBody1->get_position().y, yellowBody1->get_position().z));
+	yellowBody1->set_local_position(Vector3(0.25, 0, 0));
+	yellowBody2->set_local_position(Vector3(-0.25, 0, 0));
 }
 
 // You may not unset this class as top level (from parent)
