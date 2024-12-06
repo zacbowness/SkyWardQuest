@@ -8,7 +8,11 @@
 using namespace godot;
 
 Map::Map()
-    : width(256), height(256), octaves(4), persistence(0.5), scale(1.0), max_height(10.0), mountain_scale(50.0) {}
+    : width(256), height(256), octaves(4), persistence(0.5), scale(1.0), max_height(10.0), mountain_scale(50.0),random_seed(12345) {
+    Vector3 start(50.0f, 0.0f, 50.0f);
+    Vector3 stop(200.0f, 0.0f, 200.0f);
+    float path_width = 10.0f;
+    }
 
 Map::~Map() {}
 
@@ -233,7 +237,8 @@ Vector<Vector3> Map::scatter_props(const Vector<Vector<float>> &heightfield, int
     }
 
     RandomNumberGenerator *rng = memnew(RandomNumberGenerator);
-    rng->randomize();
+    rng->set_seed(random_seed); // Set a fixed seed for reproducible results
+    //rng->randomize(); Use this line instead of the one above if you want seed to be randomized
 
     for (int i = 0; i < prop_count; ++i) {
         // Randomly select a position on the heightfield
@@ -249,7 +254,49 @@ Vector<Vector3> Map::scatter_props(const Vector<Vector<float>> &heightfield, int
     memdelete(rng);
     return positions;
 }
+/*
+void Map::create_flat_path(Vector3 start, Vector3 stop, float path_width) {
+    if (heightfield.is_empty() || heightfield[0].is_empty()) {
+        UtilityFunctions::print("Heightfield is not generated.");
+        return;
+    }
 
+    // Convert start and stop to grid coordinates
+    start /= scale;
+    stop /= scale;
+
+    // Determine the direction vector of the path
+    Vector2 start_2d(start.x, start.z);
+    Vector2 stop_2d(stop.x, stop.z);
+    Vector2 direction = stop_2d - start_2d;
+    float length = direction.length();
+    direction /= length; // Normalize the direction vector
+
+    // Loop over the points along the path
+    for (float t = 0; t <= length; t += 1.0f) {
+        Vector2 point_2d = start_2d + direction * t;
+
+        int center_x = static_cast<int>(point_2d.x);
+        int center_z = static_cast<int>(point_2d.y);
+
+        // Flatten a square area around the path center
+        int half_width = static_cast<int>(path_width / (2.0f * scale));
+        for (int dz = -half_width; dz <= half_width; ++dz) {
+            for (int dx = -half_width; dx <= half_width; ++dx) {
+                int x = center_x + dx;
+                int z = center_z + dz;
+
+                // Ensure we don't go out of bounds
+                if (x >= 0 && x < width && z >= 0 && z < height) {
+                    heightfield.write[z].write[x] = 0.0f; // Flatten to y = 0
+                }
+            }
+        }
+    }
+
+    UtilityFunctions::print("Flat path created from " + start + " to " + stop + ".");
+}
+*/
 void Map::print_heightfield() const {
     if (heightfield.is_empty() || heightfield[0].is_empty()) {
         UtilityFunctions::print("Heightfield is empty.");
