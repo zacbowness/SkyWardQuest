@@ -32,8 +32,10 @@ protected:
 	
 	StandardMaterial3D* material;
 	CollisionShape3D* collision_shape;
+	
 	Vector3 scale;
 	Vector3 position;
+	Vector3 rotation_offset;
 	String prop_name;
 	
 	String mesh_filepath;
@@ -54,8 +56,10 @@ public:
 	Mesh* init_mesh() override;
 	StaticBody3D* init_collider() override;
 
-	void setup_prop(Vector3 position, Vector3 scale, String mesh_filepath, String texture_filepaths[], int num_textures, String name);
+	void setup_prop(Vector3 position, Vector3 scale, Vector3 rotation, String mesh_filepath, String texture_filepaths[], int num_textures, String name);
 	void update_prop();
+
+	void new_position(Vector3 pos);
 };
 
 }
