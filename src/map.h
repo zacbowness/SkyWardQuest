@@ -30,6 +30,7 @@ private:
     float max_height;
     float mountain_scale;
     int random_seed;
+    Vector<Vector2>path_vertices;
     Vector<Vector<float>> heightfield;
 
 	CollisionShape3D* collision_shape;
@@ -48,7 +49,6 @@ private:
     void smooth_heightfield();
     void advanced_smooth_heightfield();  // Advanced smoothing function (Gaussian blur)
     void apply_grassy_material();
-    //void create_flat_path(Vector3 start, Vector3 stop, float path_width) 
 
 protected:
     static void _bind_methods();
@@ -67,6 +67,7 @@ public:
     void print_heightfield() const;
 
     Vector<Vector3> scatter_props(const Vector<Vector<float>> &heightfield, int width, int height, float scale, int prop_count);
+    void create_flat_path(Vector3 start, Vector3 stop, float path_width); 
 
     //Getters
     const Vector<Vector<float>>& get_heightfield() const;

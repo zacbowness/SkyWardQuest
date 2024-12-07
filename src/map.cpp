@@ -149,27 +149,36 @@ Ref<ArrayMesh> Map::generate_3d_mesh() {
             Vector3 normal1 = (v1 - v0).cross(v2 - v0).normalized();
             Vector3 normal2 = (v3 - v1).cross(v2 - v1).normalized();
 
+            // Check if the vertex is part of the path
+            Color vertex_color = Color(0.1, 0.9, 0.1); // Default terrain color
+            if (path_vertices.has(Vector2(x, y))) {
+                vertex_color = Color(0.5, 0.5, 0.5); // Gray for the path
+            }
+
             surface_tool->set_normal(normal1);
+            surface_tool->set_color(vertex_color);
             surface_tool->add_vertex(v0);
             surface_tool->add_vertex(v1);
             surface_tool->add_vertex(v2);
 
             surface_tool->set_normal(normal2);
+            surface_tool->set_color(vertex_color);
             surface_tool->add_vertex(v1);
             surface_tool->add_vertex(v3);
             surface_tool->add_vertex(v2);
         }
     }
 
-	Ref<ArrayMesh> newMesh = surface_tool->commit();
+    Ref<ArrayMesh> newMesh = surface_tool->commit();
     mesh = *newMesh;
 
-	StandardMaterial3D* material = memnew(StandardMaterial3D);
-    material->set_albedo(Color(0.1, 0.9, 0.1));
+    StandardMaterial3D* material = memnew(StandardMaterial3D);
+    material->set_albedo(Color(0.1, 0.9, 0.1)); // Default terrain material
     mesh->surface_set_material(0, material);
 
     return mesh;
 }
+
 
 void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale) {
     width = p_width;
@@ -180,12 +189,15 @@ void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_per
     max_height = p_max_height;
     mountain_scale = p_mountain_scale;
 
+    Vector3 start = Vector3(5.0f, 0.0f, 5.0f);
+	Vector3 stop= Vector3(100.0f, 0.0f, 5.0f);
+	float path_width = 100.0f;
+
     generate_heightfield();
+    create_flat_path(start, stop, path_width);
     Ref<ArrayMesh> newMesh = generate_3d_mesh();
 
-	set_mesh(newMesh);  // Directly set the mesh for MeshInstance3D
-
-    // Add StaticBody3D
+	set_mesh(newMesh);
     
     // Create collision shape
     Ref<ConcavePolygonShape3D> collision_shape_mesh = newMesh->create_trimesh_shape();
@@ -237,6 +249,7 @@ Vector<Vector3> Map::scatter_props(const Vector<Vector<float>> &heightfield, int
     }
 
     RandomNumberGenerator *rng = memnew(RandomNumberGenerator);
+    //TODO - manipulate to not include areas that are part of the path
     rng->set_seed(random_seed); // Set a fixed seed for reproducible results
     //rng->randomize(); Use this line instead of the one above if you want seed to be randomized
 
@@ -254,7 +267,7 @@ Vector<Vector3> Map::scatter_props(const Vector<Vector<float>> &heightfield, int
     memdelete(rng);
     return positions;
 }
-/*
+
 void Map::create_flat_path(Vector3 start, Vector3 stop, float path_width) {
     if (heightfield.is_empty() || heightfield[0].is_empty()) {
         UtilityFunctions::print("Heightfield is not generated.");
@@ -272,23 +285,26 @@ void Map::create_flat_path(Vector3 start, Vector3 stop, float path_width) {
     float length = direction.length();
     direction /= length; // Normalize the direction vector
 
-    // Loop over the points along the path
+    // Loop over path points
     for (float t = 0; t <= length; t += 1.0f) {
         Vector2 point_2d = start_2d + direction * t;
 
         int center_x = static_cast<int>(point_2d.x);
         int center_z = static_cast<int>(point_2d.y);
 
-        // Flatten a square area around the path center
+        // Flatten and color a square area around the path center
         int half_width = static_cast<int>(path_width / (2.0f * scale));
         for (int dz = -half_width; dz <= half_width; ++dz) {
             for (int dx = -half_width; dx <= half_width; ++dx) {
                 int x = center_x + dx;
                 int z = center_z + dz;
 
-                // Ensure we don't go out of bounds
+                // Out of bounds check
                 if (x >= 0 && x < width && z >= 0 && z < height) {
                     heightfield.write[z].write[x] = 0.0f; // Flatten to y = 0
+
+                    // Mark the path vertices for custom coloring
+                    path_vertices.push_back(Vector2(x, z));
                 }
             }
         }
@@ -296,7 +312,7 @@ void Map::create_flat_path(Vector3 start, Vector3 stop, float path_width) {
 
     UtilityFunctions::print("Flat path created from " + start + " to " + stop + ".");
 }
-*/
+
 void Map::print_heightfield() const {
     if (heightfield.is_empty() || heightfield[0].is_empty()) {
         UtilityFunctions::print("Heightfield is empty.");

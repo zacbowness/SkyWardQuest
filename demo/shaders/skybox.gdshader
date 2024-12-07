@@ -4,7 +4,7 @@ render_mode unshaded;
 render_mode cull_disabled;
 
 uniform sampler2D texture_albedo; 
-uniform float scroll_speed_x : hint_range(-1.0, 1.0) = 0.015;
+uniform float scroll_speed_x : hint_range(-1.0, 1.0) = 0.05;
 
 void fragment() {
     // Generate UV coordinates from vertex position
