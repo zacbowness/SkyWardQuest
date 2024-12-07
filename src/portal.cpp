@@ -45,7 +45,7 @@ void Portal::_ready ( ){
 void Portal::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
 
-	//Make a Statement that switches the Portal on when there is x collectables collected 
+	//Make a Statement that switches the Portal on when there is 3 collectables collected 
 
 }
 void Portal::body_entered(Node3D *body) {

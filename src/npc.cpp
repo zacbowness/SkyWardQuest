@@ -3,7 +3,6 @@
 
 #include "quat_camera.h"
 
-
 using namespace godot;
 
 void Npc::_bind_methods() {}

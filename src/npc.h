@@ -15,6 +15,7 @@
 #include <godot_cpp/classes/collision_shape3d.hpp>
 #include <godot_cpp/core/memory.hpp> // for memnew
 #include "defs.h"
+#include "asset_importer.h"
 
 
 
