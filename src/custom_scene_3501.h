@@ -41,7 +41,8 @@
 #include "prop.h"
 #include "npc.h"
 #include "skybox.h"
-
+#include "collectable.h"
+#include "portal.h"
 
 // everything in gdextension is defined in this namespace
 namespace godot {
@@ -55,6 +56,9 @@ private:
 	Player* player;
 	Map* map;
 	Skybox* skybox;
+
+	Vector<Collectable*> collectableList;
+	Portal* portal;
 
 	Vector<ParticleSystem*> particle_systems;
 
@@ -74,6 +78,9 @@ private:
 
 	void init_props();
 	void create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepaths[], int num_textures);
+
+	void createCollectable(Vector3 pos);
+	void createPortal(Vector3 pos);
 
 	enum NpcType{
 		SlimeNpc,

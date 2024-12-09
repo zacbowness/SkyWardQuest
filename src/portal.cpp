@@ -61,7 +61,7 @@ void Portal::init_body(){
 	sphereMesh->set_radius(1.0f);
 
 	StandardMaterial3D* material = memnew(StandardMaterial3D);
-	material->set_albedo(Color(0, 0, 0, 1));
+	material->set_albedo(Color(1, 1, 0, 1));
 	sphereMesh->surface_set_material(0, material);
 	Portal_mesh->set_mesh(sphereMesh);
 

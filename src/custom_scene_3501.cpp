@@ -131,6 +131,20 @@ void CustomScene3501::create_npc(NpcType type, Vector3 pos){
 	} 
 }
 
+void CustomScene3501::createCollectable(Vector3 pos){
+	Collectable* temp;
+	create_and_add_as_child<Collectable>(temp, vformat("Collectable %d", collectableList.size()));
+	temp->setPlayer(player);
+	temp->set_position(pos);
+	collectableList.push_back(temp);
+}
+
+void CustomScene3501::createPortal(Vector3 pos){
+	create_and_add_as_child<Portal>(portal, "Portal");
+	portal->setPlayer(player);
+	portal->set_position(pos);
+}
+
 
 /*
 *

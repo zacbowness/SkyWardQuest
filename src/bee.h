@@ -48,20 +48,20 @@ private:
 	BeeLWing* wing1; 
 	BeeRWing* wing2; 
 	//Vector of Every Flower
-	std::vector<Flower*> flowerVector;
+	//std::vector<Flower*> flowerVector;
 
 	bool checkForPlayer();
 	void chasePlayer();
 	void init_body();
 	void approachDirection(Vector3, double) override;
-	inline float distanceFromFlower(Flower* flower){return get_position().distance_to(flower->get_position());}
-	bool flowerInRadius();
+	//inline float distanceFromFlower(Flower* flower){return get_position().distance_to(flower->get_position());}
+	//bool flowerInRadius();
 	
 	
 
 	Vector3 calculateMovement(Vector3 direction, Vector3 velocity, double delta);
-	State beeState = IDLE;
-	Flower* closestFlower = nullptr;
+	State beeState = WANDER;
+	//Flower* closestFlower = nullptr;
 	
 
 public:

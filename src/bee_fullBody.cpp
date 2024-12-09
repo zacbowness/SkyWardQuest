@@ -30,6 +30,8 @@ void BeeBody::_enter_tree ( ) {
 
 void BeeBody::_process(double delta){
 	set_global_transform(get_transformation_matrix());  
+	Vector3 position = get_global_position();
+    set_global_position(position);
 }
 
 /*

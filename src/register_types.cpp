@@ -28,7 +28,7 @@
 #include "bee_rightwing.h"
 #include "wolf.h"
 #include "flower.h"
-
+#include "portal.h"
 #include "skybox.h"
 #include "populate_mesh.h"
 
@@ -72,6 +72,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 
 	//Collectable Class
 	ClassDB::register_class<Collectable>();
+	ClassDB::register_class<Portal>();
 
 	//Bee Classes
 	ClassDB::register_class<Friend>();
