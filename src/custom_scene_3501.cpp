@@ -32,25 +32,34 @@ void CustomScene3501::_enter_tree (){
 	//create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0)); //Make a temp Particle System
 	init_debug_rects();	//add temp rect meshes to scene
 	init_props();		//add props to scene
+
+	
 }
 
 void CustomScene3501::_ready ( ){
 	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
 
+	//String tree_textures[] = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
+
 	//Initialization Functions
-	init_player(Vector3(200,4.5,200));
+	init_player(Vector3(3,4.5,3));
 	
 	map->generate_terrain(
-		15,      // Width
-		15,      // Height
-		8,        // Octaves (keep it at 4 for more detail, but adjust if needed)
-		3.0f,     // Persistence (adjust for smoother or more jagged terrain)
-		20.0f,    // Scale (higher scale spreads out the features more)
-		40.0f,    // Max height (increase for taller mountains)
-		30.0f    // Mountain scale (increase for taller and more exaggerated mountains)
+		MAP_WIDTH,
+		MAP_HEIGHT,
+		MAP_OCTAVES,
+		MAP_PERSISTENCE,
+		MAP_SCALE,
+		MAP_MAX_HEIGHT,
+		MAP_MOUNTAIN_SCALE
 	);
 
-	map->scatter_circles_on_mesh(100, 1.5);
+	//Get Valid Positions on the terrain mesh to place tree/rock/env objects
+	Vector<Vector<float>> heightfield = map->get_heightfield();
+	Vector<Vector3> map_pos = map->scatter_props(heightfield, MAP_WIDTH, MAP_HEIGHT, MAP_SCALE, NUM_TERRAIN_PROPS);
+	//for(Vector3 pos : map_pos) UtilityFunctions::print(pos);
+
+	//map->scatter_circles_on_mesh(100, 1.5);
 	
 	//Update Particle Systems with Location and Otherwise 
 	for(int index = 0; index < particle_systems.size(); index++){
@@ -69,7 +78,10 @@ void CustomScene3501::_ready ( ){
 	
 	//Update Prop Objects to set their location and positions
 	for(Prop* obj : prop_instances) obj->update_prop();
+
+	update_terrain_props(map_pos);
 }
+
 
 // called every frame (as often as possible)
 void CustomScene3501::_process(double delta) {
@@ -81,8 +93,34 @@ void CustomScene3501::_process(double delta) {
 void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
 	Prop* prop;
 	create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
-	prop->setup_prop(pos, size, mesh_filepath, texture_filepath_arr, num_textures, obj_name);
+	prop->setup_prop(pos, Vector3(0,0,0), size, mesh_filepath, texture_filepath_arr, num_textures, obj_name);
 	prop_instances.push_back(prop);
+}
+
+void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
+	Prop* prop;
+	create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
+	prop->setup_prop(pos, rotation, size, mesh_filepath, texture_filepath_arr, num_textures, obj_name);
+	prop_instances.push_back(prop);
+}
+
+void CustomScene3501::create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
+	Prop* prop;
+	create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
+	prop->setup_prop(Vector3(0,0,0), rotation, size, mesh_filepath, texture_filepath_arr, num_textures, obj_name);
+	terrain_prop_instances.push_back(prop);
+}
+
+void CustomScene3501::update_terrain_props(Vector<Vector3> pos_vect){
+	int count = 0;
+	for(Prop* obj : terrain_prop_instances){
+		if(count<pos_vect.size()){
+			obj->new_position(pos_vect[count]);
+		} 
+		else UtilityFunctions::print("ERROR: Not Enough Unique Positions For Terrain Props");
+		obj->update_prop();
+		count++;
+	}
 }
 
 void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name){

@@ -9,6 +9,7 @@ void Prop::_bind_methods() {}
 Prop::Prop() {
 	scale = Vector3(1,1,1);
 	position = Vector3(0,0,0);
+	rotation_offset = Vector3(0,0,0);
 }
 
 Prop::~Prop() {}
@@ -48,7 +49,7 @@ StaticBody3D* Prop::init_collider(){
 }
 
 //Import base values to memeber variables
-void Prop::setup_prop(Vector3 position, Vector3 scale, String mesh_filepath, String texture_filepaths[], int num_textures, String name){
+void Prop::setup_prop(Vector3 position, Vector3 rotation, Vector3 scale, String mesh_filepath, String texture_filepaths[], int num_textures, String name){
 	//copy filepaths into member variables so that they can be used in init_mesh()
 	this->mesh_filepath = mesh_filepath;
 	for(int i=0; i<num_textures;i++)this->texture_filepaths.push_back(texture_filepaths[i]);
@@ -57,10 +58,15 @@ void Prop::setup_prop(Vector3 position, Vector3 scale, String mesh_filepath, Str
 	prop_name = name;
 	this->position = position;
 	this->scale = scale;
+	rotation_offset = rotation;
 }
 
 void Prop::update_prop(){
+	set_global_rotation_degrees(rotation_offset);
 	set_position(position);
 	set_scale(scale);
 	set_mesh(object_mesh);
+	//Vector3 local_rotation = get_global_rotation_degrees();
 }
+
+void Prop::new_position(Vector3 pos) {position = pos;}
