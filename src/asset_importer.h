@@ -49,7 +49,7 @@ private:
 		}
 
 		Ref<ImageTexture> texture = ImageTexture::create_from_image(image);
-		UtilityFunctions::print("Image Converted To Texture :)");
+		//UtilityFunctions::print("Image Converted To Texture :)");
 
 		if(texture.is_null()){
 			ERR_PRINT("Image Could Not Be Converted To Texture");
@@ -73,7 +73,7 @@ public:
 
 	//Import a mesh from given filepath
 	Ref<ArrayMesh> import_mesh(String mesh_filepath, Vector<String> texture_filepath){
-		if(DEBUG)UtilityFunctions::print("Importing File: "+mesh_filepath);
+		//if(DEBUG)UtilityFunctions::print("Importing File: "+mesh_filepath);
 		//Load Model from GLTF file
 		Ref<ArrayMesh> mesh_import = ResourceLoader::get_singleton()->load(mesh_filepath);
 		
@@ -87,7 +87,7 @@ public:
 			StandardMaterial3D* material = memnew(StandardMaterial3D);
 			Ref<ImageTexture> img_tex = import_img_tex(texture_filepath[i]);
 
-			UtilityFunctions::print(texture_filepath[i]);
+			//UtilityFunctions::print(texture_filepath[i]);
 			if(!img_tex.is_null()) material->set_texture(StandardMaterial3D::TEXTURE_ALBEDO, img_tex);
 			else return nullptr;
 			if(i<mesh_import->get_surface_count()) mesh_import->surface_set_material(i, material);
