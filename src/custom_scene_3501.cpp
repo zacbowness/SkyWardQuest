@@ -44,6 +44,7 @@ void CustomScene3501::_ready ( ){
 	//Initialization Functions
 	init_player(Vector3(3,4.5,3));
 	
+	//Generate Terrain (Values are modifiable in defs.h)
 	map->generate_terrain(
 		MAP_WIDTH,
 		MAP_HEIGHT,
