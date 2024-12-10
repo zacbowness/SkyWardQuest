@@ -21,16 +21,16 @@ void CustomScene3501::load_filepaths(){
 
 void CustomScene3501::init_debug_rects(){
 	Node* rectGroup;
-	create_and_add_as_child<Node>(rectGroup, "Debug Rect Group");//create grouping node
+	create_or_add_child<Node>(rectGroup, "Debug Rect Group");//create grouping node
 	create_rect(Vector3(1,1,1), Vector3(0,2,-5), rectGroup, "Test Cube", Vector3(0.8, 0.1, 0.1));
 }
 
 void CustomScene3501::init_props(){
 	Node* propGroup;
-	create_and_add_as_child<Node>(propGroup, "Game Props");//Create group node 
+	create_or_add_child<Node>(propGroup, "Game Props");//Create group node 
 
 	Node* terrainPropGroup;
-	create_and_add_as_child_of_Node<Node>(terrainPropGroup, "Terrain Props", propGroup);
+	create_or_add_child<Node>(terrainPropGroup, "Terrain Props", propGroup);
 
 	Vector<String> tree_textures = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
 	

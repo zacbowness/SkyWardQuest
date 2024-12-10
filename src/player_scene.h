@@ -72,9 +72,6 @@ private:
 
 	Vector2 perspective_change;
 
-	MeshInstance3D* screen_quad_instance;
-	ShaderMaterial* screen_space_shader_material;
-
 	// Fixed-size array of shaders
 	std::array<godot::Ref<godot::Shader>, 1> shaders;
 	// Index of the shader in the current array
