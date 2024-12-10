@@ -16,43 +16,45 @@ Prop::~Prop() {}
 
 void Prop::_enter_tree(){
 	if(DEBUG) UtilityFunctions::print("Enter Tree - Prop.");
-	
-	import_tool = memnew(AssetImporter);
-	CollisionObject::_enter_tree();//Call Parent Enter_tree() !!IMPORTANT!!
+	import_tool2 = memnew(AssetImporter);
 }
 
 void Prop::_ready(){
-
+	init_mesh();
+	init_collider();
 }
 
-Mesh* Prop::init_mesh(){
+void Prop::init_mesh(){
     Ref<ArrayMesh> mesh;
 	
 	//Import mesh from file
 	if(obj_mesh.is_null()){
-		mesh = import_tool->import_mesh(mesh_filepath, texture_filepaths);
-		obj_mesh = mesh;//Copy mesh to format collider later (we could use the mesh pointer this func returns but the conversions would be messy)
+		mesh = import_tool2->import_mesh(mesh_filepath, texture_filepaths);
+		if(!mesh.is_null()) obj_mesh = mesh;//Copy mesh to format collider later (we could use the mesh pointer this func returns but the conversions would be messy)
 	}
 	
-	set_mesh(obj_mesh);//apply the mesh
-	return(*obj_mesh);//return mesh once initialized to be stored in WorldObject::_enter_tree()
+	if(!obj_mesh.is_null())set_mesh(obj_mesh);//apply the mesh
+	else{ERR_PRINT("ERR: Mesh From Importer Is NULL");}
 }
 
-StaticBody3D* Prop::init_collider(){
+void Prop::init_collider(){
 	StaticBody3D* collider;
 
 	create_or_add_child<StaticBody3D>(collider, "Collision Body");
 	create_or_add_child<CollisionShape3D>(collision_shape, "Collision Shape", collider);
-	collision_shape->set_shape(import_tool->shape_from_Arraymesh(obj_mesh));
-
-	return collider;
+	if(!obj_mesh.is_null()){
+		Ref<ConcavePolygonShape3D> collision_poly = import_tool2->shape_from_Arraymesh(obj_mesh);
+		if(!collision_poly.is_null())collision_shape->set_shape(collision_poly);
+		else ERR_PRINT("ERR: Collider Polygon is NULL");
+	} else ERR_PRINT("ERR: Mesh Is NULL - Skipping Collider Formulation");
+	
 }
 
 //Import base values to memeber variables
-void Prop::setup_prop(Vector3 position, Vector3 rotation, Vector3 scale, String mesh_filepath, String texture_filepaths[], int num_textures, String name){
+void Prop::setup_prop(Vector3 position, Vector3 rotation, Vector3 scale, String mesh_filepath, Vector<String> texture_filepaths, String name){
 	//copy filepaths into member variables so that they can be used in init_mesh()
 	this->mesh_filepath = mesh_filepath;
-	for(int i=0; i<num_textures;i++)this->texture_filepaths.push_back(texture_filepaths[i]);
+	this->texture_filepaths = texture_filepaths;
 
 	//Apply other values to member variables
 	prop_name = name;
@@ -65,7 +67,7 @@ void Prop::update_prop(){
 	set_global_rotation_degrees(rotation_offset);
 	set_position(position);
 	set_scale(scale);
-	set_mesh(object_mesh);
+	if(!obj_mesh.is_null())set_mesh(obj_mesh);
 	//Vector3 local_rotation = get_global_rotation_degrees();
 }
 

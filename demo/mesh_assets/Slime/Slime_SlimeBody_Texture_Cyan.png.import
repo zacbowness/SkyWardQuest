@@ -1,0 +1,17 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://b5f3trwkemu0j"
+path="res://.godot/imported/Slime_SlimeBody_Texture_Cyan.png-e4c84d67d6712b23f5857768f3ee89f2.image"
+generator_parameters={
+"md5": "27c6f832e3baa2749f9381234b0f2e3a"
+}
+
+[deps]
+
+source_file="res://mesh_assets/Slime/Slime_SlimeBody_Texture_Cyan.png"
+dest_files=["res://.godot/imported/Slime_SlimeBody_Texture_Cyan.png-e4c84d67d6712b23f5857768f3ee89f2.image"]
+
+[params]
+

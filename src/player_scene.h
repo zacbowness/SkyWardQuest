@@ -37,6 +37,10 @@
 #include <godot_cpp/classes/shader_material.hpp>
 #include <godot_cpp/classes/shader.hpp>
 
+//Screen Effects
+#include <godot_cpp/classes/quad_mesh.hpp>
+#include <godot_cpp/classes/shader_material.hpp>
+
 //File Inclusions
 #include "defs.h"
 #include "quat_camera.h"
@@ -55,6 +59,7 @@ class Player : public CharacterBody3D {
 
 private:
 	double time_passed;
+	int collectableAmount = 0;
 
 	//Object Pointers
 	QuatCamera* main_camera;
@@ -75,6 +80,18 @@ private:
 	// Index of the shader in the current array
 	int current_shader_index;
 
+	Vector<Ref<Shader>> effect_array;
+
+	Vector<String> effect_shaders = {
+		"earthquake" //At Location 0...
+	};
+
+	QuadMesh* screen_mesh;
+
+	//Screen Shader
+	MeshInstance3D* screen_quad_instance;
+	ShaderMaterial* screen_space_shader_material;
+
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
@@ -90,6 +107,7 @@ protected:
 	void turn_player(float angle);//for rotation left and right
 	Vector3 get_forward();
 	Vector3 get_side();
+	
 
 public:
 	Player();
@@ -98,6 +116,17 @@ public:
 	void _process(double delta) override;
 	void _enter_tree ( ) override;
 	void _ready ( ) override;
+
+	void init_screen_effects();
+
+	void setEffectScreen(int);
+
+	void resetEffectScreen();
+
+	inline int getCollectable(){return collectableAmount;}
+	inline void setCollectable(int newAmount){collectableAmount = newAmount;}
+
+
 
 	//GETTER AND SETTER FUNCTIONS
 	CollisionShape3D* get_collider(){return player_body;}
@@ -144,22 +173,21 @@ public:
 
 	template <class T>
 	// returns true if pointer is brand-new; false if retrieved from SceneTree
-	// variant allows you to create a child of a node pointer other than 'this'
-	bool create_and_add_as_child_of_parent(T* &pointer, String name, Node* parent){
-		Node* child = parent->find_child(name);
-		
-		if(child == nullptr){
-			pointer = memnew(T);
-			pointer->set_name(name);
-			parent->add_child(pointer);
-			pointer->set_owner(get_tree()->get_edited_scene_root());
-			return true;
-		}
-		else{
-			pointer = dynamic_cast<T*>(child);
-			return false;
-		}
+	bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent){
+	
+	Node* child = find_child(name);//find node with the given name
+
+	if(child == nullptr){//if child node was not found, create it
+		pointer = memnew(T);
+		pointer->set_name(name);
+		parent->add_child(pointer);
+		pointer->set_owner(get_tree()->get_edited_scene_root());
+		return true;
+	} else {
+		pointer = dynamic_cast<T*>(child);//if node with name already exists, assign it to pointer
+		return false;
 	}
+}
 
 };
 

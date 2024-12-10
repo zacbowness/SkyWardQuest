@@ -42,6 +42,7 @@
 #include "prop.h"
 #include "skybox.h"
 #include "portal.h"
+#include "portal_effect.h"
 
 //LOCAL DEFINITIONS
 #define NUM_TERRAIN_PROPS 20
@@ -60,7 +61,7 @@ private:
 	Slime* slime;
 	Map* map;
 	Skybox* skybox;
-	Portal* portal;
+	PortalEffect* portal;
 
 	Vector<ParticleSystem*> particle_systems;
 
@@ -78,9 +79,9 @@ private:
 	void init_player(Vector3 start_pos);
 
 	void init_props();
-	void create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepaths[], int num_textures);
-	void create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepaths[], int num_textures);//Polymorph that takes rotation
-	void create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepaths[], int num_textures);
+	void create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);
+    void create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);//Polymorph that takes rotation
+    void create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);
 	void update_terrain_props(Vector<Vector3> pos_vect);
 
 	Dictionary mesh_filepaths;//Hash Map for mesh filepaths

@@ -23,7 +23,7 @@ void Map::_enter_tree(){
 	create_and_add_as_child_of_Node<CollisionShape3D>(collision_shape, "Collider_Shape", static_body);
 }
 
-void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, Vector3 start, Vector3 stop, float path_width, bool path) {
+void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale){//}, Vector3 start, Vector3 stop, float path_width, bool path) {
     width = p_width;
     height = p_height;
     octaves = p_octaves;
@@ -34,9 +34,8 @@ void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_per
 
     generate_heightfield();
 
-    if (path){
-        create_flat_path(start, stop, path_width);
-    }
+    //create_flat_path(start, stop, path_width);
+    
     Ref<ArrayMesh> newMesh = generate_3d_mesh();
 
 	set_mesh(newMesh);

@@ -346,105 +346,183 @@ mesh = ExtResource("1_qfyn4")
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_8"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_8/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_s8ktm")
 
 [node name="Gen_Tree_9" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 123, 28.2351, 45)
+=======
+shape = SubResource("ConcavePolygonShape3D_yv7hi")
+
+[node name="Gen_Tree_9" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(24.2705, -17.6336, -7.70787e-07, 0, -1.31134e-06, 30, -17.6336, -24.2705, -1.0609e-06, 93, 1.00987, 30)
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb
 mesh = ExtResource("1_qfyn4")
 
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_9"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_9/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_13yy6")
 
 [node name="Gen_Tree_10" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 66, -0.15, 0)
+=======
+shape = SubResource("ConcavePolygonShape3D_t62l0")
+
+[node name="Gen_Tree_10" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(22.9813, -19.2836, -8.42914e-07, 0, -1.31134e-06, 30, -19.2836, -22.9813, -1.00455e-06, 120, 1.22329, 3)
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb
 mesh = ExtResource("1_qfyn4")
 
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_10"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_10/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_7iqj1")
 
 [node name="Gen_Tree_11" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 132, 34.6003, 66)
+=======
+shape = SubResource("ConcavePolygonShape3D_o86wt")
+
+[node name="Gen_Tree_11" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(21.5802, -20.8398, -9.10934e-07, 0, -1.31134e-06, 30, -20.8398, -21.5802, -9.433e-07, 36, -1.43218, 138)
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb
 mesh = ExtResource("1_qfyn4")
 
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_11"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_11/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_orjgr")
 
 [node name="Gen_Tree_12" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 42, -0.15, 0)
+=======
+shape = SubResource("ConcavePolygonShape3D_ll8y6")
+
+[node name="Gen_Tree_12" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(20.0739, -22.2943, -9.74517e-07, 0, -1.31134e-06, 30, -22.2943, -20.0739, -8.77459e-07, 0, -0.15, 24)
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb
 mesh = ExtResource("1_qfyn4")
 
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_12"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_12/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_hamiy")
 
 [node name="Gen_Tree_13" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 90, 25.5219, 99)
+=======
+shape = SubResource("ConcavePolygonShape3D_hxhew")
+
+[node name="Gen_Tree_13" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(18.4698, -23.6403, -1.03335e-06, 0, -1.31134e-06, 30, -23.6403, -18.4698, -8.07343e-07, 69, 1.95672, 144)
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb
 mesh = ExtResource("1_qfyn4")
 
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_13"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_13/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_jcmfj")
 
 [node name="Gen_Tree_14" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 75, 5.59017, 27)
+=======
+shape = SubResource("ConcavePolygonShape3D_1n6ss")
+
+[node name="Gen_Tree_14" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(16.7758, -24.8711, -1.08715e-06, 0, -1.31134e-06, 30, -24.8711, -16.7758, -7.33293e-07, 6, -0.94655, 45)
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb
 mesh = ExtResource("1_qfyn4")
 
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_14"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_14/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_p6h06")
 
 [node name="Gen_Tree_15" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 96, 19.7125, 135)
+=======
+shape = SubResource("ConcavePolygonShape3D_bhpwy")
+
+[node name="Gen_Tree_15" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(15, -25.9808, -1.13566e-06, 0, -1.31134e-06, 30, -25.9808, -15, -6.55671e-07, 27, 0.172754, 63)
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb
 mesh = ExtResource("1_qfyn4")
 
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_15"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_15/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_i8rbk")
 
 [node name="Gen_Tree_16" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 6, 6.40856, 51)
+=======
+shape = SubResource("ConcavePolygonShape3D_tqg4f")
+
+[node name="Gen_Tree_16" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(13.1511, -26.9638, -1.17863e-06, 0, -1.31134e-06, 30, -26.9638, -13.1511, -5.74854e-07, 81, 0.0109509, 21)
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb
 mesh = ExtResource("1_qfyn4")
 
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_16"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_16/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_xl6jw")
 
 [node name="Gen_Tree_17" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 117, -7.26095, 135)
+=======
+shape = SubResource("ConcavePolygonShape3D_eo2bn")
+
+[node name="Gen_Tree_17" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(11.2382, -27.8155, -1.21585e-06, 0, -1.31134e-06, 30, -27.8155, -11.2382, -4.91237e-07, 123, 1.87755, 9)
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb
 mesh = ExtResource("1_qfyn4")
 
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_17"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_17/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_rgo50")
 
 [node name="Gen_Tree_18" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 102, 18.7787, 99)
+=======
+shape = SubResource("ConcavePolygonShape3D_vhth3")
+
+[node name="Gen_Tree_18" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(9.27051, -28.5317, -1.24716e-06, 0, -1.31134e-06, 30, -28.5317, -9.27051, -4.05227e-07, 60, 1.7465, 93)
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb
 mesh = ExtResource("1_qfyn4")
 
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_18"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_18/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_i1hv0")
 
 [node name="Gen_Tree_19" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 39, 14.3886, 129)
+=======
+shape = SubResource("ConcavePolygonShape3D_5gdr1")
+
+[node name="Gen_Tree_19" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(7.25766, -29.1089, -1.27239e-06, 0, -1.31134e-06, 30, -29.1089, -7.25766, -3.17242e-07, 27, -0.62452, 3)
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb
 mesh = ExtResource("1_qfyn4")
 
 [node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_19"]
 
 [node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_19/Collision Body"]
+<<<<<<< HEAD
 shape = SubResource("ConcavePolygonShape3D_wml3c")
 
 [node name="Skybox" type="Skybox" parent="CustomScene3501"]
@@ -454,3 +532,369 @@ mesh = SubResource("SphereMesh_j0r4h")
 [node name="portal_effect" type="Portal" parent="CustomScene3501"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -28.6691, 17.4892, 0.543335)
 mesh = SubResource("SphereMesh_vyeyc")
+=======
+shape = SubResource("ConcavePolygonShape3D_3pxu6")
+
+[node name="Gen_Tree_20" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(5.20945, -29.5442, -1.29142e-06, 0, -1.31134e-06, 30, -29.5442, -5.20945, -2.27712e-07, 138, 3.68579, 90)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_20"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_20/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_fvuqo")
+
+[node name="Gen_Tree_21" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(3.13585, -29.8357, -1.30416e-06, 0, -1.31134e-06, 30, -29.8357, -3.13585, -1.37072e-07, 12, -0.0802368, 39)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_21"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_21/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_wpk7t")
+
+[node name="Gen_Tree_22" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(1.04698, -29.9817, -1.31054e-06, 0, -1.31134e-06, 30, -29.9817, -1.04698, -4.57652e-08, 93, -0.641456, 45)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_22"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_22/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_h3aie")
+
+[node name="Gen_Tree_23" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-1.04698, -29.9817, -1.31054e-06, 0, -1.31134e-06, 30, -29.9817, 1.04698, 4.57651e-08, 33, 2.27236, 24)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_23"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_23/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_uj24a")
+
+[node name="Gen_Tree_24" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-3.13586, -29.8357, -1.30416e-06, 0, -1.31134e-06, 30, -29.8357, 3.13586, 1.37073e-07, 51, 3.83499, 129)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_24"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_24/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_x2cc4")
+
+[node name="Gen_Tree_25" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-5.20945, -29.5442, -1.29142e-06, 0, -1.31134e-06, 30, -29.5442, 5.20945, 2.27712e-07, 90, 3.47347, 90)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_25"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_25/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_vo1wj")
+
+[node name="Gen_Tree_26" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-7.25766, -29.1089, -1.27239e-06, 0, -1.31134e-06, 30, -29.1089, 7.25766, 3.17242e-07, 117, -0.653965, 51)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_26"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_26/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_k2sim")
+
+[node name="Gen_Tree_27" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-9.27051, -28.5317, -1.24716e-06, 0, -1.31134e-06, 30, -28.5317, 9.27051, 4.05227e-07, 15, 0.41181, 84)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_27"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_27/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_176ip")
+
+[node name="Gen_Tree_28" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-11.2382, -27.8155, -1.21585e-06, 0, -1.31134e-06, 30, -27.8155, 11.2382, 4.91237e-07, 42, 0.494671, 15)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_28"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_28/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_rumq6")
+
+[node name="Gen_Tree_29" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-13.1511, -26.9638, -1.17863e-06, 0, -1.31134e-06, 30, -26.9638, 13.1511, 5.74854e-07, 102, -1.26684, 117)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_29"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_29/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_ul0f6")
+
+[node name="Gen_Tree_30" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-15, -25.9808, -1.13566e-06, 0, -1.31134e-06, 30, -25.9808, 15, 6.55671e-07, 69, -0.729575, 45)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_30"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_30/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_8wocm")
+
+[node name="Gen_Tree_31" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-16.7758, -24.8711, -1.08715e-06, 0, -1.31134e-06, 30, -24.8711, 16.7758, 7.33293e-07, 102, 2.24691, 33)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_31"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_31/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_i6jfl")
+
+[node name="Gen_Tree_32" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-18.4698, -23.6403, -1.03335e-06, 0, -1.31134e-06, 30, -23.6403, 18.4698, 8.07343e-07, 36, -1.14231, 108)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_32"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_32/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_27o1b")
+
+[node name="Gen_Tree_33" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-20.0739, -22.2943, -9.74517e-07, 0, -1.31134e-06, 30, -22.2943, 20.0739, 8.77459e-07, 114, -0.234146, 60)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_33"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_33/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_oacfn")
+
+[node name="Gen_Tree_34" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-21.5802, -20.8398, -9.10935e-07, 0, -1.31134e-06, 30, -20.8398, 21.5802, 9.433e-07, 84, -0.15, 0)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_34"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_34/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_8smt0")
+
+[node name="Gen_Tree_35" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-22.9813, -19.2836, -8.42914e-07, 0, -1.31134e-06, 30, -19.2836, 22.9813, 1.00455e-06, 39, 0.867217, 36)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_35"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_35/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_mfb0g")
+
+[node name="Gen_Tree_36" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-24.2705, -17.6336, -7.70787e-07, 0, -1.31134e-06, 30, -17.6336, 24.2705, 1.0609e-06, 51, 0.862563, 96)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_36"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_36/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_a3agq")
+
+[node name="Gen_Tree_37" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-25.4414, -15.8976, -6.94905e-07, 0, -1.31134e-06, 30, -15.8976, 25.4414, 1.11208e-06, 69, -1.26129, 78)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_37"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_37/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_eob15")
+
+[node name="Gen_Tree_38" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-26.4884, -14.0841, -6.15638e-07, 0, -1.31134e-06, 30, -14.0841, 26.4884, 1.15785e-06, 42, -0.697045, 27)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_38"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_38/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_2h76u")
+
+[node name="Gen_Tree_39" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-27.4064, -12.2021, -5.33371e-07, 0, -1.31134e-06, 30, -12.2021, 27.4064, 1.19797e-06, 81, 1.46716, 135)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_39"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_39/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_oyvon")
+
+[node name="Gen_Tree_40" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-28.1908, -10.2606, -4.48505e-07, 0, -1.31134e-06, 30, -10.2606, 28.1908, 1.23226e-06, 108, -0.544352, 90)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_40"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_40/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_ayraq")
+
+[node name="Gen_Tree_41" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-28.8379, -8.26912, -3.61455e-07, 0, -1.31134e-06, 30, -8.26912, 28.8379, 1.26054e-06, 36, -0.762822, 120)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_41"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_41/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_l7s2v")
+
+[node name="Gen_Tree_42" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-29.3444, -6.23735, -2.72643e-07, 0, -1.31134e-06, 30, -6.23735, 29.3444, 1.28269e-06, 51, -0.0134146, 54)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_42"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_42/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_geh8j")
+
+[node name="Gen_Tree_43" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-29.708, -4.1752, -1.82504e-07, 0, -1.31134e-06, 30, -4.1752, 29.708, 1.29858e-06, 87, -1.93524, 30)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_43"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_43/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_jvk8s")
+
+[node name="Gen_Tree_44" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-29.9269, -2.09269, -9.14746e-08, 0, -1.31134e-06, 30, -2.09269, 29.9269, 1.30815e-06, 108, 0.53291, 15)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_44"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_44/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_0uheo")
+
+[node name="Gen_Tree_45" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-30, 4.52987e-06, 1.98007e-13, 0, -1.31134e-06, 30, 4.52987e-06, 30, 1.31134e-06, 39, 0.952986, 45)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_45"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_45/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_pq8a0")
+
+[node name="Gen_Tree_46" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-29.9269, 2.09269, 9.14746e-08, 0, -1.31134e-06, 30, 2.09269, 29.9269, 1.30815e-06, 18, 1.03063, 87)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_46"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_46/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_5egd3")
+
+[node name="Gen_Tree_47" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-29.708, 4.1752, 1.82504e-07, 0, -1.31134e-06, 30, 4.1752, 29.708, 1.29858e-06, 138, -0.189072, 108)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_47"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_47/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_uuhd0")
+
+[node name="Gen_Tree_48" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-29.3444, 6.23736, 2.72643e-07, 0, -1.31134e-06, 30, 6.23736, 29.3444, 1.28269e-06, 99, -0.180326, 63)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_48"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_48/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_d2u1t")
+
+[node name="Gen_Tree_49" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-28.8379, 8.26912, 3.61455e-07, 0, -1.31134e-06, 30, 8.26912, 28.8379, 1.26054e-06, 99, -0.0965851, 57)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_49"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_49/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_chvxk")
+
+[node name="Gen_Tree_50" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-28.1908, 10.2606, 4.48505e-07, 0, -1.31134e-06, 30, 10.2606, 28.1908, 1.23226e-06, 45, 0.597637, 51)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_50"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_50/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_3dxv7")
+
+[node name="Gen_Tree_51" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-27.4064, 12.2021, 5.33371e-07, 0, -1.31134e-06, 30, 12.2021, 27.4064, 1.19797e-06, 48, 3.92956, 129)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_51"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_51/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_0qq4q")
+
+[node name="Gen_Tree_52" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-26.4884, 14.0841, 6.15638e-07, 0, -1.31134e-06, 30, 14.0841, 26.4884, 1.15785e-06, 60, -1.08023, 24)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_52"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_52/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_6mnwj")
+
+[node name="Gen_Tree_53" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-25.4414, 15.8976, 6.94905e-07, 0, -1.31134e-06, 30, 15.8976, 25.4414, 1.11208e-06, 102, -0.510521, 105)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_53"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_53/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_72efh")
+
+[node name="Gen_Tree_54" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-24.2705, 17.6336, 7.70787e-07, 0, -1.31134e-06, 30, 17.6336, 24.2705, 1.0609e-06, 129, 0.487128, 111)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_54"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_54/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_dp5vn")
+
+[node name="Gen_Tree_55" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-22.9813, 19.2836, 8.42914e-07, 0, -1.31134e-06, 30, 19.2836, 22.9813, 1.00455e-06, 132, 0.234768, 102)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_55"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_55/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_jakco")
+
+[node name="Gen_Tree_56" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-21.5802, 20.8398, 9.10935e-07, 0, -1.31134e-06, 30, 20.8398, 21.5802, 9.433e-07, 129, -2.42047, 138)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_56"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_56/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_dpifn")
+
+[node name="Gen_Tree_57" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-20.0739, 22.2943, 9.74517e-07, 0, -1.31134e-06, 30, 22.2943, 20.0739, 8.77459e-07, 99, 1.16469, 21)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_57"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_57/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_jpcpe")
+
+[node name="Gen_Tree_58" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-18.4698, 23.6403, 1.03335e-06, 0, -1.31134e-06, 30, 23.6403, 18.4698, 8.07343e-07, 33, 1.48054, 33)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_58"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_58/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_fjdtl")
+
+[node name="Gen_Tree_59" type="Prop" parent="CustomScene3501/Game Props/Terrain Props"]
+transform = Transform3D(-16.7758, 24.8711, 1.08715e-06, 0, -1.31134e-06, 30, 24.8711, 16.7758, 7.33293e-07, 33, 2.97501, 51)
+mesh = ExtResource("1_qfyn4")
+
+[node name="Collision Body" type="StaticBody3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_59"]
+
+[node name="Collision Shape" type="CollisionShape3D" parent="CustomScene3501/Game Props/Terrain Props/Gen_Tree_59/Collision Body"]
+shape = SubResource("ConcavePolygonShape3D_6uhfr")
+
+[node name="Skybox" type="Skybox" parent="CustomScene3501"]
+mesh = SubResource("BoxMesh_6hpcp")
+>>>>>>> 3f338be9c55422e50bdec51e80ddf5988e8bfceb

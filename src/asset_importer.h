@@ -40,6 +40,21 @@ class AssetImporter : public Node {
 	GDCLASS(AssetImporter, Node);
 
 private:
+	
+
+protected:
+    // a static function that Godot will call to find out which methods can be called and which properties it exposes
+	static void _bind_methods(){}
+
+
+public:
+	AssetImporter(){}
+	~AssetImporter(){}
+
+	void _process(double delta) override {}
+	void _enter_tree () override {}
+	void _ready() override {}
+
 	Ref<ImageTexture> import_img_tex(String filepath){
 		Ref<Image> image = ResourceLoader::get_singleton()->load(filepath, "Image");
 		
@@ -57,23 +72,8 @@ private:
 		} else return texture;
 	}
 
-protected:
-    // a static function that Godot will call to find out which methods can be called and which properties it exposes
-	static void _bind_methods(){}
-
-
-public:
-	AssetImporter(){}
-	~AssetImporter(){}
-
-	void _process(double delta) override {}
-	void _enter_tree () override {}
-	void _ready() override {}
-
-
 	//Import a mesh from given filepath
 	Ref<ArrayMesh> import_mesh(String mesh_filepath, Vector<String> texture_filepath){
-		//if(DEBUG)UtilityFunctions::print("Importing File: "+mesh_filepath);
 		//Load Model from GLTF file
 		Ref<ArrayMesh> mesh_import = ResourceLoader::get_singleton()->load(mesh_filepath);
 		
@@ -97,16 +97,25 @@ public:
 		return mesh_import;
 	}
 
+	Ref<ArrayMesh> import_mesh_no_texture(String mesh_filepath){
+		//if(DEBUG)UtilityFunctions::print("Importing File: "+mesh_filepath);
+		//Load Model from GLTF file
+		Ref<ArrayMesh> mesh_import = ResourceLoader::get_singleton()->load(mesh_filepath);
+		
+		//If not loaded propperly, print error msg and return nullptr
+		if(mesh_import.is_null()){
+			ERR_PRINT("Failed to load res file at provided filepath: "+mesh_filepath);
+			return nullptr;
+		}
+
+		return mesh_import;
+	}
+
 	Ref<ConcavePolygonShape3D> shape_from_Arraymesh(Ref<ArrayMesh> mesh){
 		Ref<ConcavePolygonShape3D> collision_shape_mesh;
 		collision_shape_mesh = mesh->create_trimesh_shape();
 		return collision_shape_mesh;
 	}
-
-	
-
-
-
 
 	//Use this if you want a node to be added underneath the given parent node in the scene tree
 	template <class T>

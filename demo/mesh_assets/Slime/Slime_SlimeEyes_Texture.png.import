@@ -1,0 +1,17 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://d4gtmfqtr8fl1"
+path="res://.godot/imported/Slime_SlimeEyes_Texture.png-83d72b4548a1f5c360752fa63905c548.image"
+generator_parameters={
+"md5": "13970045c89c79fb0d0dba48b9f380dd"
+}
+
+[deps]
+
+source_file="res://mesh_assets/Slime/Slime_SlimeEyes_Texture.png"
+dest_files=["res://.godot/imported/Slime_SlimeEyes_Texture.png-83d72b4548a1f5c360752fa63905c548.image"]
+
+[params]
+

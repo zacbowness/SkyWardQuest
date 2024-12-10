@@ -24,7 +24,7 @@ void Player::_enter_tree (){
 	create_or_add_child<QuatCamera>(main_camera, "First Person Camera");
 	create_or_add_child<MeshInstance3D>(player_mesh, "Player Mesh");
 	create_or_add_child<CollisionShape3D>(player_body, "Player Body");
-	create_and_add_as_child_of_parent<MeshInstance3D>(screen_quad_instance, "Screen Quad", main_camera);
+	create_and_add_as_child_of_Node<MeshInstance3D>(screen_quad_instance, "Screen Quad", main_camera);
 
 	load_shaders();
 
@@ -54,6 +54,11 @@ void Player::_ready ( ){
 	//Run initialization functions
 	init_camera();
 	init_body();
+
+	//Initalize Screen Effects
+	init_screen_effects();
+	resetEffectScreen();
+
 }
 
 // called every frame (as often as possible)
@@ -224,6 +229,34 @@ void Player::turn_player(float angle){
     set_quaternion((rotation * get_quaternion()).normalized());	// we need to keep the internal quaternion separate from our quaternion representation
 }
 
+
+//Initalizes all the Screen Effects
+void Player::init_screen_effects(){
+	create_and_add_as_child_of_Node<MeshInstance3D>(screen_quad_instance, "Screen Quad", main_camera);
+
+	//Initalize Screen Mesh
+	screen_mesh = memnew(QuadMesh); 
+	screen_mesh->set_size(Vector2(2, 2)); // this will cover the whole screen
+	screen_mesh->set_flip_faces(true);
+	screen_quad_instance->set_mesh(screen_mesh);
+	screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
+	screen_space_shader_material = memnew(ShaderMaterial);
+	for (String shader_name : effect_shaders){
+		Ref<Shader> tempShader = ResourceLoader::get_singleton()->load(vformat("shaders/%s.gdshader", shader_name), "Shader");
+		effect_array.push_back(tempShader);
+		UtilityFunctions::print(effect_array.size());
+	}
+}
+
+void Player::setEffectScreen(int shader_int){
+	screen_space_shader_material->set_shader(effect_array.get(shader_int));
+	screen_mesh->surface_set_material(0, screen_space_shader_material);
+}
+
+void Player::resetEffectScreen(){
+	screen_space_shader_material->set_shader(nullptr);
+	screen_mesh->surface_set_material(0, screen_space_shader_material);
+}
 
 /*
 *

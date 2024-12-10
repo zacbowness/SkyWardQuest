@@ -25,7 +25,7 @@
 #define MAP_OCTAVES 8				//leave this
 #define MAP_PERSISTENCE 5.0f		//Smoothing factor
 #define MAP_MAX_HEIGHT 10.0f		//Maximum mountain height
-#define MAP_MOUNTAIN_SCALE 5.0f	//Scaling for mountains
+#define MAP_MOUNTAIN_SCALE 5.0f		//Scaling for mountains
 
 
 //GLOBAL CONSTANTS

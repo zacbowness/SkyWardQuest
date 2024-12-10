@@ -2,6 +2,11 @@
 #include <godot_cpp/core/memory.hpp> // for memnew
 #include <godot_cpp/classes/random_number_generator.hpp>
 
+//Enemies 
+#include "bee.h"
+#include "wolf.h"
+#include "slime.h"
+
 
 using namespace godot;
 
@@ -20,13 +25,11 @@ void CustomScene3501::_enter_tree (){
 	//Add Nodes to Scene
 	create_and_add_as_child<Player>(player, "Player");
 
-	create_and_add_as_child<Slime>(slime, "Test Slime");
-
 	create_and_add_as_child<Map>(map,"Map");
 
 	create_and_add_as_child<Skybox>(skybox,"Skybox");
 
-	create_and_add_as_child<Portal>(portal, "portal_effect");
+	create_and_add_as_child<PortalEffect>(portal, "portal_effect");
 
 	//create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0)); //Make a temp Particle System
 	init_debug_rects();	//add temp rect meshes to scene
@@ -43,13 +46,6 @@ void CustomScene3501::_ready ( ){
 	//Initialization Functions
 	init_player(Vector3(3,4.5,3));
 	
-	slime->setPlayerPointer(player);
-	slime->_ready();
-
-	Vector3 start = Vector3(5.0f, 0.0f, 5.0f);
-	Vector3 stop= Vector3(25.0f, 0.0f, 100.0f);
-	float path_width = 15.0f;
-
 	//Generate Terrain (Values are modifiable in defs.h)
 	map->generate_terrain(
 		MAP_WIDTH,
@@ -58,11 +54,7 @@ void CustomScene3501::_ready ( ){
 		MAP_PERSISTENCE,
 		MAP_SCALE,
 		MAP_MAX_HEIGHT,
-		MAP_MOUNTAIN_SCALE,
-		start,
-		stop,
-		path_width,
-		false
+		MAP_MOUNTAIN_SCALE
 	);
 
 	//Get Valid Positions on the terrain mesh to place tree/rock/env objects
@@ -101,24 +93,24 @@ void CustomScene3501::_process(double delta) {
 	time_passed += delta;
 }
 
-void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
+void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths){
 	Prop* prop;
 	create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
-	prop->setup_prop(pos, Vector3(0,0,0), size, mesh_filepath, texture_filepath_arr, num_textures, obj_name);
+	prop->setup_prop(pos, Vector3(0,0,0), size, mesh_filepath, texture_filepaths, obj_name);
 	prop_instances.push_back(prop);
 }
 
-void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
+void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths){
 	Prop* prop;
 	create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
-	prop->setup_prop(pos, rotation, size, mesh_filepath, texture_filepath_arr, num_textures, obj_name);
+	prop->setup_prop(pos, rotation, size, mesh_filepath, texture_filepaths, obj_name);
 	prop_instances.push_back(prop);
 }
 
-void CustomScene3501::create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
+void CustomScene3501::create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths){
 	Prop* prop;
 	create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
-	prop->setup_prop(Vector3(0,0,0), rotation, size, mesh_filepath, texture_filepath_arr, num_textures, obj_name);
+	prop->setup_prop(Vector3(0,0,0), rotation, size, mesh_filepath, texture_filepaths, obj_name);
 	terrain_prop_instances.push_back(prop);
 }
 
@@ -156,6 +148,43 @@ void CustomScene3501::create_particle_system(String node_name, String shader_nam
 }
 
 
+
+void CustomScene3501::create_npc(NpcType type, Vector3 pos){
+	if (type == SlimeNpc){
+		Slime* temp;
+		create_and_add_as_child<Slime>(temp, vformat("NPC %s", NpcList.size()));
+		temp->set_position(pos);
+		temp->setPlayerPointer(player);
+		NpcList.push_back(temp);
+		
+	} else if (type == WolfNpc){
+		Wolf* temp;
+		create_and_add_as_child<Wolf>(temp, vformat("NPC %s", NpcList.size()));
+		temp->set_position(pos);
+		temp->setPlayerPointer(player);
+		NpcList.push_back(temp);
+
+	} else if (type == BeeNpc){
+		Bee* temp;
+		create_and_add_as_child<Bee>(temp, vformat("NPC %s", NpcList.size()));
+		temp->set_position(pos);
+		NpcList.push_back(temp);
+	} 
+}
+
+void CustomScene3501::createCollectable(Vector3 pos){
+	Collectable* temp;
+	create_and_add_as_child<Collectable>(temp, vformat("Collectable %d", collectableList.size()));
+	temp->setPlayer(player);
+	temp->set_position(pos);
+	collectableList.push_back(temp);
+}
+
+void CustomScene3501::createPortal(Vector3 pos){
+	create_and_add_as_child<Portal>(portal, "Portal");
+	portal->setPlayer(player);
+	portal->set_position(pos);
+}
 
 
 /*

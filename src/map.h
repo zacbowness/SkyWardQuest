@@ -64,7 +64,7 @@ public:
 
 
     // Terrain generation method with customizable parameters
-    void generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, Vector3 start, Vector3 stop, float path_width, bool path);
+    void generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale);
     void generate_mountain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, Vector3 start, Vector3 stop, float path_width, bool path);
     void scatter_circles_on_mesh(int circle_count, float circle_radius);// function scatters circles across the mesh and can be replaced later
     void print_heightfield() const;
