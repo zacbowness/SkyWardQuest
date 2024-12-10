@@ -2,6 +2,11 @@
 #include <godot_cpp/core/memory.hpp> // for memnew
 #include <godot_cpp/classes/random_number_generator.hpp>
 
+//Enemies 
+#include "bee.h"
+#include "wolf.h"
+#include "slime.h"
+
 
 using namespace godot;
 
@@ -19,8 +24,6 @@ void CustomScene3501::_enter_tree (){
 
 	//Add Nodes to Scene
 	create_and_add_as_child<Player>(player, "Player");
-
-	create_and_add_as_child<Slime>(slime, "Test Slime");
 
 	create_and_add_as_child<Map>(map,"Map");
 
@@ -41,9 +44,6 @@ void CustomScene3501::_ready ( ){
 	//Initialization Functions
 	init_player(Vector3(3,4.5,3));
 	
-	slime->setPlayerPointer(player);
-	slime->_ready();
-
 	//Generate Terrain (Values are modifiable in defs.h)
 	map->generate_terrain(
 		MAP_WIDTH,
@@ -146,6 +146,43 @@ void CustomScene3501::create_particle_system(String node_name, String shader_nam
 }
 
 
+
+void CustomScene3501::create_npc(NpcType type, Vector3 pos){
+	if (type == SlimeNpc){
+		Slime* temp;
+		create_and_add_as_child<Slime>(temp, vformat("NPC %s", NpcList.size()));
+		temp->set_position(pos);
+		temp->setPlayerPointer(player);
+		NpcList.push_back(temp);
+		
+	} else if (type == WolfNpc){
+		Wolf* temp;
+		create_and_add_as_child<Wolf>(temp, vformat("NPC %s", NpcList.size()));
+		temp->set_position(pos);
+		temp->setPlayerPointer(player);
+		NpcList.push_back(temp);
+
+	} else if (type == BeeNpc){
+		Bee* temp;
+		create_and_add_as_child<Bee>(temp, vformat("NPC %s", NpcList.size()));
+		temp->set_position(pos);
+		NpcList.push_back(temp);
+	} 
+}
+
+void CustomScene3501::createCollectable(Vector3 pos){
+	Collectable* temp;
+	create_and_add_as_child<Collectable>(temp, vformat("Collectable %d", collectableList.size()));
+	temp->setPlayer(player);
+	temp->set_position(pos);
+	collectableList.push_back(temp);
+}
+
+void CustomScene3501::createPortal(Vector3 pos){
+	create_and_add_as_child<Portal>(portal, "Portal");
+	portal->setPlayer(player);
+	portal->set_position(pos);
+}
 
 
 /*

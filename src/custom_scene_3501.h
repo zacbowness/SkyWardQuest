@@ -35,12 +35,14 @@
 #include "enemy.h"
 #include "debug_rect.h"
 #include "player_scene.h"
-#include "slime.h"
 #include "map.h"
 #include "particle_system.h"
 #include "asset_importer.h"
 #include "prop.h"
+#include "npc.h"
 #include "skybox.h"
+#include "collectable.h"
+#include "portal.h"
 
 //LOCAL DEFINITIONS
 #define NUM_TERRAIN_PROPS 60
@@ -56,11 +58,15 @@ private:
 	double time_passed;
 
 	Player* player;
-	Slime* slime;
 	Map* map;
 	Skybox* skybox;
 
+	Vector<Collectable*> collectableList;
+	Portal* portal;
+
 	Vector<ParticleSystem*> particle_systems;
+
+	Vector<Npc*> NpcList;
 
 	Vector<MeshInstance3D*> objects;
 	
@@ -80,6 +86,18 @@ private:
 	void create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);//Polymorph that takes rotation
 	void create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);
 	void update_terrain_props(Vector<Vector3> pos_vect);
+
+	void createCollectable(Vector3 pos);
+	void createPortal(Vector3 pos);
+
+	enum NpcType{
+		SlimeNpc,
+		WolfNpc,
+		BeeNpc
+
+	};
+
+	void create_npc(NpcType, Vector3 pos);
 
 	Dictionary mesh_filepaths;//Hash Map for mesh filepaths
 	Dictionary texture_filepaths;//Hash Map for texture filepaths

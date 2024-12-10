@@ -42,10 +42,19 @@ void Collectable::_ready ( ){
 	init_body();
 }
 
+void Collectable::_process(double delta){
+	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
+
+}
+
 void Collectable::body_entered(Node3D *body) {
-    if (body) {
-        UtilityFunctions::print("Body entered: ", body->get_name());
-    }
+    if (body == player) {
+        player->setCollectable(player->getCollectable() + 1);
+		UtilityFunctions::print(player->getCollectable());
+		collectable_mesh->set_visible(false);
+        collectable_body->call_deferred("set_disabled", true);
+		
+	}
 }
 
 void Collectable::init_body(){
@@ -55,7 +64,7 @@ void Collectable::init_body(){
 	sphereMesh->set_radius(1.0f);
 
 	StandardMaterial3D* material = memnew(StandardMaterial3D);
-	material->set_albedo(Color(0, 0, 0, 1));
+	material->set_albedo(Color(0, 0, 1, 1));
 	sphereMesh->surface_set_material(0, material);
 	collectable_mesh->set_mesh(sphereMesh);
 

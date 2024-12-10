@@ -1,0 +1,17 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://dmx38dctmc8he"
+path="res://.godot/imported/Slime_SlimeTooth_Texture.png-1f25ca8e30dbe165761f8037e6d34a96.image"
+generator_parameters={
+"md5": "96c6446d9e9d9c4495f0cc31fcd155ab"
+}
+
+[deps]
+
+source_file="res://mesh_assets/Slime/Slime_SlimeTooth_Texture.png"
+dest_files=["res://.godot/imported/Slime_SlimeTooth_Texture.png-1f25ca8e30dbe165761f8037e6d34a96.image"]
+
+[params]
+

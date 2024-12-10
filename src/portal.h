@@ -1,5 +1,5 @@
-#ifndef COLLECTABLE_H
-#define COLLECTABLE_H
+#ifndef PORTAL_H
+#define PORTAL_H
 
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/node3d.hpp>
@@ -17,22 +17,22 @@
 
 // everything in gdextension is defined in this namespace
 namespace godot {
-class Collectable : public Area3D {
-	GDCLASS(Collectable, Area3D);
+class Portal : public Area3D {
+	GDCLASS(Portal, Area3D);
 
 private:
 	double time_passed; // maybe you don't need this, just an example
 	void init_body();
-	MeshInstance3D* collectable_mesh;
-	CollisionShape3D* collectable_body;
+	MeshInstance3D* Portal_mesh;
+	CollisionShape3D* Portal_body;
 	Player* player; 
 	
 protected:
 	static void _bind_methods();
 
 public:
-	Collectable();
-	~Collectable();
+	Portal();
+	~Portal();
 	
 	void _enter_tree ( ) override;
 	void _ready ( ) override;

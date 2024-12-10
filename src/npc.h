@@ -14,7 +14,12 @@
 #include <godot_cpp/classes/character_body3d.hpp>
 #include <godot_cpp/classes/collision_shape3d.hpp>
 #include <godot_cpp/core/memory.hpp> // for memnew
+#include <godot_cpp/classes/static_body3d.hpp>
+#include <godot_cpp/classes/array_mesh.hpp>
+#include <godot_cpp/classes/concave_polygon_shape3d.hpp>
+#include <godot_cpp/classes/shape3d.hpp>
 #include "defs.h"
+#include "asset_importer.h"
 
 
 
@@ -40,10 +45,27 @@ protected:
 	CollisionShape3D* npc_body;
 	Vector3 direction;
 	Vector3 destination;
+	
 	Vector3 moveInDirection(Vector3 dir, Vector3 velocity, double delta);
 	inline float distanceFromPlayer(){return get_position().distance_to(player->get_position());}
 	inline bool inRadiusFromDest(float radius){return get_position().distance_to(destination) <= radius;}
 	Vector3 getRandomPointInRadius(float radius);
+	
+	//Mesh Importer
+	AssetImporter* import_tool;
+	Mesh* init_mesh();
+	StaticBody3D* init_collider();
+	String mesh_filepath;
+	Vector<String> texture_filepaths;
+	Ref<ArrayMesh> obj_mesh;
+
+
+	enum State {
+    IDLE, //Will Stand Still But if a Player enters its range it will Chase
+    WANDER, //Random Walks around if there is a Player in Range it will Chase
+    CHASE //Follow the Last Seen Position in a Radius of a Player
+	};
+
 
 private:	
 	bool GameOver;
@@ -54,6 +76,7 @@ public:
 
 	void _process(double delta) override;	
 	void setPlayerPointer(CharacterBody3D* player);
+	inline CharacterBody3D* getPlayerPointer(){return player;}
 	void game_over() {GameOver = true;}
 	//Checks if the player is within Radius
 	//Uses the detectionRadius of the NPC
@@ -96,7 +119,7 @@ public:
 			return false;
 		}
 	}
-	
+
 };
 
 }
