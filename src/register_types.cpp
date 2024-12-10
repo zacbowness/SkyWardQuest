@@ -11,13 +11,28 @@
 #include "collision_obj.h"
 #include "npc.h"
 #include "enemy.h"
+#include "friendly.h"
 #include "player_scene.h"
 #include "map.h"
 #include "particle_system.h"
 #include "collectable.h"
 #include "asset_importer.h"
 #include "prop.h"
+#include "bee.h"
+#include "bee_part.h"
+#include "bee_fullBody.h"
+#include "bee_yellowBody.h"
+#include "bee_blackBody.h"
+#include "bee_eyes.h"
+#include "bee_leftwing.h"
+#include "bee_rightwing.h"
+#include "wolf.h"
+#include "flower.h"
+#include "portal.h"
 #include "skybox.h"
+#include "2dScene.h"
+#include "startScene.h"
+#include "gameOverScene.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -43,11 +58,13 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<CollisionObject>();
 	ClassDB::register_class<DebugRect>();
 	ClassDB::register_class<Prop>();
+	ClassDB::register_class<Flower>();
 	
 	//Enemy Classes
 	ClassDB::register_class<Npc>();
 	ClassDB::register_class<Enemy>();
 	ClassDB::register_class<Slime>();
+	ClassDB::register_class<Wolf>();
 
 	//Map Class
 	ClassDB::register_class<Map>();
@@ -57,10 +74,26 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 
 	//Collectable Class
 	ClassDB::register_class<Collectable>();
+	ClassDB::register_class<Portal>();
 
+	//Bee Classes
+	ClassDB::register_class<Friend>();
+	ClassDB::register_class<Bee>();
+	ClassDB::register_class<BeePart>();
+	ClassDB::register_class<BeeYBody>();
+	ClassDB::register_class<BeeBBody>();
+	ClassDB::register_class<BeeEye>();
+	ClassDB::register_class<BeeLWing>();
+	ClassDB::register_class<BeeRWing>();
+	ClassDB::register_class<BeeBody>();
+	
+	
 	ClassDB::register_class<Skybox>();
-	
-	
+
+	//2D Scene
+	ClassDB::register_class<Scene2D>();
+	ClassDB::register_class<startScene>();
+	ClassDB::register_class<gameOverScene>();
 }
 
 // gets called when godot unloads our plugin

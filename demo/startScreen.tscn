@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://ywcvjyx6xne3"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="startScene" type="startScene" parent="."]
+
+[node name="Title" type="Label" parent="startScene"]
+offset_left = 350.0
+offset_top = 50.0
+offset_right = 351.0
+offset_bottom = 73.0
+theme_override_font_sizes/font_size = 30
+text = "Welcome to Skyward Quest"
+
+[node name="Info" type="Label" parent="startScene"]
+offset_left = 500.0
+offset_top = 250.0
+offset_right = 501.0
+offset_bottom = 273.0
+text = "Press Enter to Begin 
+By Sam, Zac, Ellie "

@@ -88,19 +88,12 @@ void Wolf::_process(double delta){
 }
 
 void Wolf::init_body(){
-	//Create Sphere and Mesh
-	SphereMesh* sphereMesh = memnew(SphereMesh);
-    sphereMesh->set_height(2.0f);
-	sphereMesh->set_radius(1.0f);
-
-	StandardMaterial3D* material = memnew(StandardMaterial3D);
-	material->set_albedo(Color(1, 1, 1, 1));
-	sphereMesh->surface_set_material(0, material);
-	npc_mesh->set_mesh(sphereMesh);
-
-	//Create Sphere Colider 
-	SphereShape3D* sphereColider = memnew(SphereShape3D);
-	npc_body->set_shape(sphereColider);	
+	String dir = "res://mesh_assets/Wolf/";
+	mesh_filepath = dir + "Wolf.res";
+	texture_filepaths;
+	create_or_add_child<MeshInstance3D>(npc_mesh, "Slime Mesh");
+	init_mesh();
+	init_collider();
 }
 
 //Sets Poisition Of Wolf 
