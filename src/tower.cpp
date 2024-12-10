@@ -15,7 +15,6 @@ void Tower::_enter_tree(){
 	if(DEBUG) UtilityFunctions::print("Enter Tree - Tower.");
 	import_tool = memnew(AssetImporter);
 	
-
 	build_tower();
 }
 
