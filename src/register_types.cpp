@@ -30,10 +30,12 @@
 #include "flower.h"
 #include "portal.h"
 #include "skybox.h"
+#include "mountain.h"
 #include "tower.h"
 #include "2dScene.h"
 #include "startScene.h"
 #include "gameOverScene.h"
+#include "portal_effect.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -92,6 +94,10 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	
 	ClassDB::register_class<Skybox>();
 
+	ClassDB::register_class<Mountain>();
+	ClassDB::register_class<PortalEffect>();
+	
+	
 	//2D Scene
 	ClassDB::register_class<Scene2D>();
 	ClassDB::register_class<startScene>();

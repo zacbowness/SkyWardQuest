@@ -1,16 +1,22 @@
 shader_type spatial;
 
-render_mode unshaded; // Ensures no lighting is applied to the material
+render_mode unshaded; 
 render_mode cull_disabled;
 
-uniform sampler2D texture_albedo; // The texture for the skybox
-uniform float scroll_speed : hint_range(-1.0, 1.0) = 0.05; // Speed of horizontal scrolling
+uniform sampler2D texture_albedo; 
+uniform float scroll_speed_x : hint_range(-1.0, 1.0) = 0.05;
 
 void fragment() {
-    // Animate the UV coordinates to scroll the texture horizontally
-    vec2 animated_uv = UV;
-    animated_uv.x += TIME * scroll_speed; // Scroll horizontally over time
+    // Generate UV coordinates from vertex position
+    vec3 normalized_pos = normalize(VERTEX);
+    vec2 uv;
+    uv.x = 0.5 + atan(normalized_pos.z, normalized_pos.x) / (2.0 * 3.14159); // X: Longitude
+    uv.y = 0.5 - asin(normalized_pos.y) / 3.14159; // Y: Latitude
 
-    // Sample the texture using the animated UVs
-    ALBEDO = texture(texture_albedo, animated_uv).rgb;
+    // Add scrolling
+    uv.x += TIME * scroll_speed_x;
+    uv.x = mod(uv.x, 1.0);
+
+    vec3 color = texture(texture_albedo, uv).rgb;
+    ALBEDO = color;
 }

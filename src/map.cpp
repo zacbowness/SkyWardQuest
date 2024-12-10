@@ -8,7 +8,11 @@
 using namespace godot;
 
 Map::Map()
-    : width(256), height(256), octaves(4), persistence(0.5), scale(1.0), max_height(10.0), mountain_scale(50.0) {}
+    : width(256), height(256), octaves(4), persistence(0.5), scale(1.0), max_height(10.0), mountain_scale(50.0),random_seed(12345) {
+    Vector3 start(50.0f, 0.0f, 50.0f);
+    Vector3 stop(200.0f, 0.0f, 200.0f);
+    float path_width = 10.0f;
+    }
 
 Map::~Map() {}
 
@@ -17,6 +21,57 @@ void Map::_ready(){}
 void Map::_enter_tree(){
 	create_and_add_as_child<StaticBody3D>(static_body, "static_body");
 	create_and_add_as_child_of_Node<CollisionShape3D>(collision_shape, "Collider_Shape", static_body);
+}
+
+void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale){//}, Vector3 start, Vector3 stop, float path_width, bool path) {
+    width = p_width;
+    height = p_height;
+    octaves = p_octaves;
+    persistence = p_persistence;
+    scale = p_scale;
+    max_height = p_max_height;
+    mountain_scale = p_mountain_scale;
+
+    generate_heightfield();
+
+    //create_flat_path(start, stop, path_width);
+    
+    Ref<ArrayMesh> newMesh = generate_3d_mesh();
+
+	set_mesh(newMesh);
+    
+    // Create collision shape
+    Ref<ConcavePolygonShape3D> collision_shape_mesh = newMesh->create_trimesh_shape();
+	collision_shape->set_shape(collision_shape_mesh);
+
+    set_position(Vector3(0, 0, 0));
+}
+
+
+void Map::generate_mountain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, Vector3 start, Vector3 stop, float path_width, bool path) {
+    width = p_width;
+    height = p_height;
+    octaves = p_octaves;
+    persistence = p_persistence;
+    scale = p_scale;
+    max_height = p_max_height;
+    mountain_scale = p_mountain_scale;
+
+    generate_mountain_heightfield();
+
+    if (path){
+        create_flat_path(start, stop, path_width);
+    }
+    //create_flat_path(start, stop, path_width);
+    Ref<ArrayMesh> newMesh = generate_3d_mesh();
+
+	set_mesh(newMesh);
+    
+    // Create collision shape
+    Ref<ConcavePolygonShape3D> collision_shape_mesh = newMesh->create_trimesh_shape();
+	collision_shape->set_shape(collision_shape_mesh);
+
+    set_position(Vector3(0, 0, 0));
 }
 
 float Map::perlin_noise(float x, float y) const {
@@ -63,6 +118,17 @@ float Map::mountain_noise(float x, float y) const {
     float detail_noise = multiscale_noise(x, y);
 
     if (base_noise > 0.2f) {
+        return (base_noise + detail_noise) * mountain_scale * 0.8f; // Reduce scale for smaller mountains
+    }
+
+    return detail_noise * max_height;
+}
+
+float Map::terrain_noise(float x, float y) const {
+    float base_noise = perlin_noise(x * 0.05f, y * 0.05f);
+    float detail_noise = multiscale_noise(x, y);
+
+    if (base_noise > 0.2f) {
         return (base_noise + detail_noise) * mountain_scale;
     }
 
@@ -78,7 +144,44 @@ void Map::generate_heightfield() {
             if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
                 heightfield.write[y].write[x] = 0.0f; 
             } else {
-                heightfield.write[y].write[x] = mountain_noise(x * scale, y * scale);
+                heightfield.write[y].write[x] = terrain_noise(x * scale, y * scale);
+            }
+        }
+    }
+
+    advanced_smooth_heightfield();
+}
+
+
+void Map::generate_mountain_heightfield() {
+    heightfield.resize(height);
+    int main_mountain_x = width / 3;
+    int main_mountain_y = height / 3;
+    int cluster_radius = 30;
+
+    for (int y = 0; y < height; ++y) {
+        heightfield.write[y].resize(width);
+        for (int x = 0; x < width; ++x) {
+            // Force edge points to y = 0
+            if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+                heightfield.write[y].write[x] = 0.0f;
+            } else {
+                float base_height = mountain_noise(x * scale, y * scale);
+
+                // Add the cluster of mountains
+                float distance_to_main = Vector2(main_mountain_x - x, main_mountain_y - y).length();
+                if (distance_to_main < cluster_radius) {
+                    // Increase height for the cluster
+                    float cluster_factor = (1.0f - (distance_to_main / cluster_radius)) * 2.0f; // Scale up cluster factor
+                    base_height += cluster_factor * max_height;
+
+                    // If close to the center, make one mountain significantly taller
+                    if (distance_to_main < cluster_radius / 4) {
+                        base_height += cluster_factor * mountain_scale;
+                    }
+                }
+
+                heightfield.write[y].write[x] = base_height;
             }
         }
     }
@@ -157,38 +260,16 @@ Ref<ArrayMesh> Map::generate_3d_mesh() {
         }
     }
 
-	Ref<ArrayMesh> newMesh = surface_tool->commit();
+    Ref<ArrayMesh> newMesh = surface_tool->commit();
     mesh = *newMesh;
 
-	StandardMaterial3D* material = memnew(StandardMaterial3D);
+    StandardMaterial3D* material = memnew(StandardMaterial3D);
     material->set_albedo(Color(0.1, 0.9, 0.1));
     mesh->surface_set_material(0, material);
 
     return mesh;
 }
 
-void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale) {
-    width = p_width;
-    height = p_height;
-    octaves = p_octaves;
-    persistence = p_persistence;
-    scale = p_scale;
-    max_height = p_max_height;
-    mountain_scale = p_mountain_scale;
-
-    generate_heightfield();
-    Ref<ArrayMesh> newMesh = generate_3d_mesh();
-
-	set_mesh(newMesh);  // Directly set the mesh for MeshInstance3D
-
-    // Add StaticBody3D
-    
-    // Create collision shape
-    Ref<ConcavePolygonShape3D> collision_shape_mesh = newMesh->create_trimesh_shape();
-	collision_shape->set_shape(collision_shape_mesh);
-
-    set_position(Vector3(0, 0, 0));
-}
 
 void Map::scatter_circles_on_mesh(int circle_count, float circle_radius) {
     if (heightfield.is_empty() || heightfield[0].is_empty()) {
@@ -233,7 +314,9 @@ Vector<Vector3> Map::scatter_props(const Vector<Vector<float>> &heightfield, int
     }
 
     RandomNumberGenerator *rng = memnew(RandomNumberGenerator);
-    rng->randomize();
+    //TODO - manipulate to not include areas that are part of the path
+    rng->set_seed(random_seed); // Set a fixed seed for reproducible results
+    //rng->randomize(); Use this line instead of the one above if you want seed to be randomized
 
     for (int i = 0; i < prop_count; ++i) {
         // Randomly select a position on the heightfield
@@ -248,6 +331,50 @@ Vector<Vector3> Map::scatter_props(const Vector<Vector<float>> &heightfield, int
 
     memdelete(rng);
     return positions;
+}
+
+void Map::create_flat_path(Vector3 start, Vector3 stop, float path_width) {
+    if (heightfield.is_empty() || heightfield[0].is_empty()) {
+        UtilityFunctions::print("Heightfield is not generated.");
+        return;
+    }
+
+    // Convert start and stop to grid coordinates
+    start /= scale;
+    stop /= scale;
+
+    // Determine the direction vector of the path
+    Vector2 start_2d(start.x, start.z);
+    Vector2 stop_2d(stop.x, stop.z);
+    Vector2 direction = stop_2d - start_2d;
+    float length = direction.length();
+    direction /= length; // Normalize the direction vector
+
+    // Loop over path points
+    for (float t = 0; t <= length; t += 1.0f) {
+        Vector2 point_2d = start_2d + direction * t;
+
+        int center_x = static_cast<int>(point_2d.x);
+        int center_z = static_cast<int>(point_2d.y);
+
+        // Flatten and color a square area around the path center
+        int half_width = static_cast<int>(path_width / (2.0f * scale));
+        for (int dz = -half_width; dz <= half_width; ++dz) {
+            for (int dx = -half_width; dx <= half_width; ++dx) {
+                int x = center_x + dx;
+                int z = center_z + dz;
+
+                // Out of bounds check
+                if (x >= 0 && x < width && z >= 0 && z < height) {
+                    heightfield.write[z].write[x] = 0.0f; // Flatten to y = 0
+
+                    // Mark the path vertices for custom coloring
+                    path_vertices.push_back(Vector2(x, z));
+                }
+            }
+        }
+    }
+    UtilityFunctions::print("Flat path created from " + start + " to " + stop + ".");
 }
 
 void Map::print_heightfield() const {

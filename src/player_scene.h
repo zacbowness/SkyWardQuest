@@ -32,6 +32,10 @@
 #include <godot_cpp/variant/rect2.hpp> // for viewport size
 #include <godot_cpp/classes/canvas_item.hpp> // for viewport size
 #include <godot_cpp/classes/control.hpp> // for the anchors preset
+#include <godot_cpp/classes/quad_mesh.hpp>
+#include <godot_cpp/classes/standard_material3d.hpp>
+#include <godot_cpp/classes/shader_material.hpp>
+#include <godot_cpp/classes/shader.hpp>
 
 //Screen Effects
 #include <godot_cpp/classes/quad_mesh.hpp>
@@ -67,6 +71,14 @@ private:
 	Vector3 side_;
 
 	Vector2 perspective_change;
+
+	MeshInstance3D* screen_quad_instance;
+	ShaderMaterial* screen_space_shader_material;
+
+	// Fixed-size array of shaders
+	std::array<godot::Ref<godot::Shader>, 1> shaders;
+	// Index of the shader in the current array
+	int current_shader_index;
 
 	Vector<Ref<Shader>> effect_array;
 
@@ -118,6 +130,9 @@ public:
 
 	//GETTER AND SETTER FUNCTIONS
 	CollisionShape3D* get_collider(){return player_body;}
+
+	// Loads the shaders and adds them to the shaders array
+	void load_shaders();
 
 
 	// the return type represents whether it existed already; true if it is brand-new; false if it was retrieved from the SceneTree
