@@ -32,6 +32,10 @@
 #include <godot_cpp/variant/rect2.hpp> // for viewport size
 #include <godot_cpp/classes/canvas_item.hpp> // for viewport size
 #include <godot_cpp/classes/control.hpp> // for the anchors preset
+#include <godot_cpp/classes/quad_mesh.hpp>
+#include <godot_cpp/classes/standard_material3d.hpp>
+#include <godot_cpp/classes/shader_material.hpp>
+#include <godot_cpp/classes/shader.hpp>
 
 //File Inclusions
 #include "defs.h"
@@ -63,6 +67,14 @@ private:
 
 	Vector2 perspective_change;
 
+	MeshInstance3D* screen_quad_instance;
+	ShaderMaterial* screen_space_shader_material;
+
+	// Fixed-size array of shaders
+	std::array<godot::Ref<godot::Shader>, 1> shaders;
+	// Index of the shader in the current array
+	int current_shader_index;
+
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
@@ -89,6 +101,9 @@ public:
 
 	//GETTER AND SETTER FUNCTIONS
 	CollisionShape3D* get_collider(){return player_body;}
+
+	// Loads the shaders and adds them to the shaders array
+	void load_shaders();
 
 
 	// the return type represents whether it existed already; true if it is brand-new; false if it was retrieved from the SceneTree
@@ -123,6 +138,25 @@ public:
 			return true;
 		} else {
 			pointer = dynamic_cast<T*>(child);//if node with name already exists, assign it to pointer
+			return false;
+		}
+	}
+
+	template <class T>
+	// returns true if pointer is brand-new; false if retrieved from SceneTree
+	// variant allows you to create a child of a node pointer other than 'this'
+	bool create_and_add_as_child_of_parent(T* &pointer, String name, Node* parent){
+		Node* child = parent->find_child(name);
+		
+		if(child == nullptr){
+			pointer = memnew(T);
+			pointer->set_name(name);
+			parent->add_child(pointer);
+			pointer->set_owner(get_tree()->get_edited_scene_root());
+			return true;
+		}
+		else{
+			pointer = dynamic_cast<T*>(child);
 			return false;
 		}
 	}

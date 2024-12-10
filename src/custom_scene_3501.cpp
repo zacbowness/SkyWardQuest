@@ -26,6 +26,8 @@ void CustomScene3501::_enter_tree (){
 
 	create_and_add_as_child<Skybox>(skybox,"Skybox");
 
+	create_and_add_as_child<Portal>(portal, "portal_effect");
+
 	//create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0)); //Make a temp Particle System
 	init_debug_rects();	//add temp rect meshes to scene
 	init_props();		//add props to scene
@@ -44,6 +46,10 @@ void CustomScene3501::_ready ( ){
 	slime->setPlayerPointer(player);
 	slime->_ready();
 
+	Vector3 start = Vector3(5.0f, 0.0f, 5.0f);
+	Vector3 stop= Vector3(25.0f, 0.0f, 100.0f);
+	float path_width = 15.0f;
+
 	//Generate Terrain (Values are modifiable in defs.h)
 	map->generate_terrain(
 		MAP_WIDTH,
@@ -52,7 +58,11 @@ void CustomScene3501::_ready ( ){
 		MAP_PERSISTENCE,
 		MAP_SCALE,
 		MAP_MAX_HEIGHT,
-		MAP_MOUNTAIN_SCALE
+		MAP_MOUNTAIN_SCALE,
+		start,
+		stop,
+		path_width,
+		false
 	);
 
 	//Get Valid Positions on the terrain mesh to place tree/rock/env objects

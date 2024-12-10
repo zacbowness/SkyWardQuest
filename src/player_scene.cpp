@@ -3,6 +3,7 @@
 #include <godot_cpp/classes/random_number_generator.hpp>
 
 
+
 using namespace godot;
 
 void Player::_bind_methods() {}
@@ -11,6 +12,7 @@ Player::Player() : CharacterBody3D() {
 	time_passed = 0.0;
 	player_quat = Quaternion(Vector3(0, 0, 1), 0.0f);
 	perspective_change = Vector2(0,0);
+	current_shader_index = 0;
 }
 
 Player::~Player() {}
@@ -22,6 +24,24 @@ void Player::_enter_tree (){
 	create_or_add_child<QuatCamera>(main_camera, "First Person Camera");
 	create_or_add_child<MeshInstance3D>(player_mesh, "Player Mesh");
 	create_or_add_child<CollisionShape3D>(player_body, "Player Body");
+	create_and_add_as_child_of_parent<MeshInstance3D>(screen_quad_instance, "Screen Quad", main_camera);
+
+	load_shaders();
+
+	// Setup the screen-space shader
+	QuadMesh* quad_mesh = memnew(QuadMesh); 
+	quad_mesh->set_size(Vector2(2, 2));
+	quad_mesh->set_flip_faces(true);
+
+	screen_space_shader_material = memnew(ShaderMaterial);
+
+	// Loads the current index shader and applies it to the quad mesh
+	Ref<Shader> shader = shaders[current_shader_index];
+	screen_space_shader_material->set_shader(shader);
+	quad_mesh->surface_set_material(0, screen_space_shader_material);
+
+	screen_quad_instance->set_mesh(quad_mesh);
+	screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
 
 }
 
@@ -55,6 +75,18 @@ void Player::_process(double delta) {
 	if(PLAYER_DEBUG&&DEBUG)UtilityFunctions::print(velocity);
 	move_and_slide();//move and slide allows for smoother movement on non flat surfaces
 	set_velocity(velocity);
+}
+
+void Player::load_shaders() {
+    //shaders[0] = godot::ResourceLoader::get_singleton()->load("shaders/glass.gdshader", "Shader");
+    shaders[0] = godot::ResourceLoader::get_singleton()->load("shaders/heartbeat.gdshader", "Shader");
+
+	//Check to see if loaded shaders are valid
+    for (size_t i = 0; i < shaders.size(); ++i) {
+        if (!shaders[i].is_valid()) {
+            UtilityFunctions::print(vformat("Shader failed to load %d", i));
+        }
+    }
 }
 
 //==== INITIALIZATION FUNCTIONS ====//

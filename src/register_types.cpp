@@ -18,6 +18,8 @@
 #include "asset_importer.h"
 #include "prop.h"
 #include "skybox.h"
+#include "mountain.h"
+#include "portal.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -59,6 +61,9 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Collectable>();
 
 	ClassDB::register_class<Skybox>();
+
+	ClassDB::register_class<Mountain>();
+	ClassDB::register_class<Portal>();
 	
 	
 }

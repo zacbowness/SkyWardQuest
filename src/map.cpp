@@ -23,6 +23,58 @@ void Map::_enter_tree(){
 	create_and_add_as_child_of_Node<CollisionShape3D>(collision_shape, "Collider_Shape", static_body);
 }
 
+void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, Vector3 start, Vector3 stop, float path_width, bool path) {
+    width = p_width;
+    height = p_height;
+    octaves = p_octaves;
+    persistence = p_persistence;
+    scale = p_scale;
+    max_height = p_max_height;
+    mountain_scale = p_mountain_scale;
+
+    generate_heightfield();
+
+    if (path){
+        create_flat_path(start, stop, path_width);
+    }
+    Ref<ArrayMesh> newMesh = generate_3d_mesh();
+
+	set_mesh(newMesh);
+    
+    // Create collision shape
+    Ref<ConcavePolygonShape3D> collision_shape_mesh = newMesh->create_trimesh_shape();
+	collision_shape->set_shape(collision_shape_mesh);
+
+    set_position(Vector3(0, 0, 0));
+}
+
+
+void Map::generate_mountain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, Vector3 start, Vector3 stop, float path_width, bool path) {
+    width = p_width;
+    height = p_height;
+    octaves = p_octaves;
+    persistence = p_persistence;
+    scale = p_scale;
+    max_height = p_max_height;
+    mountain_scale = p_mountain_scale;
+
+    generate_mountain_heightfield();
+
+    if (path){
+        create_flat_path(start, stop, path_width);
+    }
+    //create_flat_path(start, stop, path_width);
+    Ref<ArrayMesh> newMesh = generate_3d_mesh();
+
+	set_mesh(newMesh);
+    
+    // Create collision shape
+    Ref<ConcavePolygonShape3D> collision_shape_mesh = newMesh->create_trimesh_shape();
+	collision_shape->set_shape(collision_shape_mesh);
+
+    set_position(Vector3(0, 0, 0));
+}
+
 float Map::perlin_noise(float x, float y) const {
     int n = static_cast<int>(x) + static_cast<int>(y) * 57;
     n = (n << 13) ^ n;
@@ -67,6 +119,17 @@ float Map::mountain_noise(float x, float y) const {
     float detail_noise = multiscale_noise(x, y);
 
     if (base_noise > 0.2f) {
+        return (base_noise + detail_noise) * mountain_scale * 0.8f; // Reduce scale for smaller mountains
+    }
+
+    return detail_noise * max_height;
+}
+
+float Map::terrain_noise(float x, float y) const {
+    float base_noise = perlin_noise(x * 0.05f, y * 0.05f);
+    float detail_noise = multiscale_noise(x, y);
+
+    if (base_noise > 0.2f) {
         return (base_noise + detail_noise) * mountain_scale;
     }
 
@@ -82,7 +145,44 @@ void Map::generate_heightfield() {
             if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
                 heightfield.write[y].write[x] = 0.0f; 
             } else {
-                heightfield.write[y].write[x] = mountain_noise(x * scale, y * scale);
+                heightfield.write[y].write[x] = terrain_noise(x * scale, y * scale);
+            }
+        }
+    }
+
+    advanced_smooth_heightfield();
+}
+
+
+void Map::generate_mountain_heightfield() {
+    heightfield.resize(height);
+    int main_mountain_x = width / 3;
+    int main_mountain_y = height / 3;
+    int cluster_radius = 30;
+
+    for (int y = 0; y < height; ++y) {
+        heightfield.write[y].resize(width);
+        for (int x = 0; x < width; ++x) {
+            // Force edge points to y = 0
+            if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+                heightfield.write[y].write[x] = 0.0f;
+            } else {
+                float base_height = mountain_noise(x * scale, y * scale);
+
+                // Add the cluster of mountains
+                float distance_to_main = Vector2(main_mountain_x - x, main_mountain_y - y).length();
+                if (distance_to_main < cluster_radius) {
+                    // Increase height for the cluster
+                    float cluster_factor = (1.0f - (distance_to_main / cluster_radius)) * 2.0f; // Scale up cluster factor
+                    base_height += cluster_factor * max_height;
+
+                    // If close to the center, make one mountain significantly taller
+                    if (distance_to_main < cluster_radius / 4) {
+                        base_height += cluster_factor * mountain_scale;
+                    }
+                }
+
+                heightfield.write[y].write[x] = base_height;
             }
         }
     }
@@ -149,20 +249,12 @@ Ref<ArrayMesh> Map::generate_3d_mesh() {
             Vector3 normal1 = (v1 - v0).cross(v2 - v0).normalized();
             Vector3 normal2 = (v3 - v1).cross(v2 - v1).normalized();
 
-            // Check if the vertex is part of the path
-            Color vertex_color = Color(0.1, 0.9, 0.1); // Default terrain color
-            if (path_vertices.has(Vector2(x, y))) {
-                vertex_color = Color(0.5, 0.5, 0.5); // Gray for the path
-            }
-
             surface_tool->set_normal(normal1);
-            surface_tool->set_color(vertex_color);
             surface_tool->add_vertex(v0);
             surface_tool->add_vertex(v1);
             surface_tool->add_vertex(v2);
 
             surface_tool->set_normal(normal2);
-            surface_tool->set_color(vertex_color);
             surface_tool->add_vertex(v1);
             surface_tool->add_vertex(v3);
             surface_tool->add_vertex(v2);
@@ -173,38 +265,12 @@ Ref<ArrayMesh> Map::generate_3d_mesh() {
     mesh = *newMesh;
 
     StandardMaterial3D* material = memnew(StandardMaterial3D);
-    material->set_albedo(Color(0.1, 0.9, 0.1)); // Default terrain material
+    material->set_albedo(Color(0.1, 0.9, 0.1));
     mesh->surface_set_material(0, material);
 
     return mesh;
 }
 
-
-void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale) {
-    width = p_width;
-    height = p_height;
-    octaves = p_octaves;
-    persistence = p_persistence;
-    scale = p_scale;
-    max_height = p_max_height;
-    mountain_scale = p_mountain_scale;
-
-    Vector3 start = Vector3(5.0f, 0.0f, 5.0f);
-	Vector3 stop= Vector3(100.0f, 0.0f, 5.0f);
-	float path_width = 100.0f;
-
-    generate_heightfield();
-    create_flat_path(start, stop, path_width);
-    Ref<ArrayMesh> newMesh = generate_3d_mesh();
-
-	set_mesh(newMesh);
-    
-    // Create collision shape
-    Ref<ConcavePolygonShape3D> collision_shape_mesh = newMesh->create_trimesh_shape();
-	collision_shape->set_shape(collision_shape_mesh);
-
-    set_position(Vector3(0, 0, 0));
-}
 
 void Map::scatter_circles_on_mesh(int circle_count, float circle_radius) {
     if (heightfield.is_empty() || heightfield[0].is_empty()) {
@@ -309,7 +375,6 @@ void Map::create_flat_path(Vector3 start, Vector3 stop, float path_width) {
             }
         }
     }
-
     UtilityFunctions::print("Flat path created from " + start + " to " + stop + ".");
 }
 

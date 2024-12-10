@@ -1,15 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhk7lci6v14gh"]
+[gd_scene load_steps=7 format=3 uid="uid://bhk7lci6v14gh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qx45o"]
+[ext_resource type="Shader" path="res://shaders/heartbeat.gdshader" id="1_ouxuq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fnnqg"]
+render_priority = 0
+shader = ExtResource("1_ouxuq")
+
+[sub_resource type="QuadMesh" id="QuadMesh_1g4mc"]
+material = SubResource("ShaderMaterial_fnnqg")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jvsb"]
 albedo_color = Color(0.4, 0.4, 0.4, 1)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_5r8oc"]
-material = SubResource("StandardMaterial3D_qx45o")
+[sub_resource type="CylinderMesh" id="CylinderMesh_u4df8"]
+material = SubResource("StandardMaterial3D_1jvsb")
 top_radius = 0.35
 bottom_radius = 0.35
 height = 1.6
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kom51"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gmk5u"]
 radius = 0.35
 height = 1.6
 
@@ -18,10 +29,14 @@ height = 1.6
 [node name="First Person Camera" type="QuatCamera" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 
+[node name="Screen Quad" type="MeshInstance3D" parent="First Person Camera"]
+extra_cull_margin = 50.0
+mesh = SubResource("QuadMesh_1g4mc")
+
 [node name="Player Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-mesh = SubResource("CylinderMesh_5r8oc")
+mesh = SubResource("CylinderMesh_u4df8")
 
 [node name="Player Body" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-shape = SubResource("CapsuleShape3D_kom51")
+shape = SubResource("CapsuleShape3D_gmk5u")
