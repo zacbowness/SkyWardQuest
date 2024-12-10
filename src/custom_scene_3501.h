@@ -43,6 +43,12 @@
 #include "skybox.h"
 #include "portal.h"
 #include "portal_effect.h"
+#include "collectable.h"
+
+//Enemies 
+#include "bee.h"
+#include "wolf.h"
+#include "slime.h"
 
 //LOCAL DEFINITIONS
 #define NUM_TERRAIN_PROPS 20
@@ -61,11 +67,13 @@ private:
 	Slime* slime;
 	Map* map;
 	Skybox* skybox;
-	PortalEffect* portal;
+	PortalEffect* portal_effect;
+	Portal* portal;
 
 	Vector<ParticleSystem*> particle_systems;
-
+	Vector<Collectable*> collectableList;
 	Vector<MeshInstance3D*> objects;
+	Vector<Npc*> NpcList;
 	
 	Vector<DebugRect*> rect_instances;
 	Vector<Prop*> prop_instances;
@@ -84,9 +92,20 @@ private:
     void create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);
 	void update_terrain_props(Vector<Vector3> pos_vect);
 
+	//Other Creation Functions
+	void createCollectable(Vector3 pos);
+	void createPortal(Vector3 pos);
+	void create_npc(NpcType type, Vector3 pos);
+
 	Dictionary mesh_filepaths;//Hash Map for mesh filepaths
 	Dictionary texture_filepaths;//Hash Map for texture filepaths
 	void load_filepaths();
+
+	enum NpcType{
+		SlimeNpc,
+		WolfNpc,
+		BeeNpc
+	};
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
@@ -104,35 +123,13 @@ public:
 	void create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos);
 
 	template <class T>
-	// returns true if pointer is brand-new; false if retrieved from SceneTree
-	bool create_and_add_as_child(T* &pointer, String name){
-
-		Node* child = find_child(name);
-		
-		if(child == nullptr){
-			pointer = memnew(T);
-			pointer->set_name(name);
-			add_child(pointer);
-			pointer->set_owner(get_tree()->get_edited_scene_root());
-			return true;
-		}
-		else{
-			pointer = dynamic_cast<T*>(child);
-			return false;
-		}
-	}
-
-
-	template <class T>
-	// returns true if pointer is brand-new; false if retrieved from SceneTree
-	bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent){
-		
-		Node* child = find_child(name);//find node with the given name
+	bool create_or_add_child(T* &pointer, String name){
+		Node* child = find_child(name);//find node with the given name (NAME MUST BE UNIQUE)
 
 		if(child == nullptr){//if child node was not found, create it
 			pointer = memnew(T);
 			pointer->set_name(name);
-			parent->add_child(pointer);
+			this->add_child(pointer);
 			pointer->set_owner(get_tree()->get_edited_scene_root());
 			return true;
 		} else {
@@ -141,36 +138,20 @@ public:
 		}
 	}
 
+	//A Polymorph of the above function where a parent node is given
+	//Use this if you want a node to be added underneath the given parent node in the scene tree
 	template <class T>
-	bool add_as_child(T* &pointer, String name, bool search){
-		// this is the default behaviour
-		// added the search parameter so that we can skip the slow "find_child" call during runtime
-		if(search == false){
-			pointer->set_name(name);
-			add_child(pointer);
-			pointer->set_owner(get_tree()->get_edited_scene_root());
-			return true;
-		}
-
-		// always only have to search once if we save it here
-		Node* child = find_child(name);
+	bool create_or_add_child(T* &pointer, String name, Node* parent){
 		
-		// if the node hasn't been added to the SceneTree yet
-		if(child == nullptr){
+		Node* child = find_child(name);//find node with the given name (NAME MUST BE UNIQUE)
+		if(child == nullptr){//if child node was not found, create it
+			pointer = memnew(T);
 			pointer->set_name(name);
-			add_child(pointer);
+			parent->add_child(pointer);//Add node as child of given node
 			pointer->set_owner(get_tree()->get_edited_scene_root());
 			return true;
-		}
-		// if we are grabbing the existent one, clean up the memory to the new one that was just made and passed as an argument
-		else{
-			if(pointer == nullptr){
-				UtilityFunctions::print("There is a nullptr being passed to add_as_child...");
-			}
-			else{
-				memdelete(pointer);
-			}
-			pointer = dynamic_cast<T*>(child);
+		} else {
+			pointer = dynamic_cast<T*>(child);//if node with name already exists, assign it to pointer
 			return false;
 		}
 	}
