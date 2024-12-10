@@ -51,7 +51,7 @@
 #include "slime.h"
 
 //LOCAL DEFINITIONS
-#define NUM_TERRAIN_PROPS 20
+#define NUM_TERRAIN_PROPS 60
 
 
 // everything in gdextension is defined in this namespace

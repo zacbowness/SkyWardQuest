@@ -28,21 +28,7 @@ void Player::_enter_tree (){
 
 	load_shaders();
 
-	// Setup the screen-space shader
-	QuadMesh* quad_mesh = memnew(QuadMesh); 
-	quad_mesh->set_size(Vector2(2, 2));
-	quad_mesh->set_flip_faces(true);
-
-	screen_space_shader_material = memnew(ShaderMaterial);
-
-	// Loads the current index shader and applies it to the quad mesh
-	Ref<Shader> shader = shaders[current_shader_index];
-	screen_space_shader_material->set_shader(shader);
-	quad_mesh->surface_set_material(0, screen_space_shader_material);
-
-	screen_quad_instance->set_mesh(quad_mesh);
-	screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
-
+	//init_screen_fx();
 }
 
 void Player::_ready ( ){
@@ -123,6 +109,23 @@ void Player::init_body(){
 	capsule->set_height(PLAYER_HEIGHT);
 	player_body->set_shape(capsule);
 	player_body->set_position(Vector3(0.0, PLAYER_HEIGHT/2, 0.0));//place so that player origin is on the ground
+}
+
+void Player:: init_screen_fx(){
+	// Setup the screen-space shader
+	QuadMesh* quad_mesh = memnew(QuadMesh); 
+	quad_mesh->set_size(Vector2(2, 2));
+	quad_mesh->set_flip_faces(true);
+
+	screen_space_shader_material = memnew(ShaderMaterial);
+
+	// Loads the current index shader and applies it to the quad mesh
+	Ref<Shader> shader = shaders[current_shader_index];
+	screen_space_shader_material->set_shader(shader);
+	quad_mesh->surface_set_material(0, screen_space_shader_material);
+
+	screen_quad_instance->set_mesh(quad_mesh);
+	screen_quad_instance->set_extra_cull_margin(50.0f); // as suggested in the Godot docs to prevent culling
 }
 
 //==== MOVEMENT AND TRANSFORMATION FUNCTIONS ====//
