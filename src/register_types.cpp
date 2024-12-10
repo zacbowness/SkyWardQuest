@@ -18,6 +18,7 @@
 #include "asset_importer.h"
 #include "prop.h"
 #include "skybox.h"
+#include "tower.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -43,6 +44,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<CollisionObject>();
 	ClassDB::register_class<DebugRect>();
 	ClassDB::register_class<Prop>();
+	ClassDB::register_class<Tower>();
 	
 	//Enemy Classes
 	ClassDB::register_class<Npc>();

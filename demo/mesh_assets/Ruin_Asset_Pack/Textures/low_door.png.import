@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://dln8w5quyajo5"
+path="res://.godot/imported/low_door.png-fc8b4cad14f2664f232f9264088c0b8d.image"
+
+[deps]
+
+source_file="res://mesh_assets/Ruin_Asset_Pack/Textures/low_door.png"
+dest_files=["res://.godot/imported/low_door.png-fc8b4cad14f2664f232f9264088c0b8d.image"]
+
+[params]
+

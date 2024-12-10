@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://uhkr0746nxtw"
+path="res://.godot/imported/low_door_closed.png-a636b3345ae657c4f70a10cc27ddf719.image"
+
+[deps]
+
+source_file="res://mesh_assets/Ruin_Asset_Pack/Textures/low_door_closed.png"
+dest_files=["res://.godot/imported/low_door_closed.png-a636b3345ae657c4f70a10cc27ddf719.image"]
+
+[params]
+

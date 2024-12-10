@@ -18,6 +18,5 @@ void CollisionObject::_enter_tree(){
 	if(collider == nullptr){if(DEBUG) UtilityFunctions::print("ERROR - Collider is nullptr (init_collider() invalid return)");}//give error output
 	else{
 		object_collider = collider;
-		//create_or_add_child<StaticBody3D>(object_collider, "ColliderBody");
 	}
 }

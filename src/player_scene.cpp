@@ -22,7 +22,6 @@ void Player::_enter_tree (){
 	create_or_add_child<QuatCamera>(main_camera, "First Person Camera");
 	create_or_add_child<MeshInstance3D>(player_mesh, "Player Mesh");
 	create_or_add_child<CollisionShape3D>(player_body, "Player Body");
-
 }
 
 void Player::_ready ( ){

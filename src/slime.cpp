@@ -23,7 +23,6 @@ Slime::Slime() {
 Slime::~Slime() {}
 
 void Slime::_enter_tree(){
-	
 	//Initalizes The Children that makes up a Slime 
 	create_or_add_child<MeshInstance3D>(npc_mesh, "Slime Mesh");
 	create_or_add_child<CollisionShape3D>(npc_body, "Slime Body");
