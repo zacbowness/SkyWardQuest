@@ -1,5 +1,6 @@
 #include "defs.h"
 #include "Portal.h"
+#include "2dScene.h"
 
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/variant/utility_functions.hpp> // for the debug statements
@@ -51,6 +52,7 @@ void Portal::_process(double delta){
 void Portal::body_entered(Node3D *body) {
     if (body == player && player->getCollectable() == 3) {
         UtilityFunctions::print("Game Over");
+		get_tree()->change_scene_to_file("res://gameOver.tscn");
     }
 }
 

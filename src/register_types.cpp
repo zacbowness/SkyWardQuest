@@ -31,6 +31,8 @@
 #include "portal.h"
 #include "skybox.h"
 #include "2dScene.h"
+#include "startScene.h"
+#include "gameOverScene.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -90,8 +92,8 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 
 	//2D Scene
 	ClassDB::register_class<Scene2D>();
-	
-	
+	ClassDB::register_class<startScene>();
+	ClassDB::register_class<gameOverScene>();
 }
 
 // gets called when godot unloads our plugin

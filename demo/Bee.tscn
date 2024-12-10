@@ -1,50 +1,50 @@
 [gd_scene load_steps=15 format=3 uid="uid://yya6grfh38wg"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3cmuq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_awfwr"]
 albedo_color = Color(1, 1, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_wtdwt"]
-material = SubResource("StandardMaterial3D_3cmuq")
+[sub_resource type="BoxMesh" id="BoxMesh_td6nx"]
+material = SubResource("StandardMaterial3D_awfwr")
 size = Vector3(0.25, 0.25, 0.25)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkg7r"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y16s5"]
 albedo_color = Color(1, 1, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_1d41b"]
-material = SubResource("StandardMaterial3D_wkg7r")
+[sub_resource type="BoxMesh" id="BoxMesh_gkd85"]
+material = SubResource("StandardMaterial3D_y16s5")
 size = Vector3(0.25, 0.25, 0.25)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6da2k"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oaj2e"]
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_kuw27"]
-material = SubResource("StandardMaterial3D_6da2k")
+[sub_resource type="BoxMesh" id="BoxMesh_5bqvd"]
+material = SubResource("StandardMaterial3D_oaj2e")
 size = Vector3(0.25, 0.25, 0.25)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pg2pt"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2nhuw"]
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_2bxbr"]
-material = SubResource("StandardMaterial3D_pg2pt")
+[sub_resource type="BoxMesh" id="BoxMesh_21ugp"]
+material = SubResource("StandardMaterial3D_2nhuw")
 size = Vector3(0.05, 0.05, 0.05)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_unscr"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gp14q"]
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_havhs"]
-material = SubResource("StandardMaterial3D_unscr")
+[sub_resource type="BoxMesh" id="BoxMesh_yppl5"]
+material = SubResource("StandardMaterial3D_gp14q")
 size = Vector3(0.05, 0.05, 0.05)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mnpo3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlst6"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_jb5sv"]
-material = SubResource("StandardMaterial3D_mnpo3")
+[sub_resource type="BoxMesh" id="BoxMesh_d4xke"]
+material = SubResource("StandardMaterial3D_vlst6")
 size = Vector3(0.7, 0.003, 0.25)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lig2o"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h3f3s"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_02ex5"]
-material = SubResource("StandardMaterial3D_lig2o")
+[sub_resource type="BoxMesh" id="BoxMesh_8qrms"]
+material = SubResource("StandardMaterial3D_h3f3s")
 size = Vector3(0.7, 0.003, 0.25)
 
 [node name="Bee" type="Node3D"]
@@ -55,27 +55,27 @@ size = Vector3(0.7, 0.003, 0.25)
 
 [node name="Yellow Body 1" type="BeeYBody" parent="Bee/Bee Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0)
-mesh = SubResource("BoxMesh_wtdwt")
+mesh = SubResource("BoxMesh_td6nx")
 
 [node name="Yellow Body 2" type="BeeYBody" parent="Bee/Bee Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 0)
-mesh = SubResource("BoxMesh_1d41b")
+mesh = SubResource("BoxMesh_gkd85")
 
 [node name="Black Body 1" type="BeeBBody" parent="Bee/Bee Body"]
-mesh = SubResource("BoxMesh_kuw27")
+mesh = SubResource("BoxMesh_5bqvd")
 
 [node name="Bee Eye 1" type="BeeEye" parent="Bee"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.075, 0.075)
-mesh = SubResource("BoxMesh_2bxbr")
+mesh = SubResource("BoxMesh_21ugp")
 
 [node name="Bee Eye 2" type="BeeEye" parent="Bee"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.075, -0.075)
-mesh = SubResource("BoxMesh_havhs")
+mesh = SubResource("BoxMesh_yppl5")
 
 [node name="Bee Wing 1" type="BeeLWing" parent="Bee"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15)
-mesh = SubResource("BoxMesh_jb5sv")
+mesh = SubResource("BoxMesh_d4xke")
 
 [node name="Bee Wing 2" type="BeeRWing" parent="Bee"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15)
-mesh = SubResource("BoxMesh_02ex5")
+mesh = SubResource("BoxMesh_8qrms")

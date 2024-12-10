@@ -1,4 +1,3 @@
-#include "2dScene.h"
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/classes/font.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
@@ -14,16 +13,11 @@ Scene2D::Scene2D() {}
 Scene2D::~Scene2D() {}
 
 void Scene2D::_enter_tree(){
-	createTitle();
-	createInfo();	
+
 }
 
 void Scene2D::_process(double delta){
-	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
-	Input* _input = Input::get_singleton();
-	if(_input->is_action_just_released("switch_main")){
-		swapScene("res://main.tscn");
-	}
+	
 }
 
 void Scene2D::setFont(Label* label, int size){
