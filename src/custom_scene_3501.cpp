@@ -91,24 +91,24 @@ void CustomScene3501::_process(double delta) {
 	time_passed += delta;
 }
 
-void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
+void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths){
 	Prop* prop;
 	create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
-	prop->setup_prop(pos, Vector3(0,0,0), size, mesh_filepath, texture_filepath_arr, num_textures, obj_name);
+	prop->setup_prop(pos, Vector3(0,0,0), size, mesh_filepath, texture_filepaths, obj_name);
 	prop_instances.push_back(prop);
 }
 
-void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
+void CustomScene3501::create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths){
 	Prop* prop;
 	create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
-	prop->setup_prop(pos, rotation, size, mesh_filepath, texture_filepath_arr, num_textures, obj_name);
+	prop->setup_prop(pos, rotation, size, mesh_filepath, texture_filepaths, obj_name);
 	prop_instances.push_back(prop);
 }
 
-void CustomScene3501::create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, String texture_filepath_arr[], int num_textures){
+void CustomScene3501::create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths){
 	Prop* prop;
 	create_and_add_as_child_of_Node<Prop>(prop,obj_name,parentNode);
-	prop->setup_prop(Vector3(0,0,0), rotation, size, mesh_filepath, texture_filepath_arr, num_textures, obj_name);
+	prop->setup_prop(Vector3(0,0,0), rotation, size, mesh_filepath, texture_filepaths, obj_name);
 	terrain_prop_instances.push_back(prop);
 }
 

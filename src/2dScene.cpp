@@ -3,6 +3,8 @@
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/input.hpp>
 
+#include "2dScene.h"
+
 
 using namespace godot;
 

@@ -30,6 +30,7 @@
 #include "flower.h"
 #include "portal.h"
 #include "skybox.h"
+#include "tower.h"
 #include "2dScene.h"
 #include "startScene.h"
 #include "gameOverScene.h"
@@ -58,6 +59,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<CollisionObject>();
 	ClassDB::register_class<DebugRect>();
 	ClassDB::register_class<Prop>();
+	ClassDB::register_class<Tower>();
 	ClassDB::register_class<Flower>();
 	
 	//Enemy Classes
