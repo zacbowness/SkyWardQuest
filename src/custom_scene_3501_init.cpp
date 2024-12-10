@@ -33,7 +33,6 @@ void CustomScene3501::init_props(){
 	create_or_add_child<Node>(terrainPropGroup, "Terrain Props", propGroup);
 
 	Vector<String> tree_textures = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
-	
 	create_prop(Vector3(10,10,10), Vector3(5,5,0), terrainPropGroup,"Test Tree", String(mesh_filepaths["OakTree_1"]), tree_textures);
 	create_prop(Vector3(10,10,10), Vector3(-5,5,0), propGroup,"Test Tree 2", String(mesh_filepaths["OakTree_2"]), tree_textures);
 

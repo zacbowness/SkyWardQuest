@@ -97,6 +97,7 @@ protected:
 	//Initialization functions
 	void init_camera();
 	void init_body();
+	void init_screen_fx();
 
 	Vector3 apply_input(Vector3 velocity, double delta);
 	Vector3 move_in_direction(Vector3 dir, Vector3 velocity);
