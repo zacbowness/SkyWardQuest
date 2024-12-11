@@ -45,3 +45,8 @@ void Npc::update_npc(){
 	set_position(startPos);
 	set_scale(scale);
 }
+
+void Npc::update_npc_position(Vector3 position){
+	set_position(position);
+	set_scale(scale);
+}

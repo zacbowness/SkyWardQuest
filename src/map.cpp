@@ -71,7 +71,7 @@ void Map::generate_mountain(int p_width, int p_height, int p_octaves, float p_pe
     Ref<ConcavePolygonShape3D> collision_shape_mesh = newMesh->create_trimesh_shape();
 	collision_shape->set_shape(collision_shape_mesh);
 
-    set_position(Vector3(0, 0, 0));
+    set_position(Vector3(5, -18, 70));
 }
 
 float Map::perlin_noise(float x, float y) const {
@@ -325,7 +325,7 @@ Vector<Vector3> Map::scatter_props(const Vector<Vector<float>> &heightfield, int
         float terrain_height = heightfield[y][x];
 
         // Calculate the world position for the prop
-        Vector3 position = Vector3(x * scale, terrain_height - 0.15, y * scale);
+        Vector3 position = Vector3(x * scale, terrain_height -0.15, y * scale);
         positions.push_back(position); // Add the position to the list
     }
 

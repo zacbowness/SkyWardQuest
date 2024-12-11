@@ -33,8 +33,13 @@
 #define TERMINAL_V 32.0
 
 //SPAWN POSITION
-#define SPAWN_X 0.0
+#define SPAWN_X 5.0
 #define SPAWN_Y 2.0
-#define SPAWN_Z 0.0
+#define SPAWN_Z 5.0
+
+//Number of enemies made
+#define NUM_SLIMES 6
+#define NUM_WOLVES 6
+#define NUM_BEES 3
 
 #endif // DEFS_H
