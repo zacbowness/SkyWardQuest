@@ -108,7 +108,6 @@ private:
 	Dictionary mesh_filepaths;//Hash Map for mesh filepaths
 	Dictionary texture_filepaths;//Hash Map for texture filepaths
 	void load_filepaths();
-
 	
 
 protected:

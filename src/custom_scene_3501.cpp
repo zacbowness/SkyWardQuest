@@ -29,6 +29,9 @@ void CustomScene3501::_enter_tree (){
 	create_or_add_child<PortalEffect>(portal_effect, "portal_effect");
 
 	create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0), 20000, 2.0); //Make a temp Particle System
+
+	create_particle_system("Magic Glyphs", "glyph", "glyph4x4", Vector2(0.7,0.7), Vector3(57.0, -1.5, 45.0), 80, 10.0); //Make a temp Particle System
+	
 	create_or_add_child<Tower>(tower, "Magical Tower");
 
 	//create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0)); //Make a temp Particle System
@@ -70,9 +73,9 @@ void CustomScene3501::_ready ( ){
 		// the current particle system we are setting up
 		ParticleSystem* particle_system = particle_systems[index];
 
-		particle_system[index].update_particle_system();
+		particle_system->update_particle_system();
 
-		// this should never be needed, but can't hurt to have. 
+		// this should never be needed, but can't hurt to have.
 		if(particle_system == nullptr) continue;
 		
 		dynamic_cast<ShaderMaterial*>(*particle_system->get_draw_pass_mesh(0)->surface_get_material(0))->set_shader_parameter("num_particles", particle_system->get_amount());

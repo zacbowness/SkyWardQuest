@@ -5,7 +5,7 @@ shader_type particles;
 uniform float num_particles;
 
 const float height = 0.0;
-const float circle_radius = 15.0;
+const float circle_radius = 6.5;
 const float maxspray = 0.5;
 
 const vec3 base_color = vec3(0.4, 0.7, 0.9);

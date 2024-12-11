@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://c0fol3ihve3a6"
+path="res://.godot/imported/tower_base.png-10ad03d74794edf7c4610130bcf05111.image"
+
+[deps]
+
+source_file="res://mesh_assets/Misc_Textures/tower_base.png"
+dest_files=["res://.godot/imported/tower_base.png-10ad03d74794edf7c4610130bcf05111.image"]
+
+[params]
+
