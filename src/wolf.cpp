@@ -96,7 +96,9 @@ void Wolf::init_body(){
     npc_body->set_shape(capsule_shape);
 	npc_body->set_scale(Vector3(6.0,6.0,6.0));
 	npc_body->set_rotation_degrees(Vector3(90,0,0));
-	npc_body->set_position(Vector3(get_position().x-1, get_position().y+2, get_position().z));
+
+	npc_mesh->set_position(Vector3(0,0,0));
+	npc_body->set_position(Vector3(-1, 2, 0));
 }
 
 //Sets Poisition Of Wolf 

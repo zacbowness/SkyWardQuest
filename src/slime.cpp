@@ -93,12 +93,13 @@ void Slime::init_body(){
 	create_or_add_child<MeshInstance3D>(npc_mesh, "Slime Mesh");
 	create_or_add_child<CollisionShape3D>(npc_body, "Collision Body");
 	init_mesh();	
-	npc_mesh->set_position(get_position());
 	SphereShape3D* sphere_shape;
 	sphere_shape = memnew(SphereShape3D);
     sphere_shape->set_radius(1.0f); // Set the radius of the sphere collider
     npc_body->set_shape(sphere_shape);
-	npc_body->set_position(Vector3(get_position().x, get_position().y+1.2, get_position().z));
+	
+	npc_mesh->set_position(Vector3(0, 0, 0));
+	npc_body->set_position(Vector3(0, 1.2, 0));
 }
 
 //Sets Poisition Of Slime 
