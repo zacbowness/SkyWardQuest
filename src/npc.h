@@ -20,6 +20,7 @@
 #include <godot_cpp/classes/shape3d.hpp>
 #include "defs.h"
 #include "asset_importer.h"
+#include "player_scene.h"
 
 
 
@@ -39,7 +40,7 @@ protected:
 	float speed;	
 	float detectionRadius;
 	virtual void approachDirection(Vector3, double);
-	CharacterBody3D* player;
+	Player* player;
 	enum NpcType type;
 	MeshInstance3D* npc_mesh;
 	CollisionShape3D* npc_body;
@@ -75,8 +76,8 @@ public:
 	~Npc();
 
 	void _process(double delta) override;	
-	void setPlayerPointer(CharacterBody3D* player);
-	inline CharacterBody3D* getPlayerPointer(){return player;}
+	void setPlayerPointer(Player* player);
+	inline Player* getPlayerPointer(){return player;}
 	void game_over() {GameOver = true;}
 	//Checks if the player is within Radius
 	//Uses the detectionRadius of the NPC
