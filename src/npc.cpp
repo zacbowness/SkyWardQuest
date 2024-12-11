@@ -14,7 +14,7 @@ Npc::Npc() {GameOver = false;}
 Npc::~Npc() {}
 
 //pass a pointer to the player object to this enemy
-void Npc::setPlayerPointer(CharacterBody3D* player){this->player = player;}
+void Npc::setPlayerPointer(Player* player){this->player = player;}
 
 void Npc::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()||GameOver) return;
@@ -29,8 +29,8 @@ bool Npc::playerInRadius(){
 
 //Takes in Direction, Velocity
 Vector3 Npc::moveInDirection(Vector3 dir, Vector3 velocity, double delta){
-	velocity.x += dir.x;
-	velocity.z += dir.z;
+	velocity.x += dir.x * delta;
+	velocity.z += dir.z * delta;
 
 	return velocity;
 }

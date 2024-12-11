@@ -180,7 +180,6 @@ void CustomScene3501::collectibles_in_scene(){
 }
 
 void CustomScene3501::create_npc(SpawnNPC type, Vector3 pos, Node* parentNode, String name){
-    UtilityFunctions::print("Npc Call");
     if (type == SlimeNpc){
         Slime* temp;
         create_or_add_child<Slime>(temp, name, parentNode);

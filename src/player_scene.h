@@ -36,6 +36,8 @@
 #include <godot_cpp/classes/standard_material3d.hpp>
 #include <godot_cpp/classes/shader_material.hpp>
 #include <godot_cpp/classes/shader.hpp>
+#include <godot_cpp/classes/timer.hpp>
+
 
 //Screen Effects
 #include <godot_cpp/classes/quad_mesh.hpp>
@@ -80,7 +82,8 @@ private:
 	Vector<Ref<Shader>> effect_array;
 
 	Vector<String> effect_shaders = {
-		"earthquake" //At Location 0...
+		"earthquake", //At Location 0...
+		"heartbeat"
 	};
 
 	QuadMesh* screen_mesh;
@@ -89,6 +92,10 @@ private:
 	MeshInstance3D* screen_quad_instance;
 	ShaderMaterial* screen_space_shader_material;
 
+	Timer* timer;
+	void on_timeout();
+
+	bool screen_effect_on = false;
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
@@ -105,6 +112,7 @@ protected:
 	void turn_player(float angle);//for rotation left and right
 	Vector3 get_forward();
 	Vector3 get_side();
+	
 	
 
 public:
@@ -124,7 +132,7 @@ public:
 	inline int getCollectable(){return collectableAmount;}
 	inline void setCollectable(int newAmount){collectableAmount = newAmount;}
 
-
+	void collidePlayer();
 
 	//GETTER AND SETTER FUNCTIONS
 	CollisionShape3D* get_collider(){return player_body;}
