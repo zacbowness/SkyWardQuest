@@ -45,7 +45,11 @@ public:
 private:
 	void load_filepaths();
 	void build_tower();
+	
 	void make_prop(Vector3 pos, Vector3 scale, Vector3 rotation, String model_filepath, Vector<String> texture_filepaths, String name);
+	
+	//Plymorph function for meshes with only one texture (avoids making a vector for no reason)
+	void make_prop(Vector3 pos, Vector3 scale, Vector3 rotation, String model_filepath, String texture_filepath, String name); 
 
 	Vector<String> make_vector(String arr[], int numStrings);
 
