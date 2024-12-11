@@ -20,8 +20,11 @@ void BeeBody::_enter_tree ( ) {
 	if(DEBUG) UtilityFunctions::print("Enter Tree - Bee Body.");
 	//Set up 3 Box Meshes 
 	create_and_add_as_child<BeeYBody>(yellowBody1, "Yellow Body 1", true);
+	yellowBody1->set_parent(this);
 	create_and_add_as_child<BeeYBody>(yellowBody2, "Yellow Body 2", true);
+	yellowBody2->set_parent(this);
 	create_and_add_as_child<BeeBBody>(blackBody1, "Black Body 1", true);
+	blackBody1->set_parent(this);
 	yellowBody1->set_local_position(Vector3(0.25, 0, 0));
 	yellowBody2->set_local_position(Vector3(-0.25, 0, 0));
 }
@@ -30,8 +33,6 @@ void BeeBody::_enter_tree ( ) {
 
 void BeeBody::_process(double delta){
 	set_global_transform(get_transformation_matrix());  
-	Vector3 position = get_global_position();
-    set_global_position(position);
 }
 
 /*

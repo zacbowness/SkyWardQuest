@@ -32,5 +32,9 @@
 #define GRAVITY 12.0
 #define TERMINAL_V 32.0
 
+//SPAWN POSITION
+#define SPAWN_X 0.0
+#define SPAWN_Y 2.0
+#define SPAWN_Z 0.0
 
 #endif // DEFS_H

@@ -45,6 +45,8 @@ protected:
 	CollisionShape3D* npc_body;
 	Vector3 direction;
 	Vector3 destination;
+	Vector3 startPos;
+	Vector3 scale = Vector3(1.0,1.0,1.0);
 	
 	Vector3 moveInDirection(Vector3 dir, Vector3 velocity, double delta);
 	inline float distanceFromPlayer(){return get_position().distance_to(player->get_position());}
@@ -53,8 +55,6 @@ protected:
 	
 	//Mesh Importer
 	AssetImporter* import_tool;
-	Mesh* init_mesh();
-	void init_collider();
 	String mesh_filepath;
 	Vector<String> texture_filepaths;
 	Ref<ArrayMesh> obj_mesh;
@@ -82,7 +82,10 @@ public:
 	//Uses the detectionRadius of the NPC
 	bool playerInRadius();
 	//Checks if you are in a certain radius of your destination
-	
+	void update_npc();
+
+	inline void setStartPos(Vector3 new_pos){startPos = new_pos;}
+	inline void setScale(Vector3 new_scale){scale = new_scale;}
 
 	// the return type represents whether it existed already; true if it is brand-new; false if it was retrieved from the SceneTree
 	// search defines whether the scenetree should be checked for an instance

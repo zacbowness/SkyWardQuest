@@ -22,17 +22,15 @@ Wolf::Wolf() {
 
 Wolf::~Wolf() {}
 
-void Wolf::_enter_tree(){
-	
+void Wolf::_enter_tree(){	
 	//Initalizes The Children that makes up a Wolf 
-	create_or_add_child<MeshInstance3D>(npc_mesh, "Wolf Mesh");
-	create_or_add_child<CollisionShape3D>(npc_body, "Wolf Body");
+	init_body();
 
 }
 
 void Wolf::_ready (){
 	//Initalize Wolf to be a Sphere Mesh Based Maybe (Softbody)	
-	init_body();
+	
 }
 
 void Wolf::_process(double delta){
@@ -89,23 +87,44 @@ void Wolf::_process(double delta){
 
 void Wolf::init_body(){
 	String dir = "res://mesh_assets/Wolf/";
-	mesh_filepath = dir + "Wolf.res";
-	texture_filepaths;
-	create_or_add_child<MeshInstance3D>(npc_mesh, "Slime Mesh");
+	mesh_filepath = dir + "wolf.res";
+	create_or_add_child<MeshInstance3D>(npc_mesh, "Wolf Mesh");
+	create_or_add_child<CollisionShape3D>(npc_body, "Wolf Body");
 	init_mesh();
-	init_collider();
+	CapsuleShape3D* capsule_shape;
+	capsule_shape = memnew(CapsuleShape3D);
+    npc_body->set_shape(capsule_shape);
+	npc_body->set_scale(Vector3(6.0,6.0,6.0));
+	npc_body->set_position(Vector3(get_position().x-1, get_position().y+2, get_position().z));
 }
 
 //Sets Poisition Of Wolf 
 void Wolf::approachDirection(Vector3 direction, double delta){
-	Vector3 velocity = get_velocity();
-	velocity = calculateMovement(direction.normalized(), velocity, delta);
+	   // Get the current transform
+		look_at(direction, Vector3(0,1,0));
+
+		Vector3 velocity = get_velocity();
+		velocity = calculateMovement(direction.normalized(), velocity, delta);
 
 	//Apply Gravity
 	if(!is_on_floor())velocity.y -= GRAVITY*delta; //if Wolf is not on the ground, apply gravity
 	if(is_on_floor()&&velocity.y<0)velocity.y = 0.0f; //if Wolf is falling and hits the ground->stop downward momentum
 
 	move_and_slide(); //move and slide allows for smoother movement on non flat surfaces
+	
+	//Goes through the List of everything that is being collided with 
+	for (int i = 0; i < get_slide_collision_count(); ++i) {      
+		// Gets the Index of the Collider then  
+        // Turns the Collision from an Object to A Node so it can be checked
+        Node* collider_node = Object::cast_to<Node>(get_slide_collision(i)->get_collider());  // Safe cast
+        
+        // Checks if the Collided Node is the Player
+        if (collider_node == player) {
+            player->set_position(Vector3(SPAWN_X, SPAWN_Y, SPAWN_Z));
+			WolfState = IDLE;
+        }
+    }
+	
 	set_velocity(velocity);
 }
 
@@ -130,3 +149,14 @@ Vector3 Wolf::calculateMovement(Vector3 direction, Vector3 curr_vel, double delt
 	return velocity;
 }
 
+Mesh* Wolf::init_mesh(){
+    Ref<ArrayMesh> mesh;
+	
+	//Import mesh from file
+	if(obj_mesh.is_null()){
+		mesh = import_tool->import_mesh_no_texture(mesh_filepath);
+		obj_mesh = mesh;//Copy mesh to format collider later (we could use the mesh pointer this func returns but the conversions would be messy)
+	}
+	npc_mesh->set_mesh(obj_mesh);//apply the mesh
+	return(*obj_mesh);//return mesh once initialized to be stored in WorldObject::_enter_tree()
+}

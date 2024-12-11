@@ -75,7 +75,9 @@ void CustomScene3501::_ready ( ){
 		dynamic_cast<ShaderMaterial*>(*particle_system->get_draw_pass_mesh(0)->surface_get_material(0))->set_shader_parameter("num_particles", particle_system->get_amount());
         dynamic_cast<ShaderMaterial*>(*particle_system->get_process_material())->set_shader_parameter("num_particles", particle_system->get_amount());
 	}
-	
+
+	for (Npc* npc : NpcList) npc->update_npc();
+
 	//Update DebugRect objects to set their location and otherwise
 	for(DebugRect* obj : rect_instances) obj->update_rect();
 	
@@ -155,21 +157,22 @@ void CustomScene3501::create_npc(SpawnNPC type, Vector3 pos){
 	if (type == SlimeNpc){
 		Slime* temp;
 		create_or_add_child<Slime>(temp, vformat("NPC %s", NpcList.size()));
-		temp->set_position(pos);
+		temp->setStartPos(pos);
 		temp->setPlayerPointer(player);
 		NpcList.push_back(temp);
 		
 	} else if (type == WolfNpc){
 		Wolf* temp;
 		create_or_add_child<Wolf>(temp, vformat("NPC %s", NpcList.size()));
-		temp->set_position(pos);
+		temp->setStartPos(pos);
 		temp->setPlayerPointer(player);
+		temp->setScale(Vector3(0.175, 0.175, 0.175));
 		NpcList.push_back(temp);
 
 	} else if (type == BeeNpc){
 		Bee* temp;
 		create_or_add_child<Bee>(temp, vformat("NPC %s", NpcList.size()));
-		temp->set_position(pos);
+		temp->setStartPos(pos);
 		NpcList.push_back(temp);
 	} 
 }
