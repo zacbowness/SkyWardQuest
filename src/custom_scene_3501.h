@@ -79,6 +79,12 @@ private:
 	Vector<Prop*> prop_instances;
 	Vector<Prop*> terrain_prop_instances;
 	
+	enum SpawnNPC{
+		SlimeNpc,
+		WolfNpc,
+		BeeNpc
+	};
+	
 	//Setup Functions
 	void init_debug_rects();
 	void create_rect(Vector3 size, Vector3 pos, Node* parentNode, String name);
@@ -95,17 +101,13 @@ private:
 	//Other Creation Functions
 	void createCollectable(Vector3 pos);
 	void createPortal(Vector3 pos);
-	void create_npc(NpcType type, Vector3 pos);
+	void create_npc(SpawnNPC type, Vector3 pos);
 
 	Dictionary mesh_filepaths;//Hash Map for mesh filepaths
 	Dictionary texture_filepaths;//Hash Map for texture filepaths
 	void load_filepaths();
 
-	enum NpcType{
-		SlimeNpc,
-		WolfNpc,
-		BeeNpc
-	};
+	
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
@@ -120,7 +122,7 @@ public:
 	void _ready ( ) override;
 
 	//Takes in The Node Name, Name of the Shader File, Name of the Texture File, Size and Position to make a particle System
-	void create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos);
+	void create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos, int32_t amount_in, double lifetime_in);
 
 	template <class T>
 	bool create_or_add_child(T* &pointer, String name){

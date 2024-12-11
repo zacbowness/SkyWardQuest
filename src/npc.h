@@ -54,7 +54,7 @@ protected:
 	//Mesh Importer
 	AssetImporter* import_tool;
 	Mesh* init_mesh();
-	StaticBody3D* init_collider();
+	void init_collider();
 	String mesh_filepath;
 	Vector<String> texture_filepaths;
 	Ref<ArrayMesh> obj_mesh;

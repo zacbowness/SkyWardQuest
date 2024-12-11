@@ -53,12 +53,7 @@ Mesh* Npc::init_mesh(){
 	return(*obj_mesh);//return mesh once initialized to be stored in WorldObject::_enter_tree()
 }
 
-StaticBody3D* Npc::init_collider(){
-	StaticBody3D* collider;
-
-	create_or_add_child<StaticBody3D>(collider, "Collision Body");
-	create_or_add_child<CollisionShape3D>(npc_body, "Collision Shape", collider);
+void Npc::init_collider(){
+	create_or_add_child<CollisionShape3D>(npc_body, "Collision Body");
 	npc_body->set_shape(import_tool->shape_from_Arraymesh(obj_mesh));
-
-	return collider;
 }

@@ -28,9 +28,10 @@ void CustomScene3501::_enter_tree (){
 
 	create_or_add_child<PortalEffect>(portal_effect, "portal_effect");
 
-	//create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0)); //Make a temp Particle System
+	create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0), 20000, 2.0); //Make a temp Particle System
 	init_debug_rects();	//add temp rect meshes to scene
 	init_props();		//add props to scene
+
 
 	
 }
@@ -65,6 +66,8 @@ void CustomScene3501::_ready ( ){
 	for(int index = 0; index < particle_systems.size(); index++){
 		// the current particle system we are setting up
 		ParticleSystem* particle_system = particle_systems[index];
+
+		particle_system[index].update_particle_system();
 
 		// this should never be needed, but can't hurt to have. 
 		if(particle_system == nullptr) continue;
@@ -137,16 +140,18 @@ void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, 
 	rect_instances.push_back(rect);
 }
 
-void CustomScene3501::create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos){
+void CustomScene3501::create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos, int32_t amount_in, double lifetime_in){
 	// if you want to use non-zero argument constructors, here is an example of how to do that
-	ParticleSystem* system = memnew(ParticleSystem(shader_name, texture_name, size, pos));
+	ParticleSystem* system;
 	create_or_add_child<ParticleSystem>(system, node_name);
+	system->init_particle_system(shader_name, texture_name, size, pos, amount_in, lifetime_in);
 	particle_systems.push_back(system);
 }
 
 
 
-void CustomScene3501::create_npc(godot::NpcType type, Vector3 pos){
+void CustomScene3501::create_npc(SpawnNPC type, Vector3 pos){
+	UtilityFunctions::print("Npc Call");
 	if (type == SlimeNpc){
 		Slime* temp;
 		create_or_add_child<Slime>(temp, vformat("NPC %s", NpcList.size()));

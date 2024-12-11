@@ -34,7 +34,7 @@ void Bee::_process(double delta){
 	//Approach its Destination
 	direction = destination - get_position();
 	approachDirection(direction, delta);
-	detectionRadius += 0.05;
+	body->set_local_position(get_position());
 
 	// if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
 	// switch (beeState)

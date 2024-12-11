@@ -26,6 +26,7 @@ void CustomScene3501::init_debug_rects(){
 }
 
 void CustomScene3501::init_props(){
+	UtilityFunctions::print("Prop Call");
 	Node* propGroup;
 	create_or_add_child<Node>(propGroup, "Game Props");//Create group node 
 
