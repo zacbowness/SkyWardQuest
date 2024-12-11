@@ -41,24 +41,7 @@ Vector3 Npc::getRandomPointInRadius(float radius){
 	return Vector3(r*cos(theta), get_position().y, r*sin(theta));
 }
 
-Mesh* Npc::init_mesh(){
-    Ref<ArrayMesh> mesh;
-	
-	//Import mesh from file
-	if(obj_mesh.is_null()){
-		mesh = import_tool->import_mesh(mesh_filepath, texture_filepaths);
-		obj_mesh = mesh;//Copy mesh to format collider later (we could use the mesh pointer this func returns but the conversions would be messy)
-	}
-	npc_mesh->set_mesh(obj_mesh);//apply the mesh
-	return(*obj_mesh);//return mesh once initialized to be stored in WorldObject::_enter_tree()
-}
-
-StaticBody3D* Npc::init_collider(){
-	StaticBody3D* collider;
-
-	create_or_add_child<StaticBody3D>(collider, "Collision Body");
-	create_or_add_child<CollisionShape3D>(npc_body, "Collision Shape", collider);
-	npc_body->set_shape(import_tool->shape_from_Arraymesh(obj_mesh));
-
-	return collider;
+void Npc::update_npc(){
+	set_position(startPos);
+	set_scale(scale);
 }

@@ -12,7 +12,7 @@
 #include <godot_cpp/godot.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/engine.hpp>
-
+#include <godot_cpp/classes/Ray_Cast3D.hpp>
 #include <vector>
 
 #include "friendly.h"
@@ -42,11 +42,14 @@ enum State {
 
 
 private:
+	const float height_from_ground = 2.0f;
+
 	BeeBody* body; 
 	BeeEye* eye1; 
 	BeeEye* eye2; 
 	BeeLWing* wing1; 
 	BeeRWing* wing2; 
+	RayCast3D* RayCast;
 	//Vector of Every Flower
 	//std::vector<Flower*> flowerVector;
 

@@ -16,6 +16,7 @@ private:
 	BeeYBody* yellowBody1;
 	BeeYBody* yellowBody2;
 	BeeBBody* blackBody1;
+	
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
@@ -27,6 +28,8 @@ public:
 
 	void _enter_tree ( ) override;
 	void _process(double delta) override;
+
+	Vector3 newPos;
 
 template <class T>
 // returns true if pointer is brand-new; false if retrieved from SceneTree

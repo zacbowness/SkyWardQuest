@@ -23,18 +23,32 @@ ParticleSystem::ParticleSystem() : GPUParticles3D() {
 	
 }
 
-ParticleSystem::ParticleSystem(String shader_prefix, String texture_prefix, Vector2 newSize, Vector3 newPos) : GPUParticles3D() {
-	shader_name = shader_prefix;
-	texture_name = texture_prefix;
-	size = newSize;
-	set_position(newPos);
-}
-
 void ParticleSystem::_enter_tree(){
 
 }
 
 void ParticleSystem::_ready(){
+	
+}
+
+ParticleSystem::~ParticleSystem() {
+	// Add your cleanup here.
+}
+
+void ParticleSystem::_process(double delta){
+	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
+}
+
+void ParticleSystem::init_particle_system(String shader_name_in, String texture_name_in, Vector2 size_in, Vector3 pos, int32_t amount_in, double lifetime_in){
+	shader_name = shader_name_in;  
+	texture_name = texture_name_in;  
+	size = size_in;
+	position = pos;
+	amount = 20000;
+	lifetime = 2.0;
+}
+
+void ParticleSystem::update_particle_system(){
 	// Particle system properties, can be changed from the custom scene code as well
 	set_amount(amount);
 	set_lifetime(lifetime);
@@ -66,18 +80,7 @@ void ParticleSystem::_ready(){
 	spatial_material->set_shader_parameter("num_particles", get_amount());
 	process_material->set_shader_parameter("num_particles", get_amount());
 
-}
-
-ParticleSystem::~ParticleSystem() {
-	// Add your cleanup here.
-}
-
-void ParticleSystem::_process(double delta){
-	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
-}
-
-void ParticleSystem::initalizeSystem(){
-	
+	set_position(position);
 }
 
 /*

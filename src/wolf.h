@@ -7,7 +7,7 @@
 #include <godot_cpp/variant/utility_functions.hpp>
 
 #include <godot_cpp/classes/mesh_instance3d.hpp>
-#include <godot_cpp/classes/sphere_shape3d.hpp>
+#include <godot_cpp/classes/capsule_shape3d.hpp>
 #include <godot_cpp/godot.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/engine.hpp>
@@ -29,6 +29,7 @@ private:
 	bool checkForPlayer();
 	void chasePlayer();
 	void init_body();
+	Mesh* init_mesh();
 	State WolfState;
 	
 	

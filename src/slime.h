@@ -30,11 +30,11 @@ private:
 	bool checkForPlayer();
 	void chasePlayer();
 	void init_body();
+	void init_slime();
+	Mesh* init_mesh();
+	void update_slime();
 	State slimeState;
 	
-	
-	
-
 public:
 	Slime();
 	~Slime();
