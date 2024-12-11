@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://chysa2wht6gdo"
+path="res://.godot/imported/Ground_02.png-f0d56fafe68269a64cb33a08a4e7857f.image"
+
+[deps]
+
+source_file="res://mesh_assets/Misc_Textures/Cethiel_Tileable_Stone/Ground_02.png"
+dest_files=["res://.godot/imported/Ground_02.png-f0d56fafe68269a64cb33a08a4e7857f.image"]
+
+[params]
+

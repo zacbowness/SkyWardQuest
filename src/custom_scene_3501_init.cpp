@@ -8,15 +8,19 @@ using namespace godot;
 //load filepaths into hashmaps of important resources
 //USE UNIQUE KEY VALUES
 void CustomScene3501::load_filepaths(){
-	String dir = "res://mesh_assets/";
-	
 	//MESH FILEPATHS//
-	mesh_filepaths["OakTree_1"] = dir+"tree_mesh1.res";
-	mesh_filepaths["OakTree_2"] = dir+"tree_mesh2.res";
+	//mesh_filepaths[""] = "";
+	mesh_filepaths["OakTree_1"] = "res://mesh_assets/Lowpoly_Forest_Pack/oaktree_1.res";
+	mesh_filepaths["PineTree_1"] = "res://mesh_assets/Lowpoly_Forest_Pack/pinetree_1.res";
 
 	//TEXTURE FILEPATHS//
-	texture_filepaths["OakLeaf_1"] = dir+"OakTreeLeaf.png";
-	texture_filepaths["OakTrunk_1"] = dir+"OakTreeTrunk.png";
+	//texture_filepaths[""] = "";
+	texture_filepaths["Leaf_1"] = "res://mesh_assets/Lowpoly_Forest_Pack/Textures/OakTreeLeaf.png";
+	texture_filepaths["Leaf_2"] = "res://mesh_assets/Lowpoly_Forest_Pack/Textures/SpruceTreeLeaf.png";
+	texture_filepaths["Trunk_1"] = "res://mesh_assets/Lowpoly_Forest_Pack/Textures/OakTreeTrunk.png";
+	texture_filepaths["Trunk_2"] = "res://mesh_assets/Lowpoly_Forest_Pack/Textures/SpruceTreeTrunk.png";
+	texture_filepaths["Rock_1"] = "res://mesh_assets/Lowpoly_Forest_Pack/Textures/rockTexture1.png";
+	texture_filepaths["Rock_2"] = "res://mesh_assets/Lowpoly_Forest_Pack/Textures/rockTexture2.png";
 }
 
 void CustomScene3501::init_debug_rects(){
@@ -32,9 +36,9 @@ void CustomScene3501::init_props(){
 	Node* terrainPropGroup;
 	create_or_add_child<Node>(terrainPropGroup, "Terrain Props", propGroup);
 
-	Vector<String> tree_textures = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
+	Vector<String> tree_textures = {texture_filepaths["Leaf_1"], texture_filepaths["Trunk_1"]};
 	create_prop(Vector3(10,10,10), Vector3(5,5,0), terrainPropGroup,"Test Tree", String(mesh_filepaths["OakTree_1"]), tree_textures);
-	create_prop(Vector3(10,10,10), Vector3(-5,5,0), propGroup,"Test Tree 2", String(mesh_filepaths["OakTree_2"]), tree_textures);
+	create_prop(Vector3(10,10,10), Vector3(-5,5,0), propGroup,"Test Tree 2", String(mesh_filepaths["PineTree_1"]), tree_textures);
 
 	//INITIALIZE TERRAIN PROPS
 	for(int i=0;i<NUM_TERRAIN_PROPS;i++){

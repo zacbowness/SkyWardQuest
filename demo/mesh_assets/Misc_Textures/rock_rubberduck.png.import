@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://betwbcfggy7ow"
+path="res://.godot/imported/rock_rubberduck.png-525d3ab363b1c9d0fdabdfd9af7ec0b1.image"
+
+[deps]
+
+source_file="res://mesh_assets/Misc_Textures/rock_rubberduck.png"
+dest_files=["res://.godot/imported/rock_rubberduck.png-525d3ab363b1c9d0fdabdfd9af7ec0b1.image"]
+
+[params]
+

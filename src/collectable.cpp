@@ -30,6 +30,8 @@ void Collectable::_enter_tree ( ){
 
 	create_or_add_child<MeshInstance3D>(collectable_mesh, "Collectable Mesh");
 	create_or_add_child<CollisionShape3D>(collectable_body, "Collectable Body");
+
+	
 }
 
 void Collectable::_ready ( ){

@@ -17,6 +17,9 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 [file_customization]
 
 folder_colors={
+"res://mesh_assets/Lowpoly_Forest_Pack/": "green",
+"res://mesh_assets/Misc_Textures/": "red",
+"res://mesh_assets/Modular_temple_pack/": "gray",
 "res://mesh_assets/Ruin_Asset_Pack/": "yellow",
 "res://mesh_assets/Ruin_Asset_Pack_Small/": "orange"
 }
