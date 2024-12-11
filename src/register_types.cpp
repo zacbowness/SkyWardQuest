@@ -27,7 +27,6 @@
 #include "bee_leftwing.h"
 #include "bee_rightwing.h"
 #include "wolf.h"
-#include "flower.h"
 #include "portal.h"
 #include "skybox.h"
 #include "mountain.h"
@@ -62,7 +61,6 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<DebugRect>();
 	ClassDB::register_class<Prop>();
 	ClassDB::register_class<Tower>();
-	ClassDB::register_class<Flower>();
 	
 	//Enemy Classes
 	ClassDB::register_class<Npc>();

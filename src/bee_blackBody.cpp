@@ -15,7 +15,7 @@ BeeBBody::~BeeBBody(){
 }
 
 void BeeBBody::_enter_tree ( ) {
-	//Set up 3 Box Meshes 
+	//Set up Black Body Mesh
 	BoxMesh* blackBody = memnew(BoxMesh);
     blackBody->set_size(Vector3(0.25, 0.25, 0.25));
 	

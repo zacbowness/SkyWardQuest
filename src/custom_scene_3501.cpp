@@ -62,11 +62,14 @@ void CustomScene3501::_ready ( ){
 		MAP_PERSISTENCE,
 		MAP_SCALE,
 		MAP_MAX_HEIGHT,
-		MAP_MOUNTAIN_SCALE
+		MAP_MOUNTAIN_SCALE,
+		1
 	);
 
 	//Get Valid Positions on the terrain mesh to place tree/rock/env objects
 	Vector<Vector<float>> heightfield = map->get_heightfield();
+
+	map->add_mesh(heightfield, Vector3(0,0,0), Color(0.1, 0.9, 0.1));
 	Vector<Vector3> map_pos = map->scatter_props(heightfield, MAP_WIDTH, MAP_HEIGHT, MAP_SCALE, NUM_TERRAIN_PROPS);
 	Vector<Vector3> enemy_pos = map->scatter_props(heightfield, MAP_WIDTH, MAP_HEIGHT, MAP_SCALE, NUM_TERRAIN_PROPS);
 	//for(Vector3 pos : map_pos) UtilityFunctions::print(pos);
@@ -98,10 +101,12 @@ void CustomScene3501::_ready ( ){
 	update_terrain_props(map_pos);
 	update_terrain_enemies(enemy_pos);
 	collectibles_in_scene();
+	createPortal(Vector3(15,2,10));
 
 	//Update Tower Position
 	tower->set_position(Vector3(57, -1.49, 45));
 	tower->set_rotation_degrees(Vector3(0,-56,0));
+	portal_effect->update(Vector3(15,2,10));
 }
 
 
@@ -147,7 +152,7 @@ void CustomScene3501::update_terrain_props(Vector<Vector3> pos_vect){
 
 void CustomScene3501::update_terrain_enemies(Vector<Vector3> pos_vect){
 	for(int i=0; i<NpcList.size(); i++){
-		NpcList[i]->update_npc_position(pos_vect[i]);
+		NpcList[i]->update_npc_position(EnemySpawnLocations[i]);
 	}
 }
 

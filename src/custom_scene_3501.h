@@ -91,6 +91,14 @@ private:
 	Vector3 collectible_1_pos;
 	Vector3 collectible_2_pos;
 	Vector3 collectible_3_pos;
+
+	Vector<Vector3> EnemySpawnLocations =
+	{
+		Vector3(51,4,103), Vector3(6,0,108), Vector3(51,4,103), Vector3(130,0,123), Vector3(83,0,108), Vector3(51,4,103),
+		Vector3(60,0,62), Vector3(76,1,96), Vector3(86,1,139), Vector3(51,4,103), Vector3(105,1,45), Vector3(73,1,41),
+		Vector3(42,4,31), Vector3(67,3,103), Vector3(87,1,27)
+
+	};
 	
 	enum SpawnNPC{
 		SlimeNpc,
