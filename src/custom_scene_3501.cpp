@@ -12,6 +12,9 @@ void CustomScene3501::_bind_methods() { }
 CustomScene3501::CustomScene3501() : Node3D() {
 	time_passed = 0.0;
 	load_filepaths();//load filepaths into hashmaps
+	collectible_1_pos = Vector3(58,10,49);
+	collectible_2_pos = Vector3(25,2,64);
+	collectible_3_pos = Vector3(91,5,87);
 }
 
 CustomScene3501::~CustomScene3501() {}
@@ -28,14 +31,15 @@ void CustomScene3501::_enter_tree (){
 
 	create_or_add_child<PortalEffect>(portal_effect, "portal_effect");
 
-	create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0), 20000, 2.0); //Make a temp Particle System
+	create_particle_system("Snowstorm", "snow", "snow2x2", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0), 20000, 2.0); //Make a temp Particle System
 	create_or_add_child<Tower>(tower, "Magical Tower");
+
+	create_or_add_child<Mountain>(mountain, "Mountain");
 
 	//create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0)); //Make a temp Particle System
 	init_debug_rects();	//add temp rect meshes to scene
 	init_props();		//add props to scene
-
-
+	init_enemies();
 	
 }
 
@@ -61,6 +65,7 @@ void CustomScene3501::_ready ( ){
 	//Get Valid Positions on the terrain mesh to place tree/rock/env objects
 	Vector<Vector<float>> heightfield = map->get_heightfield();
 	Vector<Vector3> map_pos = map->scatter_props(heightfield, MAP_WIDTH, MAP_HEIGHT, MAP_SCALE, NUM_TERRAIN_PROPS);
+	Vector<Vector3> enemy_pos = map->scatter_props(heightfield, MAP_WIDTH, MAP_HEIGHT, MAP_SCALE, NUM_TERRAIN_PROPS);
 	//for(Vector3 pos : map_pos) UtilityFunctions::print(pos);
 
 	//map->scatter_circles_on_mesh(100, 1.5);
@@ -79,7 +84,7 @@ void CustomScene3501::_ready ( ){
         dynamic_cast<ShaderMaterial*>(*particle_system->get_process_material())->set_shader_parameter("num_particles", particle_system->get_amount());
 	}
 
-	for (Npc* npc : NpcList) npc->update_npc();
+	//for (Npc* npc : NpcList) npc->update_npc();
 
 	//Update DebugRect objects to set their location and otherwise
 	for(DebugRect* obj : rect_instances) obj->update_rect();
@@ -88,6 +93,8 @@ void CustomScene3501::_ready ( ){
 	for(Prop* obj : prop_instances) obj->update_prop();
 
 	update_terrain_props(map_pos);
+	update_terrain_enemies(enemy_pos);
+	collectibles_in_scene();
 
 	//Update Tower Position
 	tower->set_position(Vector3(57, -1.49, 45));
@@ -135,6 +142,12 @@ void CustomScene3501::update_terrain_props(Vector<Vector3> pos_vect){
 	}
 }
 
+void CustomScene3501::update_terrain_enemies(Vector<Vector3> pos_vect){
+	for(int i=0; i<NpcList.size(); i++){
+		NpcList[i]->update_npc_position(pos_vect[i]);
+	}
+}
+
 void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name){
 	DebugRect* rect;
 	create_or_add_child<DebugRect>(rect, name, parentNode);
@@ -157,36 +170,40 @@ void CustomScene3501::create_particle_system(String node_name, String shader_nam
 	particle_systems.push_back(system);
 }
 
-
-
-void CustomScene3501::create_npc(SpawnNPC type, Vector3 pos){
-	UtilityFunctions::print("Npc Call");
-	if (type == SlimeNpc){
-		Slime* temp;
-		create_or_add_child<Slime>(temp, vformat("NPC %s", NpcList.size()));
-		temp->setStartPos(pos);
-		temp->setPlayerPointer(player);
-		NpcList.push_back(temp);
-		
-	} else if (type == WolfNpc){
-		Wolf* temp;
-		create_or_add_child<Wolf>(temp, vformat("NPC %s", NpcList.size()));
-		temp->setStartPos(pos);
-		temp->setPlayerPointer(player);
-		temp->setScale(Vector3(0.175, 0.175, 0.175));
-		NpcList.push_back(temp);
-
-	} else if (type == BeeNpc){
-		Bee* temp;
-		create_or_add_child<Bee>(temp, vformat("NPC %s", NpcList.size()));
-		temp->setStartPos(pos);
-		NpcList.push_back(temp);
-	} 
+void CustomScene3501::collectibles_in_scene(){
+	createCollectable(collectible_1_pos, "collectable_1");
+	createCollectable(collectible_2_pos, "collectable_2");
+	createCollectable(collectible_3_pos, "collectable_3");
 }
 
-void CustomScene3501::createCollectable(Vector3 pos){
+void CustomScene3501::create_npc(SpawnNPC type, Vector3 pos, Node* parentNode, String name){
+    UtilityFunctions::print("Npc Call");
+    if (type == SlimeNpc){
+        Slime* temp;
+        create_or_add_child<Slime>(temp, name, parentNode);
+        temp->setStartPos(pos);
+        temp->setPlayerPointer(player);
+        NpcList.push_back(temp);
+
+    } else if (type == WolfNpc){
+        Wolf* temp;
+        create_or_add_child<Wolf>(temp, name, parentNode);
+        temp->setStartPos(pos);
+        temp->setPlayerPointer(player);
+        temp->setScale(Vector3(0.175, 0.175, 0.175));
+        NpcList.push_back(temp);
+
+    } else if (type == BeeNpc){
+        Bee* temp;
+        create_or_add_child<Bee>(temp, name, parentNode);
+        temp->setStartPos(pos);
+        NpcList.push_back(temp);
+    } 
+}
+
+void CustomScene3501::createCollectable(Vector3 pos, String name){
 	Collectable* temp;
-	create_or_add_child<Collectable>(temp, vformat("Collectable %d", collectableList.size()));
+	create_or_add_child<Collectable>(temp, name);
 	temp->setPlayer(player);
 	temp->set_position(pos);
 	collectableList.push_back(temp);

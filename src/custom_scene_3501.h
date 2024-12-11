@@ -45,6 +45,7 @@
 #include "portal_effect.h"
 #include "collectable.h"
 #include "tower.h"
+#include "mountain.h"
 
 //Enemies 
 #include "bee.h"
@@ -71,6 +72,7 @@ private:
 	PortalEffect* portal_effect;
 	Portal* portal;
 	Tower* tower;
+	Mountain* mountain;
 
 	Vector<ParticleSystem*> particle_systems;
 	Vector<Collectable*> collectableList;
@@ -80,6 +82,10 @@ private:
 	Vector<DebugRect*> rect_instances;
 	Vector<Prop*> prop_instances;
 	Vector<Prop*> terrain_prop_instances;
+
+	Vector3 collectible_1_pos;
+	Vector3 collectible_2_pos;
+	Vector3 collectible_3_pos;
 	
 	enum SpawnNPC{
 		SlimeNpc,
@@ -99,15 +105,19 @@ private:
     void create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);//Polymorph that takes rotation
     void create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);
 	void update_terrain_props(Vector<Vector3> pos_vect);
+	void update_terrain_enemies(Vector<Vector3> pos_vect);
 
 	//Other Creation Functions
-	void createCollectable(Vector3 pos);
+	void createCollectable(Vector3 pos, String name);
 	void createPortal(Vector3 pos);
-	void create_npc(SpawnNPC type, Vector3 pos);
+	void create_npc(SpawnNPC type, Vector3 pos, Node* parentNode, String name);
+	void collectibles_in_scene();
 
 	Dictionary mesh_filepaths;//Hash Map for mesh filepaths
 	Dictionary texture_filepaths;//Hash Map for texture filepaths
 	void load_filepaths();
+
+	void init_enemies();
 
 	
 

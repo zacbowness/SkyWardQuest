@@ -83,6 +83,7 @@ public:
 	bool playerInRadius();
 	//Checks if you are in a certain radius of your destination
 	void update_npc();
+	void update_npc_position(Vector3 position);
 
 	inline void setStartPos(Vector3 new_pos){startPos = new_pos;}
 	inline void setScale(Vector3 new_scale){scale = new_scale;}
