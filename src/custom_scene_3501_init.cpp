@@ -45,6 +45,25 @@ void CustomScene3501::init_props(){
 	}
 }
 
+void CustomScene3501::init_enemies(){
+	Node* enemyGroup;
+	create_or_add_child<Node>(enemyGroup, "Enemies");//Create group node 
+
+	Node* terrainEnemyGroup;
+	create_or_add_child<Node>(terrainEnemyGroup, "Terrain Enemies", enemyGroup);
+
+	//INITIALIZE TERRAIN PROPS
+	for(int i=0;i<NUM_WOLVES;i++){
+		create_npc(WolfNpc, Vector3(0,0,0),terrainEnemyGroup,vformat("Wolf_%d",i));
+	}
+	for(int i=0;i<NUM_SLIMES;i++){
+		create_npc(SlimeNpc, Vector3(0,0,0),terrainEnemyGroup,vformat("Slime_%d",i));
+	}
+	for(int i=0;i<NUM_BEES;i++){
+		create_npc(BeeNpc, Vector3(0,0,0),terrainEnemyGroup, vformat("Bee_%d",i));
+	}
+}
+
 void CustomScene3501::init_player(Vector3 start_pos){
 	player->set_position(start_pos);
 	player->_ready();//call the player's ready function after we set the attributes we want !!IMPORTANT!!
