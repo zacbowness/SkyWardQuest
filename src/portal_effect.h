@@ -31,11 +31,7 @@ public:
     PortalEffect();
     ~PortalEffect();
 
-    // Configures the scale and position of the skybox
-    void configure(const Vector3 &scale, const Vector3 &position);
-
-    // Updates the skybox's position to follow the player
-    void follow_player(const Vector3 &player_position);
+    void update(const Vector3 position);
 
     // Override the _enter_tree method
     void _enter_tree() override;
