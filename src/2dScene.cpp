@@ -33,14 +33,14 @@ void Scene2D::setColour(Label* label, const Color &color) {
 void Scene2D::createTitle(){
 	create_and_add_as_child(title, "Title");
 	title->set_text("Welcome to Skyward Quest");
-	title->set_position(Vector2(350, 50)); // Position the text
+	title->set_position(Vector2(350, 50)); 
 	setFont(title, 50);
 }
 
 void Scene2D::createInfo(){
 	create_and_add_as_child(info, "Info");
 	info->set_text("Press Enter to Begin \nBy Sam, Zac, Ellie ");
-	info->set_position(Vector2(500, 250)); // Position the text
+	info->set_position(Vector2(500, 250));
 	setFont(title, 30);
 }
 

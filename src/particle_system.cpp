@@ -44,8 +44,8 @@ void ParticleSystem::init_particle_system(String shader_name_in, String texture_
 	texture_name = texture_name_in;  
 	size = size_in;
 	position = pos;
-	amount = 20000;
-	lifetime = 2.0;
+	amount = amount_in;
+	lifetime = lifetime_in;
 }
 
 void ParticleSystem::update_particle_system(){

@@ -16,7 +16,6 @@
 #include <vector>
 
 #include "friendly.h"
-#include "flower.h"
 #include "bee_part.h"
 #include "bee_fullBody.h"
 #include "bee_eyes.h"
@@ -57,14 +56,9 @@ private:
 	void chasePlayer();
 	void init_body();
 	void approachDirection(Vector3, double) override;
-	//inline float distanceFromFlower(Flower* flower){return get_position().distance_to(flower->get_position());}
-	//bool flowerInRadius();
-	
-	
 
 	Vector3 calculateMovement(Vector3 direction, Vector3 velocity, double delta);
 	State beeState = WANDER;
-	//Flower* closestFlower = nullptr;
 	
 
 public:
@@ -74,8 +68,6 @@ public:
 	void _enter_tree() override;
     void _ready() override;
 	void _process(double delta) override;
-	void setFlowerVector(std::vector<Flower*>);
-	std::vector<Flower*> getFlowerVector();
 
 	template <class T>
 	// returns true if pointer is brand-new; false if retrieved from SceneTree

@@ -27,12 +27,13 @@ void start(){
 	// calculate starting position
 	u = pseudo_random_from_inputs(float(INDEX), 0.4532);
 	v = pseudo_random_from_inputs(float(INDEX), 1.2942);
+	w = pseudo_random_from_inputs(float(INDEX), 0.2942);
 
     // Make a square out of the starting posistions 
     float square_size = 5.0; 
     float x = (u * 2.0 - 1.0) * square_size; 
     float y = v * square_size; 
-    float z = 0.0; 
+    float z = (w * 2.0 - 1.0) * square_size; 
 
     // Assign particle position within the square
     vec3 position = vec3(x, y, z);

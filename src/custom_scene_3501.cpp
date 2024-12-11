@@ -31,7 +31,7 @@ void CustomScene3501::_enter_tree (){
 
 	create_or_add_child<PortalEffect>(portal_effect, "portal_effect");
 
-	create_particle_system("Snowstorm", "snow", "snow2x2", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0), 20000, 2.0); //Make a temp Particle System
+	create_particle_system("Snowstorm", "snow", "snow2x2", Vector2(0.25,0.25), Vector3(1.0, 1.0, 1.0), 100, 10.0); //Make a temp Particle System
 	create_or_add_child<Tower>(tower, "Magical Tower");
 
 	create_or_add_child<Mountain>(mountain, "Mountain");
