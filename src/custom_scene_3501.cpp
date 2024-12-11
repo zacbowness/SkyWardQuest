@@ -152,7 +152,7 @@ void CustomScene3501::update_terrain_props(Vector<Vector3> pos_vect){
 
 void CustomScene3501::update_terrain_enemies(Vector<Vector3> pos_vect){
 	for(int i=0; i<NpcList.size(); i++){
-		NpcList[i]->update_npc_position(pos_vect[i]);
+		NpcList[i]->update_npc_position(EnemySpawnLocations[i]);
 	}
 }
 

@@ -28,7 +28,6 @@ void Bee::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
 	
 	RayCast->set_position(get_position());
-	UtilityFunctions::print("Ray Cast: %d", RayCast->get_position());
 
 	float cur_y = destination.y;
 	// Check Ray Cast
@@ -48,64 +47,10 @@ void Bee::_process(double delta){
 		destination = getRandomPointInRadius(10.0f);
 	}
 	destination.y = cur_y;
-	UtilityFunctions::print("Destination: %d", destination);
 	//Approach its Destination
 	direction = destination - get_position();
 	approachDirection(direction, delta);
 	body->set_local_position((get_position()));
-
-	// if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
-	// switch (beeState)
-	// {
-	
-	// //Idle State
-	// //Sets Velocity to 0,0,0 and Switches States to Chase or Wander
-	// case IDLE:
-	// 	// set_velocity(Vector3(0,0,0));
-	// 	// if (flowerInRadius()){
-	// 	// 	beeState = CHASE;
-	// 	// } else {
-	// 	// 	beeState = WANDER;
-	// 	// }
-	// 	break;
-	// //Wander State
-	// //Walks to the Destination once it reaches it will swap to a random Destination within 10 Radius
-	// case WANDER:
-	// 	//Implement A Wandering Algorithm
-	// 		destination = getRandomPointInRadius(10.0f);
-			
-	// 		//Approach its Destination
-	// 		direction = destination - get_position();
-	// 		approachDirection(direction, delta);
-	// 		detectionRadius += 0.05;
-		
-	// 	// //checks if the player is in range
-	// 	// if (flowerInRadius()){
-	// 	// 	beeState = CHASE; 
-	// 	// } else {
-	// 	// 	//Implement A Wandering Algorithm
-	// 	// 	destination = getRandomPointInRadius(10.0f);
-			
-	// 	// 	//Approach its Destination
-	// 	// 	direction = destination - get_position();
-	// 	// 	approachDirection(direction, delta);
-	// 	// 	detectionRadius += 0.05;
-	// 	// }
-		
-	// 	break;
-	// //Chase State
-	// //Finds Flower and Chases It
-	// case CHASE: 
-	// 	// //Sets destination to Player's Position 
-	// 	// destination = closestFlower->get_position();
-	// 	// direction = (destination - get_position() );
-	// 	// //Approach the direction of the player
-	// 	// approachDirection(direction, delta);
-		
-	// 	break;
-	
-	
-	// }
 }
 
 void Bee::init_body(){
@@ -153,18 +98,3 @@ Vector3 Bee::calculateMovement(Vector3 direction, Vector3 curr_vel, double delta
 
 	return velocity;
 }
-
-// bool Bee::flowerInRadius(){
-// 	//Goes through the Vector of Flowers and checks if any of the Flowers are in its Radius
-// 	for (Flower* flower : flowerVector){
-// 		if (closestFlower == NULL){
-// 			closestFlower = flowerVector.at(0);
-// 		}		
-// 		if (distanceFromFlower(flower) <= detectionRadius) {
-// 			if (distanceFromFlower(flower) < distanceFromFlower(closestFlower)){
-// 				closestFlower = flower;
-// 			}
-// 		} 
-// 	}
-// 	return distanceFromPlayer() <= detectionRadius;
-// }

@@ -32,7 +32,7 @@ void BeeRWing::_process(double delta){
 	set_global_transform(get_transformation_matrix());  
 	float angle = (sin(timePassed) * 0.25f);
 	set_local_rotation(Quaternion(1, 0, 0, angle));
-	timePassed += delta * 2.0;
+	timePassed += delta * 25.0;
 }
 
 /*
