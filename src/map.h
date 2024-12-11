@@ -42,15 +42,11 @@ private:
     float perlin_noise(float x, float y) const;
     float interpolated_noise(float x, float y) const;
     float multiscale_noise(float x, float y) const;
-    float mountain_noise(float x, float y) const;
-    float terrain_noise(float x, float y) const;
+    float terrain_noise(float x, float y, float offset) const;
 
-    // Terrain generation methods
-    void generate_heightfield();
-    void generate_mountain_heightfield();
     void smooth_heightfield();
     void advanced_smooth_heightfield();  // Advanced smoothing function (Gaussian blur)
-    void apply_grassy_material();
+
 
 protected:
     static void _bind_methods();
@@ -72,6 +68,13 @@ public:
     Vector<Vector3> scatter_props(const Vector<Vector<float>> &heightfield, int width, int height, float scale, int prop_count);
     void create_flat_path(Vector3 start, Vector3 stop, float path_width); 
 
+    void add_mesh(const Vector<Vector<float>> &heightfield, Vector3 position, Color colour);
+    Ref<ArrayMesh> generate_3d_mesh(const Vector<Vector<float>> &heightfield, Color colour);
+    void generate_mountain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, float offset);
+    void generate_mountain_heightfield(float offset);
+    void generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, float offset);
+    void generate_heightfield(float offset);
+    
     //Getters
     const Vector<Vector<float>>& get_heightfield() const;
     int get_width() const;

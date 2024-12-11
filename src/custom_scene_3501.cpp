@@ -59,11 +59,14 @@ void CustomScene3501::_ready ( ){
 		MAP_PERSISTENCE,
 		MAP_SCALE,
 		MAP_MAX_HEIGHT,
-		MAP_MOUNTAIN_SCALE
+		MAP_MOUNTAIN_SCALE,
+		1
 	);
 
 	//Get Valid Positions on the terrain mesh to place tree/rock/env objects
 	Vector<Vector<float>> heightfield = map->get_heightfield();
+
+	map->add_mesh(heightfield, Vector3(0,0,0), Color(0.1, 0.9, 0.1));
 	Vector<Vector3> map_pos = map->scatter_props(heightfield, MAP_WIDTH, MAP_HEIGHT, MAP_SCALE, NUM_TERRAIN_PROPS);
 	Vector<Vector3> enemy_pos = map->scatter_props(heightfield, MAP_WIDTH, MAP_HEIGHT, MAP_SCALE, NUM_TERRAIN_PROPS);
 	//for(Vector3 pos : map_pos) UtilityFunctions::print(pos);

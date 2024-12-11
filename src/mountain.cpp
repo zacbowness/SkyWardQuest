@@ -16,7 +16,7 @@ void  Mountain::_bind_methods() { }
 void  Mountain::_enter_tree (){
 	if(DEBUG) UtilityFunctions::print("Enter Tree - CustomScene3501.");
 
-	create_and_add_as_child<Map>(map,"Map");
+	create_and_add_as_child<Map>(map,"Mountain");
 
 }
 
@@ -27,7 +27,7 @@ void  Mountain::_ready ( ){
 	Vector3 stop= Vector3(25.0f, 0.0f, 100.0f);
 	float path_width = 15.0f;
 
-    map->generate_mountain(
+    map->generate_terrain(
         70,    // Terrain width
         70,    // Terrain height
         1,      // Octaves (not used here)
@@ -35,11 +35,12 @@ void  Mountain::_ready ( ){
         1.0f,   // Scale
         20.0f,  // Maximum height
         10.0f,    // Mountain scale
-        start,
-		stop,
-		path_width,
-		false
+        0.8
     );
+
+    Vector<Vector<float>> heightfield = map->get_heightfield();
+
+    map->add_mesh(heightfield,Vector3(5, -18, 70),Color(0.4,0.2,0.7));
 
 }
 
