@@ -6,7 +6,8 @@
 
 using namespace godot;
 
-void Player::_bind_methods() {}
+void Player::_bind_methods() {
+}
 
 Player::Player() : CharacterBody3D() {
 	time_passed = 0.0;
@@ -25,9 +26,12 @@ void Player::_enter_tree (){
 	create_or_add_child<MeshInstance3D>(player_mesh, "Player Mesh");
 	create_or_add_child<CollisionShape3D>(player_body, "Player Body");
 	create_and_add_as_child_of_Node<MeshInstance3D>(screen_quad_instance, "Screen Quad", main_camera);
+	create_or_add_child<Timer>(timer, "Timer");
 
 	load_shaders();
 
+	//Initalize Screen Effects
+	init_screen_effects();
 	//init_screen_fx();
 }
 
@@ -41,10 +45,8 @@ void Player::_ready ( ){
 	init_camera();
 	init_body();
 
-	//Initalize Screen Effects
-	init_screen_effects();
-	resetEffectScreen();
-
+	timer->set_wait_time(5.0f); // Set the wait time to 2 seconds
+    timer->set_one_shot(true);
 }
 
 // called every frame (as often as possible)
@@ -66,6 +68,11 @@ void Player::_process(double delta) {
 	if(PLAYER_DEBUG&&DEBUG)UtilityFunctions::print(velocity);
 	move_and_slide();//move and slide allows for smoother movement on non flat surfaces
 	set_velocity(velocity);
+
+	if (timer->is_stopped() == true && screen_effect_on == true){
+		resetEffectScreen();
+		screen_effect_on = false;
+	}
 }
 
 void Player::load_shaders() {
@@ -261,6 +268,12 @@ void Player::resetEffectScreen(){
 	screen_mesh->surface_set_material(0, screen_space_shader_material);
 }
 
+void Player::collidePlayer(){
+	timer->start();
+    set_position(Vector3(SPAWN_X, SPAWN_Y, SPAWN_Z));
+    setEffectScreen(1);
+	screen_effect_on = true;
+}
 /*
 *
 * Copyright (c) 2024 Samantha Beilman (samanthabeilman@cmail.carleton.ca)

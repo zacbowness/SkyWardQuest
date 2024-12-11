@@ -78,7 +78,7 @@ void CustomScene3501::_ready ( ){
 		// the current particle system we are setting up
 		ParticleSystem* particle_system = particle_systems[index];
 
-		particle_system[index].update_particle_system();
+		particle_system->update_particle_system();
 
 		// this should never be needed, but can't hurt to have. 
 		if(particle_system == nullptr) continue;
@@ -182,7 +182,6 @@ void CustomScene3501::collectibles_in_scene(){
 }
 
 void CustomScene3501::create_npc(SpawnNPC type, Vector3 pos, Node* parentNode, String name){
-    UtilityFunctions::print("Npc Call");
     if (type == SlimeNpc){
         Slime* temp;
         create_or_add_child<Slime>(temp, name, parentNode);
