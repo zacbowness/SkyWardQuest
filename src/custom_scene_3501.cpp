@@ -52,7 +52,7 @@ void CustomScene3501::_ready ( ){
 	//String tree_textures[] = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
 
 	//Initialization Functions
-	init_player(Vector3(3,4.5,3));
+	init_player(Vector3(SPAWN_X,SPAWN_Y,SPAWN_Z));
 	
 	//Generate Terrain (Values are modifiable in defs.h)
 	map->generate_terrain(
