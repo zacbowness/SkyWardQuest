@@ -42,7 +42,7 @@ private:
     float perlin_noise(float x, float y) const;
     float interpolated_noise(float x, float y) const;
     float multiscale_noise(float x, float y) const;
-    float terrain_noise(float x, float y, float offset) const;
+    float terrain_noise(float x, float y) const;
 
     void smooth_heightfield();
     void advanced_smooth_heightfield();  // Advanced smoothing function (Gaussian blur)

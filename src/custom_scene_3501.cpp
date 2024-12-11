@@ -98,10 +98,12 @@ void CustomScene3501::_ready ( ){
 	update_terrain_props(map_pos);
 	update_terrain_enemies(enemy_pos);
 	collectibles_in_scene();
+	createPortal(Vector3(15,2,10));
 
 	//Update Tower Position
 	tower->set_position(Vector3(57, -1.49, 45));
 	tower->set_rotation_degrees(Vector3(0,-56,0));
+	portal_effect->update(Vector3(15,2,10));
 }
 
 

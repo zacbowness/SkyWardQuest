@@ -37,20 +37,9 @@ void PortalEffect::_enter_tree() {
 
 
 //This function still needs to be properly tested to ensure it works properly
-void PortalEffect::configure(const Vector3 &scale, const Vector3 &position) {
-    BoxMesh* box_mesh = memnew(BoxMesh);
-    if (box_mesh) {
-        box_mesh->set_size(scale);
-    }
-
+void PortalEffect::update(const Vector3 position){
     // Update the position of the skybox
     set_position(position);
-}
-
-
-void PortalEffect::follow_player(const Vector3 &player_position) {
-    // Adjust the skybox position to follow the player
-    set_position(player_position + offset);
 }
 
 void PortalEffect::_bind_methods() {

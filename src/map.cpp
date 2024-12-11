@@ -35,7 +35,7 @@ void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_per
     if (offset <1){
         generate_mountain_heightfield(offset);
     }else{
-            generate_heightfield(offset);
+        generate_heightfield(offset);
     }
 }
 
@@ -123,12 +123,12 @@ float Map::multiscale_noise(float x, float y) const {
     return total / max_value;//normalize the values
 }
 
-float Map::terrain_noise(float x, float y, float offset) const {
+float Map::terrain_noise(float x, float y) const {
     float base_noise = perlin_noise(x * 0.05f, y * 0.05f);
     float detail_noise = multiscale_noise(x, y);
 
     if (base_noise > 0.2f) {
-        return (base_noise + detail_noise) * mountain_scale * offset; // Reduce scale for smaller mountains
+        return (base_noise + detail_noise) * mountain_scale; // Reduce scale for smaller mountains
     }
 
     return detail_noise * max_height;
@@ -143,7 +143,7 @@ void Map::generate_heightfield(float offset) {
             if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
                 heightfield.write[y].write[x] = 0.0f; 
             } else {
-                heightfield.write[y].write[x] = terrain_noise(x * scale, y * scale, offset);
+                heightfield.write[y].write[x] = terrain_noise(x * scale, y * scale)* offset;
             }
         }
     }
@@ -164,7 +164,7 @@ void Map::generate_mountain_heightfield(float offset) {
             if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
                 heightfield.write[y].write[x] = 0.0f;
             } else {
-                float base_height = terrain_noise(x * scale, y * scale, offset);
+                float base_height = terrain_noise(x * scale, y * scale)* offset;
 
                 // Add the cluster of mountains
                 float distance_to_main = Vector2(main_mountain_x - x, main_mountain_y - y).length();
