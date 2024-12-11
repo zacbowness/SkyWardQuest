@@ -33,9 +33,6 @@
 #include "defs.h"
 #include "map.h"
 
-//LOCAL DEFINITIONS
-#define NUM_TERRAIN_PROPS 20
-
 
 // everything in gdextension is defined in this namespace
 namespace godot {

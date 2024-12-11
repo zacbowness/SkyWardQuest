@@ -64,11 +64,10 @@ void Prop::setup_prop(Vector3 position, Vector3 rotation, Vector3 scale, String 
 }
 
 void Prop::update_prop(){
-	set_global_rotation_degrees(rotation_offset);
+	set_rotation_degrees(rotation_offset);
 	set_position(position);
 	set_scale(scale);
 	if(!obj_mesh.is_null())set_mesh(obj_mesh);
-	//Vector3 local_rotation = get_global_rotation_degrees();
 }
 
 void Prop::new_position(Vector3 pos) {position = pos;}

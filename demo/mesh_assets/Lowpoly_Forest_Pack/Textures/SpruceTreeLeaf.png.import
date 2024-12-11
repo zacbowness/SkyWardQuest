@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://duoqs1vxss2ro"
+path="res://.godot/imported/SpruceTreeLeaf.png-a04d231c175ffd62ffd8f089f1e69f02.image"
+
+[deps]
+
+source_file="res://mesh_assets/Lowpoly_Forest_Pack/Textures/SpruceTreeLeaf.png"
+dest_files=["res://.godot/imported/SpruceTreeLeaf.png-a04d231c175ffd62ffd8f089f1e69f02.image"]
+
+[params]
+

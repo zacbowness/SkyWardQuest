@@ -44,6 +44,7 @@
 #include "portal.h"
 #include "portal_effect.h"
 #include "collectable.h"
+#include "tower.h"
 
 //Enemies 
 #include "bee.h"
@@ -69,6 +70,7 @@ private:
 	Skybox* skybox;
 	PortalEffect* portal_effect;
 	Portal* portal;
+	Tower* tower;
 
 	Vector<ParticleSystem*> particle_systems;
 	Vector<Collectable*> collectableList;

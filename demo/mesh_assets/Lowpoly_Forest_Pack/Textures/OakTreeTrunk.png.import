@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://bhc1vwuyikgpo"
+path="res://.godot/imported/OakTreeTrunk.png-ffd05ffc565a561e9d9db14fc68a130c.image"
+
+[deps]
+
+source_file="res://mesh_assets/Lowpoly_Forest_Pack/Textures/OakTreeTrunk.png"
+dest_files=["res://.godot/imported/OakTreeTrunk.png-ffd05ffc565a561e9d9db14fc68a130c.image"]
+
+[params]
+

@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://ctqi3crfkoym3"
+path="res://.godot/imported/OakTreeLeaf.png-3abbff1eae8e0f74b9066c3df27eddf9.image"
+
+[deps]
+
+source_file="res://mesh_assets/Lowpoly_Forest_Pack/Textures/OakTreeLeaf.png"
+dest_files=["res://.godot/imported/OakTreeLeaf.png-3abbff1eae8e0f74b9066c3df27eddf9.image"]
+
+[params]
+

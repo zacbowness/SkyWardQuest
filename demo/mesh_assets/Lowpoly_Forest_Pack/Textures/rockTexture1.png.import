@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://oh4jtqwu7ije"
+path="res://.godot/imported/rockTexture1.png-d1f972fdd8aa4cfd373f440e5424bff7.image"
+
+[deps]
+
+source_file="res://mesh_assets/Lowpoly_Forest_Pack/Textures/rockTexture1.png"
+dest_files=["res://.godot/imported/rockTexture1.png-d1f972fdd8aa4cfd373f440e5424bff7.image"]
+
+[params]
+
