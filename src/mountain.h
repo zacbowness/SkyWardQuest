@@ -32,6 +32,7 @@
 
 #include "defs.h"
 #include "map.h"
+#include "prop.h"
 
 
 // everything in gdextension is defined in this namespace
@@ -43,6 +44,23 @@ class Mountain : public Node3D {
 private:
 	double time_passed;
 	Map* map;
+
+	//Vector of stored Prop Instances for platforms to jump on
+	Vector<Prop*> prop_instances;
+
+	//Filepath HashMaps
+	Dictionary mesh_filepaths;
+	Dictionary texture_filepaths;
+
+	//Initialize props around the mountain for jump puzzle
+	void build_props();
+	
+	//Instantiate a prop with the given parameters
+	void make_prop(Vector3 pos, Vector3 scale, Vector3 rotation, String model_filepath, Vector<String> texture_filepaths, String name);
+	//Plymorph function for meshes with only one texture (avoids making a vector for no reason)
+	void make_prop(Vector3 pos, Vector3 scale, Vector3 rotation, String model_filepath, String texture_filepath, String name);
+
+	void load_filepaths();//Load filepaths into dictionaries/hashmaps
 
 protected:
     // a static function that Godot will call to find out which methods can be called and which properties it exposes
@@ -56,36 +74,16 @@ public:
 	void _enter_tree ( ) override;
 	void _ready ( ) override;
 
+	//Function to add nodes as children to this one
+	//Used to add objects like colliders & paraticle systems or any sub-objects under the one that calls this function
 	template <class T>
-	// returns true if pointer is brand-new; false if retrieved from SceneTree
-	bool create_and_add_as_child(T* &pointer, String name){
-
-		Node* child = find_child(name);
-		
-		if(child == nullptr){
-			pointer = memnew(T);
-			pointer->set_name(name);
-			add_child(pointer);
-			pointer->set_owner(get_tree()->get_edited_scene_root());
-			return true;
-		}
-		else{
-			pointer = dynamic_cast<T*>(child);
-			return false;
-		}
-	}
-
-
-	template <class T>
-	// returns true if pointer is brand-new; false if retrieved from SceneTree
-	bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent){
-		
-		Node* child = find_child(name);//find node with the given name
+	bool create_or_add_child(T* &pointer, String name){
+		Node* child = find_child(name);//find node with the given name (NAME MUST BE UNIQUE)
 
 		if(child == nullptr){//if child node was not found, create it
 			pointer = memnew(T);
 			pointer->set_name(name);
-			parent->add_child(pointer);
+			this->add_child(pointer);
 			pointer->set_owner(get_tree()->get_edited_scene_root());
 			return true;
 		} else {
@@ -94,42 +92,24 @@ public:
 		}
 	}
 
+	//A Polymorph of the above function where a parent node is given
+	//Use this if you want a node to be added underneath the given parent node in the scene tree
 	template <class T>
-	bool add_as_child(T* &pointer, String name, bool search){
-		// this is the default behaviour
-		// added the search parameter so that we can skip the slow "find_child" call during runtime
-		if(search == false){
-			pointer->set_name(name);
-			add_child(pointer);
-			pointer->set_owner(get_tree()->get_edited_scene_root());
-			return true;
-		}
-
-		// always only have to search once if we save it here
-		Node* child = find_child(name);
+	bool create_or_add_child(T* &pointer, String name, Node3D* parent){
 		
-		// if the node hasn't been added to the SceneTree yet
-		if(child == nullptr){
+		Node* child = find_child(name);//find node with the given name (NAME MUST BE UNIQUE)
+		if(child == nullptr){//if child node was not found, create it
+			pointer = memnew(T);
 			pointer->set_name(name);
-			add_child(pointer);
+			parent->add_child(pointer);//Add node as child of given node
 			pointer->set_owner(get_tree()->get_edited_scene_root());
 			return true;
-		}
-		// if we are grabbing the existent one, clean up the memory to the new one that was just made and passed as an argument
-		else{
-			if(pointer == nullptr){
-				UtilityFunctions::print("There is a nullptr being passed to add_as_child...");
-			}
-			else{
-				memdelete(pointer);
-			}
-			pointer = dynamic_cast<T*>(child);
+		} else {
+			pointer = dynamic_cast<T*>(child);//if node with name already exists, assign it to pointer
 			return false;
 		}
 	}
-
 };
-
 }
 
 #endif
