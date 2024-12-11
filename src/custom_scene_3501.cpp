@@ -29,7 +29,10 @@ void CustomScene3501::_enter_tree (){
 	create_or_add_child<PortalEffect>(portal_effect, "portal_effect");
 
 	create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0), 20000, 2.0); //Make a temp Particle System
+	create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(2.0, 1.0, 2.0), 20000, 2.0); //Make a temp Particle System
 	create_or_add_child<Tower>(tower, "Magical Tower");
+
+	
 
 	//create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0)); //Make a temp Particle System
 	init_debug_rects();	//add temp rect meshes to scene
@@ -43,6 +46,8 @@ void CustomScene3501::_ready ( ){
 	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
 
 	//String tree_textures[] = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
+
+	create_npc(WolfNpc, Vector3(1.0,1.0,1.0));
 
 	//Initialization Functions
 	init_player(Vector3(3,4.5,3));
@@ -70,7 +75,7 @@ void CustomScene3501::_ready ( ){
 		// the current particle system we are setting up
 		ParticleSystem* particle_system = particle_systems[index];
 
-		particle_system[index].update_particle_system();
+		particle_system->update_particle_system();
 
 		// this should never be needed, but can't hurt to have. 
 		if(particle_system == nullptr) continue;

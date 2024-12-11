@@ -2,6 +2,7 @@
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/classes/kinematic_collision3d.hpp>
 
+
 //Math for Random Point
 #include <cmath>
 #include <cstdlib>
@@ -25,13 +26,12 @@ Slime::~Slime() {}
 
 void Slime::_enter_tree(){
 	//Initalizes The Children that makes up a Slime 
-	import_tool = memnew(AssetImporter);
-	init_body();	
+	import_tool = memnew(AssetImporter);	
 }
 
 void Slime::_ready (){
 	//Initalize Slime to be a Sphere Mesh Based Maybe (Softbody)	
-	
+	init_body();	
 }
 
 void Slime::_process(double delta){
@@ -93,6 +93,7 @@ void Slime::init_body(){
 	create_or_add_child<MeshInstance3D>(npc_mesh, "Slime Mesh");
 	create_or_add_child<CollisionShape3D>(npc_body, "Collision Body");
 	init_mesh();	
+	npc_mesh->set_position(get_position());
 	SphereShape3D* sphere_shape;
 	sphere_shape = memnew(SphereShape3D);
     sphere_shape->set_radius(1.0f); // Set the radius of the sphere collider
@@ -121,7 +122,7 @@ void Slime::approachDirection(Vector3 direction, double delta){
         
         // Checks if the Collided Node is the Player
         if (collider_node == player) {
-            player->set_position(Vector3(SPAWN_X, SPAWN_Y, SPAWN_Z));
+			player->collidePlayer();
 			slimeState = IDLE;
         }
     }

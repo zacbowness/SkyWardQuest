@@ -29,7 +29,6 @@ protected:
 	float aggroRadius;
 
 private:	
-	
 public:
 	Enemy();
 	~Enemy();

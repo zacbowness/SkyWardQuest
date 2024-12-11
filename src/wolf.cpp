@@ -95,6 +95,7 @@ void Wolf::init_body(){
 	capsule_shape = memnew(CapsuleShape3D);
     npc_body->set_shape(capsule_shape);
 	npc_body->set_scale(Vector3(6.0,6.0,6.0));
+	npc_body->set_rotation_degrees(Vector3(90,0,0));
 	npc_body->set_position(Vector3(get_position().x-1, get_position().y+2, get_position().z));
 }
 
@@ -120,7 +121,7 @@ void Wolf::approachDirection(Vector3 direction, double delta){
         
         // Checks if the Collided Node is the Player
         if (collider_node == player) {
-            player->set_position(Vector3(SPAWN_X, SPAWN_Y, SPAWN_Z));
+            player->collidePlayer();
 			WolfState = IDLE;
         }
     }

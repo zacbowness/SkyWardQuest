@@ -142,7 +142,7 @@ Vector3 Bee::calculateMovement(Vector3 direction, Vector3 curr_vel, double delta
 	
 	//Calculates and Moves in the Direction of the Destination
 	velocity = moveInDirection(direction, velocity, delta);
-	velocity.y += direction.y;
+	velocity.y += direction.y * delta;
 
 	Vector3 target_velocity = velocity.normalized()*speed;
 	
