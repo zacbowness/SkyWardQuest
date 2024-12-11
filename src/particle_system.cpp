@@ -56,7 +56,13 @@ void ParticleSystem::update_particle_system(){
 	// set up the material to attach to the quad
 	ShaderMaterial* spatial_material = memnew(ShaderMaterial);
 	Ref<Shader> shader = ResourceLoader::get_singleton()->load(vformat("shaders/%s_ss.gdshader", shader_name), "Shader");
-	spatial_material->set_shader(shader); 
+	if(!shader.is_null()){
+		spatial_material->set_shader(shader);
+	} else {
+		ERR_PRINT(vformat("ERROR: Particle System Shader %s.ss is NULL",shader_name));
+		return;
+	}
+	 
 	// this will be the default texture of the spatial material unless you change it 
 	
 	spatial_material->set_shader_parameter("texture_image", ResourceLoader::get_singleton()->load(vformat("res://textures/%s.png", texture_name)));
@@ -69,7 +75,12 @@ void ParticleSystem::update_particle_system(){
 	// set up process material
 	ShaderMaterial* process_material = memnew(ShaderMaterial);
 	shader = ResourceLoader::get_singleton()->load(vformat("shaders/%s_ps.gdshader", shader_name), "Shader");
-	process_material->set_shader(shader);
+	
+	if(!shader.is_null())process_material->set_shader(shader);
+	else{
+		ERR_PRINT("ERROR: Shader Process Material is NULL");
+		return;
+	}
 
 	// attach the materials and mesh
 	mesh->set_material(spatial_material);
