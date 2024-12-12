@@ -12,6 +12,8 @@ void CustomScene3501::load_filepaths(){
 	//mesh_filepaths[""] = "";
 	mesh_filepaths["OakTree_1"] = "res://mesh_assets/Lowpoly_Forest_Pack/oaktree_1.res";
 	mesh_filepaths["PineTree_1"] = "res://mesh_assets/Lowpoly_Forest_Pack/pinetree_1.res";
+	mesh_filepaths["PortalFrame"] = "res://mesh_assets/Misc Meshes/portal_frame.res";
+	mesh_filepaths["StonePlatform"] = "res://mesh_assets/Ruin_Asset_Pack/ruin_platform.res";
 
 	//TEXTURE FILEPATHS//
 	//texture_filepaths[""] = "";
@@ -21,6 +23,8 @@ void CustomScene3501::load_filepaths(){
 	texture_filepaths["Trunk_2"] = "res://mesh_assets/Lowpoly_Forest_Pack/Textures/SpruceTreeTrunk.png";
 	texture_filepaths["Rock_1"] = "res://mesh_assets/Lowpoly_Forest_Pack/Textures/rockTexture1.png";
 	texture_filepaths["Rock_2"] = "res://mesh_assets/Lowpoly_Forest_Pack/Textures/rockTexture2.png";
+	texture_filepaths["Rock_3"] = "res://mesh_assets/Misc_Textures/Rock_Handpainted_Beefpuppy.png";
+	texture_filepaths["Rock_4"] = "res://mesh_assets/Misc_Textures/Cethiel_Tileable_Stone/Ground_03.png";
 }
 
 void CustomScene3501::init_debug_rects(){

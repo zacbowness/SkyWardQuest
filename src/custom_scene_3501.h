@@ -54,11 +54,6 @@
 
 //LOCAL DEFINITIONS
 #define NUM_TERRAIN_PROPS 60
-#define NUM_TERRAIN_OAK 15
-#define NUM_TERRAIN_SPRUCE 15
-#define NUM_TERRAIN_ROCK_1 10
-#define NUM_TERRAIN_ROCK_2 10
-#define NUM_TERRAIN_ROCK_3 10
 
 
 // everything in gdextension is defined in this namespace

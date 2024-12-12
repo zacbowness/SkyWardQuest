@@ -33,9 +33,9 @@
 #define TERMINAL_V 32.0
 
 //SPAWN POSITION
-#define SPAWN_X 85
-#define SPAWN_Y 0
-#define SPAWN_Z 65
+#define SPAWN_X 84.9
+#define SPAWN_Y 3.5
+#define SPAWN_Z 84.5
 
 //Number of enemies made
 #define NUM_SLIMES 6

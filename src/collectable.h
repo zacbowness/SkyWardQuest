@@ -12,7 +12,10 @@
 #include <godot_cpp/core/memory.hpp> // for memnew
 #include <godot_cpp/variant/vector3.hpp>
 #include <godot_cpp/classes/sphere_shape3d.hpp>
+#include <godot_cpp/classes/array_mesh.hpp>
+#include <godot_cpp/classes/concave_polygon_shape3d.hpp>
 #include "player_scene.h"
+#include "asset_importer.h"
 
 
 // everything in gdextension is defined in this namespace
@@ -26,6 +29,9 @@ private:
 	MeshInstance3D* collectable_mesh;
 	CollisionShape3D* collectable_body;
 	Player* player; 
+	AssetImporter* import_tool;
+
+	float angle;
 	
 protected:
 	static void _bind_methods();

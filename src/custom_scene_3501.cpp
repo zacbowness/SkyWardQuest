@@ -12,9 +12,9 @@ void CustomScene3501::_bind_methods() { }
 CustomScene3501::CustomScene3501() : Node3D() {
 	time_passed = 0.0;
 	load_filepaths();//load filepaths into hashmaps
-	collectible_1_pos = Vector3(58,10,49);
-	collectible_2_pos = Vector3(25,2,64);
-	collectible_3_pos = Vector3(91,5,87);
+	collectible_1_pos = Vector3(58.94,9.08,49.1);
+	collectible_2_pos = Vector3(28.7,9.4,83.5);
+	collectible_3_pos = Vector3(86,3.7,90);
 }
 
 CustomScene3501::~CustomScene3501() {}
@@ -29,7 +29,7 @@ void CustomScene3501::_enter_tree (){
 
 	create_or_add_child<Skybox>(skybox,"Skybox");
 
-	create_or_add_child<PortalEffect>(portal_effect, "portal_effect");
+	createPortal(Vector3(90.26,5.8,89.67));
 
 	create_particle_system("Magic Glyphs", "glyph", "glyph4x4", Vector2(0.7,0.7), Vector3(57.0, -1.5, 45.0), 80, 10.0); //Make a temp Particle System
 	
@@ -101,12 +101,11 @@ void CustomScene3501::_ready ( ){
 	update_terrain_props(map_pos);
 	update_terrain_enemies(enemy_pos);
 	collectibles_in_scene();
-	createPortal(Vector3(15,2,10));
+	
 
 	//Update Tower Position
 	tower->set_position(Vector3(57, -1.49, 45));
 	tower->set_rotation_degrees(Vector3(0,-56,0));
-	portal_effect->update(Vector3(15,2,10));
 }
 
 
@@ -216,10 +215,23 @@ void CustomScene3501::createCollectable(Vector3 pos, String name){
 	collectableList.push_back(temp);
 }
 
+//Create the portal structure that the player spawns near
 void CustomScene3501::createPortal(Vector3 pos){
+	//create portal node
 	create_or_add_child<Portal>(portal, "Portal");
+	Node3D* portal_effect_parent;
+	create_or_add_child<Node3D>(portal_effect_parent, "Portal Effect Parent",portal);
+	create_or_add_child<PortalEffect>(portal_effect, "portal_effect", portal_effect_parent);
 	portal->setPlayer(player);
 	portal->set_position(pos);
+	portal_effect_parent->set_scale(Vector3(0.22,1, 1));
+
+	Vector<String> portalFrameTex = {texture_filepaths["Rock_3"]};
+	Vector<String> portalPlatformTex = {texture_filepaths["Rock_4"]};
+	create_prop(Vector3(0.541,0.541,0.541), Vector3(0.02,-0.11,0), Vector3(0,0,-90), portal, "Portal Frame", mesh_filepaths["PortalFrame"], portalFrameTex);
+	create_prop(Vector3(1.192,1.192,1.192), Vector3(0.07, -1.97, 2.55), Vector3(0,0,0), portal, "Portal Platform Top", mesh_filepaths["StonePlatform"], portalPlatformTex);
+	create_prop(Vector3(1.938,1.938,1.938), Vector3(0.17,-3.07,3.83), Vector3(0,0,0), portal, "Portal Platform Bottom", mesh_filepaths["StonePlatform"], portalPlatformTex);
+	
 }
 
 
