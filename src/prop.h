@@ -17,7 +17,6 @@
 #include <godot_cpp/classes/collision_shape3d.hpp>
 #include <godot_cpp/classes/concave_polygon_shape3d.hpp>
 
-#include "collision_obj.h"
 #include "asset_importer.h"
 
 namespace godot {

@@ -33,7 +33,6 @@
 #include "defs.h"
 #include "quat_camera.h"
 #include "enemy.h"
-#include "debug_rect.h"
 #include "player_scene.h"
 #include "slime.h"
 #include "map.h"
@@ -79,7 +78,6 @@ private:
 	Vector<MeshInstance3D*> objects;
 	Vector<Npc*> NpcList;
 	
-	Vector<DebugRect*> rect_instances;
 	Vector<Prop*> prop_instances;
 	Vector<Prop*> terrain_prop_instances;
 
@@ -102,12 +100,7 @@ private:
 	};
 	
 	//Setup Functions
-	void init_debug_rects();
-	void create_rect(Vector3 size, Vector3 pos, Node* parentNode, String name);
-	void create_rect(Vector3 size, Vector3 pos, Node* parentNode, String name, Vector3 color);
-
 	void init_player(Vector3 start_pos);
-
 	void init_props();
 	void create_prop(Vector3 size, Vector3 pos, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);
     void create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);//Polymorph that takes rotation
