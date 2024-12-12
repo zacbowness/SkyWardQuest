@@ -113,3 +113,4 @@ Contributors:
 
 # Bugs
 - for some reason 2 or 3 individual particles like to flicker between runes (its just wild magic I think)
+- Due to Look_At() Function not working the enemies do not face the direction they are moving
