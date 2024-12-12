@@ -46,6 +46,7 @@ void Wolf::_process(double delta){
 			WolfState = CHASE;
 		} else {
 			WolfState = WANDER;
+			destination = getRandomPointInRadius(10.0f);
 		}
 		break;
 	//Wander State

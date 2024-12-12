@@ -56,6 +56,7 @@ void Slime::_process(double delta){
 		//checks if the player is in range
 		if (playerInRadius()){
 			slimeState = CHASE; 
+			destination = getRandomPointInRadius(10.0f);
 		} else {
 			//Implement A Wandering Algorithm
 			//If the Enemy is within 2.0f Radius of its destination get a random destination
