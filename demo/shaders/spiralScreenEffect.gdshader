@@ -28,8 +28,8 @@ void fragment() {
     float distortion = sin(angle * spiral_density + radius * 10.0) * distortion_strength;
     float spiral = sin(angle * spiral_density + distortion) * 0.5 + 0.5;
 
+	// Makes the colours
     float fade = smoothstep(fade_radius, 0.0, radius);
-
     vec3 color = mix(secondary_color, base_color, spiral * fade);
 
     ALBEDO = color;
