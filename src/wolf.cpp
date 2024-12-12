@@ -54,6 +54,7 @@ void Wolf::_process(double delta){
 		//checks if the player is in range
 		if (playerInRadius()){
 			WolfState = CHASE; 
+			destination = getRandomPointInRadius(10.0f);
 		} else {
 			//Implement A Wandering Algorithm
 			//If the Enemy is within 2.0f Radius of its destination get a random destination
@@ -123,7 +124,7 @@ void Wolf::approachDirection(Vector3 direction, double delta){
         
         // Checks if the Collided Node is the Player
         if (collider_node == player) {
-            player->collidePlayer();
+            player->killPlayer();
 			WolfState = IDLE;
         }
     }

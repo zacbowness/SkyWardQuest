@@ -19,7 +19,6 @@ Slime::Slime() {
 	enemyType = SLIME;
 	slimeState = IDLE;
 	aggroRadius = 10.0f;
-	destination = getRandomPointInRadius(10.0f);
 }
 
 Slime::~Slime() {}
@@ -36,6 +35,7 @@ void Slime::_ready (){
 
 void Slime::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
+	
 	switch (slimeState)
 	{
 	
@@ -46,6 +46,7 @@ void Slime::_process(double delta){
 		if (playerInRadius()){
 			slimeState = CHASE;
 		} else {
+			destination = getRandomPointInRadius(10.0f);
 			slimeState = WANDER;
 		}
 		break;
@@ -63,9 +64,8 @@ void Slime::_process(double delta){
 			}
 			//Approach its Destination
 			direction = destination - get_position();
-			approachDirection(direction, delta);
 		}
-		
+		approachDirection(direction, delta);
 		break;
 	//Chase State
 	//Finds Player and Chases It
@@ -82,8 +82,8 @@ void Slime::_process(double delta){
 		}
 		break;
 	
-	
 	}
+	look_at(direction);
 }
 
 void Slime::init_body(){
@@ -104,10 +104,10 @@ void Slime::init_body(){
 
 //Sets Poisition Of Slime 
 void Slime::approachDirection(Vector3 direction, double delta){
-	look_at(direction, Vector3(0,1,0));
 
 	Vector3 velocity = get_velocity();
 	velocity = calculateMovement(direction.normalized(), velocity, delta);
+	
 	
 	//Apply Gravity
 	if(!is_on_floor())velocity.y -= GRAVITY*delta; //if Slime is not on the ground, apply gravity
@@ -123,7 +123,7 @@ void Slime::approachDirection(Vector3 direction, double delta){
         
         // Checks if the Collided Node is the Player
         if (collider_node == player) {
-			player->collidePlayer();
+			player->killPlayer();
 			slimeState = IDLE;
         }
     }

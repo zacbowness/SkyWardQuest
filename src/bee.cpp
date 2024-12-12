@@ -43,8 +43,9 @@ void Bee::_process(double delta){
 		cur_y = get_position().y - 0.1;
 	}
 	
-	if (inRadiusFromDest(2.0f)){
+	if (inRadiusFromDest(2.0f) || firstRun == true){
 		destination = getRandomPointInRadius(10.0f);
+		firstRun = false;
 	}
 	destination.y = cur_y;
 	//Approach its Destination
