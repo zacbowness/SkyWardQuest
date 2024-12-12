@@ -21,7 +21,8 @@ folder_colors={
 "res://mesh_assets/Misc Meshes/": "purple",
 "res://mesh_assets/Misc_Textures/": "red",
 "res://mesh_assets/Ruin_Asset_Pack/": "yellow",
-"res://mesh_assets/Ruin_Asset_Pack_Small/": "orange"
+"res://mesh_assets/Ruin_Asset_Pack_Small/": "orange",
+"res://mesh_assets/gemstone_pack/": "pink"
 }
 
 [filesystem]

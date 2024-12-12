@@ -8,6 +8,7 @@
 
 
 
+
 using namespace godot;
 
 void Collectable::_bind_methods() {
@@ -17,6 +18,7 @@ void Collectable::_bind_methods() {
 
 Collectable::Collectable() : Area3D() {
 	time_passed = 0.0;
+	angle=0;
 }
 
 Collectable::~Collectable(){
@@ -28,10 +30,10 @@ void Collectable::_enter_tree ( ){
 	
     set_monitoring(true);  // Enable monitoring of overlapping bodies
 
+	import_tool = memnew(AssetImporter);
+
 	create_or_add_child<MeshInstance3D>(collectable_mesh, "Collectable Mesh");
 	create_or_add_child<CollisionShape3D>(collectable_body, "Collectable Body");
-
-	
 }
 
 void Collectable::_ready ( ){
@@ -46,7 +48,8 @@ void Collectable::_ready ( ){
 
 void Collectable::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
-
+	set_rotation(Vector3(0,angle,0));
+	angle+=delta;
 }
 
 void Collectable::body_entered(Node3D *body) {
@@ -60,18 +63,20 @@ void Collectable::body_entered(Node3D *body) {
 }
 
 void Collectable::init_body(){
-	//Create Sphere and Mesh
-	SphereMesh* sphereMesh = memnew(SphereMesh);
-    sphereMesh->set_height(2.0f);
-	sphereMesh->set_radius(1.0f);
+	//Create Mesh
+	Vector<String> texture_filepaths = {"res://mesh_assets/gemstone_pack/Albedo Stone4.png"};
+	Ref<ArrayMesh> mesh = import_tool->import_mesh("res://mesh_assets/gemstone_pack/gemstone.res", texture_filepaths);
 
-	StandardMaterial3D* material = memnew(StandardMaterial3D);
-	material->set_albedo(Color(0, 0, 1, 1));
-	sphereMesh->surface_set_material(0, material);
-	collectable_mesh->set_mesh(sphereMesh);
+	if(!mesh.is_null()){
+		collectable_mesh->set_mesh(mesh);
+		collectable_mesh->set_scale(Vector3(0.6,0.6,0.6));
+	} else {
+		ERR_PRINT("ERROR: Collectible Mesh is NULL");
+		return;
+	}
 
 	//Create Sphere Colider 
 	SphereShape3D* sphereColider = memnew(SphereShape3D);
-	sphereColider->set_radius(1.0);
-	collectable_body->set_shape(sphereColider);	
+	sphereColider->set_radius(0.3);
+	collectable_body->set_shape(sphereColider);
 }

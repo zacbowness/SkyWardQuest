@@ -60,15 +60,15 @@ void Portal::init_body(){
 	//Create Sphere and Mesh
 	SphereMesh* sphereMesh = memnew(SphereMesh);
     sphereMesh->set_height(2.0f);
-	sphereMesh->set_radius(1.0f);
+	sphereMesh->set_radius(0.9f);
 
 	//StandardMaterial3D* material = memnew(StandardMaterial3D);
 	//material->set_albedo(Color(1, 1, 0, 1));
 	//sphereMesh->surface_set_material(0, material);
-	Portal_mesh->set_mesh(sphereMesh);
+	//Portal_mesh->set_mesh(sphereMesh);
 
 	//Create Sphere Colider 
 	SphereShape3D* sphereColider = memnew(SphereShape3D);
-	sphereColider->set_radius(1.0);
+	sphereColider->set_radius(0.7);
 	Portal_body->set_shape(sphereColider);	
 }

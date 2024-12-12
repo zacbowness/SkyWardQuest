@@ -10,7 +10,7 @@ uniform float spiral_speed = 1.0; // Speed of rotation
 uniform float spiral_density = 16.0; // Number of spiral arms
 uniform float distortion_strength = 0.5; // Strength of distortion
 uniform float fade_radius = 1.0; // Radius where the effect fades out
-uniform vec2 polar_origin = vec2(0.0, 0.0); // Offset for polar coordinates
+uniform vec2 polar_origin = vec2(0.5, 0.0); // Offset for polar coordinates
 
 void fragment() {
     // Map UV to [-1, 1] range

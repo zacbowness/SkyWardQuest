@@ -42,7 +42,7 @@ void  Mountain::_ready ( ){
 
     Vector<Vector<float>> heightfield = map->get_heightfield();
 
-    map->add_mesh(heightfield,Vector3(5, -18, 70),Color(0.4,0.2,0.7));
+    map->add_mesh(heightfield,Vector3(5, -18, 70),Color(0.506,0.522,0.537));
 	
 	//Call the update function of props (to update position, scale, and rotation data)
 	for(Prop* prop_obj : prop_instances){prop_obj->update_prop();}
