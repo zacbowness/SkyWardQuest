@@ -35,8 +35,8 @@ void startScene::createTitle(){
 
 void startScene::createInfo(){
 	create_and_add_as_child(info, "Info");
-	info->set_text("Press Enter to Begin \nBy Sam, Zac, Ellie ");
-	info->set_position(Vector2(500, 250)); // Position the text
+	info->set_text("Press Enter to Begin \nCollect 3 Gems And Escape Using The Portal\nBy Sam, Zac, Ellie ");
+	info->set_position(Vector2(400, 250)); // Position the text
 	setFont(title, 30);
 }
 
