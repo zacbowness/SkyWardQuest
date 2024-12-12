@@ -23,10 +23,10 @@ void gameOverScene::_process(double delta){
 
 void gameOverScene::createText(){
 	create_and_add_as_child(gameOver, "Info");
-	gameOver->set_text("Game Over ");
+	gameOver->set_text("You Win!");
 	gameOver->set_position(Vector2(300, 150)); // Position the text
 	setFont(gameOver, 100);
-	setColour(gameOver, Color(1.0, 0, 0));
+	setColour(gameOver, Color(0.0, 1, 0));
 }
 
 
