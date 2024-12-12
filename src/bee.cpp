@@ -11,6 +11,7 @@ Bee::Bee() {
 	speed = 2.5f;
 	detectionRadius = 5.0f;
 	enemyType = BEE;
+	destination = getRandomPointInRadius(10.0f);
 }
 
 Bee::~Bee() {}
@@ -26,7 +27,6 @@ void Bee::_ready (){
 
 void Bee::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
-	
 	RayCast->set_position(get_position());
 
 	float cur_y = destination.y;

@@ -19,7 +19,7 @@ Slime::Slime() {
 	enemyType = SLIME;
 	slimeState = IDLE;
 	aggroRadius = 10.0f;
-	destination = Vector3(0,0,0);
+	destination = getRandomPointInRadius(10.0f);
 }
 
 Slime::~Slime() {}

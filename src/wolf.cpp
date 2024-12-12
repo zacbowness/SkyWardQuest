@@ -17,7 +17,7 @@ Wolf::Wolf() {
 	enemyType = WOLF;
 	WolfState = IDLE;
 	aggroRadius = 7.0f;
-	destination = Vector3(0,0,0);
+	destination = getRandomPointInRadius(10.0f);
 }
 
 Wolf::~Wolf() {}
