@@ -77,14 +77,14 @@ void Slime::_process(double delta){
 		} else {
 			//Sets destination to Player's Position 
 			destination = player->get_position();
-			direction = (destination - get_position() );
+			direction = (destination - get_position());
 			//Approach the direction of the player
 			approachDirection(direction, delta);
 		}
 		break;
 	
 	}
-	look_at(direction);
+	look_at(direction, Vector3(0,1,0), true);
 }
 
 void Slime::init_body(){

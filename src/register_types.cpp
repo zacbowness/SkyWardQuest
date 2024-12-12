@@ -5,10 +5,7 @@
 // include the headers from your classes
 #include "quat_camera.h"
 #include "custom_scene_3501.h"
-#include "debug_rect.h"
 #include "slime.h"
-#include "world_obj.h"
-#include "collision_obj.h"
 #include "npc.h"
 #include "enemy.h"
 #include "friendly.h"
@@ -56,9 +53,6 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<QuatCamera>();
 	
 	//World Object Classes
-	ClassDB::register_class<WorldObject>();
-	ClassDB::register_class<CollisionObject>();
-	ClassDB::register_class<DebugRect>();
 	ClassDB::register_class<Prop>();
 	ClassDB::register_class<Tower>();
 	

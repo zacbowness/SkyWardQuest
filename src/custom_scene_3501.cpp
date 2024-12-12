@@ -12,6 +12,8 @@ void CustomScene3501::_bind_methods() { }
 CustomScene3501::CustomScene3501() : Node3D() {
 	time_passed = 0.0;
 	load_filepaths();//load filepaths into hashmaps
+	
+	//Define positions for collectible objects
 	collectible_1_pos = Vector3(58.94,9.08,49.1);
 	collectible_2_pos = Vector3(28.7,9.4,83.5);
 	collectible_3_pos = Vector3(86,3.7,90);
@@ -31,16 +33,14 @@ void CustomScene3501::_enter_tree (){
 
 	createPortal(Vector3(90.26,5.8,89.67));
 
-	create_particle_system("Magic Glyphs", "glyph", "glyph4x4", Vector2(0.7,0.7), Vector3(57.0, -1.5, 45.0), 80, 10.0); //Make a temp Particle System
+	create_particle_system("Magic Glyphs", "glyph", "glyph4x4", Vector2(0.5,0.5), Vector3(57.0, -1.5, 45.0), 0,  80, 10.0); //Make a magical glyph Particle System
 	
-	create_particle_system("Snowstorm", "snow", "snow2x2", Vector2(1.0,1.0), Vector3(28.0, 37.0, 92.0), 20000, 2.0); //Make a temp Particle System
+	create_particle_system("Snowstorm", "snow", "snow2x2", Vector2(0.25,0.25), Vector3(17.4, 11.5, 85.0),0, 500, 10.0); //Make a snowstorm Particle System
 	
 	create_or_add_child<Tower>(tower, "Magical Tower");
 
 	create_or_add_child<Mountain>(mountain, "Mountain");
 
-	//create_particle_system("Snowstorm", "fire", "flame4x4orig", Vector2(1.0,1.0), Vector3(1.0, 1.0, 1.0)); //Make a temp Particle System
-	init_debug_rects();	//add temp rect meshes to scene
 	init_props();		//add props to scene
 	init_enemies();
 	
@@ -49,9 +49,7 @@ void CustomScene3501::_enter_tree (){
 void CustomScene3501::_ready ( ){
 	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
 
-	//String tree_textures[] = {texture_filepaths["OakLeaf_1"], texture_filepaths["OakTrunk_1"]};
-
-	//Initialization Functions
+	//Initialize player location
 	init_player(Vector3(SPAWN_X,SPAWN_Y,SPAWN_Z));
 	
 	//Generate Terrain (Values are modifiable in defs.h)
@@ -68,13 +66,9 @@ void CustomScene3501::_ready ( ){
 
 	//Get Valid Positions on the terrain mesh to place tree/rock/env objects
 	Vector<Vector<float>> heightfield = map->get_heightfield();
-
-	map->add_mesh(heightfield, Vector3(0,0,0), Color(0.1, 0.9, 0.1));
+	map->add_mesh(heightfield, Vector3(0,0,0), Color(0.1, 0.9, 0.1));//
+	
 	Vector<Vector3> map_pos = map->scatter_props(heightfield, MAP_WIDTH, MAP_HEIGHT, MAP_SCALE, NUM_TERRAIN_PROPS);
-	Vector<Vector3> enemy_pos = map->scatter_props(heightfield, MAP_WIDTH, MAP_HEIGHT, MAP_SCALE, NUM_TERRAIN_PROPS);
-	//for(Vector3 pos : map_pos) UtilityFunctions::print(pos);
-
-	//map->scatter_circles_on_mesh(100, 1.5);
 	
 	//Update Particle Systems with Location and Otherwise 
 	for(int index = 0; index < particle_systems.size(); index++){
@@ -89,19 +83,14 @@ void CustomScene3501::_ready ( ){
 		dynamic_cast<ShaderMaterial*>(*particle_system->get_draw_pass_mesh(0)->surface_get_material(0))->set_shader_parameter("num_particles", particle_system->get_amount());
         dynamic_cast<ShaderMaterial*>(*particle_system->get_process_material())->set_shader_parameter("num_particles", particle_system->get_amount());
 	}
-
-	//for (Npc* npc : NpcList) npc->update_npc();
-
-	//Update DebugRect objects to set their location and otherwise
-	for(DebugRect* obj : rect_instances) obj->update_rect();
 	
 	//Update Prop Objects to set their location and positions
 	for(Prop* obj : prop_instances) obj->update_prop();
 
+	//Update game objects with positional data
 	update_terrain_props(map_pos);
-	update_terrain_enemies(enemy_pos);
+	update_terrain_enemies();
 	collectibles_in_scene();
-	
 
 	//Update Tower Position
 	tower->set_position(Vector3(57, -1.49, 45));
@@ -149,31 +138,18 @@ void CustomScene3501::update_terrain_props(Vector<Vector3> pos_vect){
 	}
 }
 
-void CustomScene3501::update_terrain_enemies(Vector<Vector3> pos_vect){
+void CustomScene3501::update_terrain_enemies(){
 	for(int i=0; i<NpcList.size(); i++){
 		NpcList[i]->update_npc_position(EnemySpawnLocations[i]);
 	}
 }
 
-void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name){
-	DebugRect* rect;
-	create_or_add_child<DebugRect>(rect, name, parentNode);
-	rect->setup_rect(scale, pos);
-	rect_instances.push_back(rect);
-}
-
-void CustomScene3501::create_rect(Vector3 scale, Vector3 pos, Node* parentNode, String name, Vector3 color){
-	DebugRect* rect;
-	create_or_add_child<DebugRect>(rect, name, parentNode);
-	rect->setup_rect(scale, pos, color);
-	rect_instances.push_back(rect);
-}
-
-void CustomScene3501::create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos, int32_t amount_in, double lifetime_in){
+//Create a particle system with the given parameters
+void CustomScene3501::create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos, float angle, int32_t amount_in, double lifetime_in){
 	// if you want to use non-zero argument constructors, here is an example of how to do that
 	ParticleSystem* system;
 	create_or_add_child<ParticleSystem>(system, node_name);
-	system->init_particle_system(shader_name, texture_name, size, pos, amount_in, lifetime_in);
+	system->init_particle_system(shader_name, texture_name, size, pos, angle, amount_in, lifetime_in);
 	particle_systems.push_back(system);
 }
 

@@ -25,14 +25,14 @@ void Player::_enter_tree (){
 	create_or_add_child<QuatCamera>(main_camera, "First Person Camera");
 	create_or_add_child<MeshInstance3D>(player_mesh, "Player Mesh");
 	create_or_add_child<CollisionShape3D>(player_body, "Player Body");
-	create_and_add_as_child_of_Node<MeshInstance3D>(screen_quad_instance, "Screen Quad", main_camera);
+	create_or_add_child<MeshInstance3D>(screen_quad_instance, "Screen Quad", main_camera);
 	create_or_add_child<Timer>(timer, "Timer");
 
+	//Load Shader files
 	load_shaders();
 
 	//Initalize Screen Effects
 	init_screen_effects();
-	//init_screen_fx();
 }
 
 void Player::_ready ( ){
@@ -92,7 +92,7 @@ void Player::load_shaders() {
 }
 
 //==== INITIALIZATION FUNCTIONS ====//
-
+//Initialize the player's Quat Camera
 void Player::init_camera(){
 	main_camera->set_position(Vector3(0.0f, PLAYER_EYELINE, 0.0f));
 	main_camera->_ready();
@@ -148,9 +148,6 @@ Vector3 Player::apply_input(Vector3 current_vel, double delta){
 
 	//Mouse Inputs
 	Vector2 mouse_input = _input->get_last_mouse_velocity()*-1;
-	
-	//main_camera->Yaw(mouse_input.x*delta*PLAYER_SENSITIVITY);
-	//turn_player(mouse_input.x * delta * PLAYER_SENSITIVITY);
 	player_look(mouse_input, delta);
 	
 	//Turning/looking around inputs for arrow keys
@@ -201,11 +198,10 @@ Vector3 Player::apply_input(Vector3 current_vel, double delta){
 		velocity.y+=PLAYER_JUMP_STR;
 	}
 
-	//if(DEBUG&&PLAYER_DEBUG) UtilityFunctions::print(_input->Input::get_last_mouse_velocity());
-
 	return velocity;
 }
 
+//Rotate the player by tilting the QuatCamera, and Rotating the player object
 void Player::player_look(Vector2 input, double delta){
 	Vector2 target_perspective = input;
 	
@@ -214,7 +210,6 @@ void Player::player_look(Vector2 input, double delta){
 	
 	main_camera->pitch_camera(input.y, delta);
 	turn_player(input.x * delta * PLAYER_SENSITIVITY);
-	//UtilityFunctions::print(perspective);
 }
 
 //Add velocity depending on the direction the player wants to move in and return the new value
@@ -225,17 +220,20 @@ Vector3 Player::move_in_direction(Vector3 dir, Vector3 velocity){
 	return velocity;
 }
 
+//Get the forward vector of the player
 Vector3 Player::get_forward(){
     Vector3 current_forward = (player_quat.xform(forward_));
     return -current_forward.normalized(); // Return -forward since the camera coordinate system points in the opposite direction
 }
 
+//Get side vector of player object
 Vector3 Player::get_side(){
 	//replaced static vector with value derrived from current rotation quaternion
     Vector3 current_side = (player_quat.xform(side_));
     return current_side.normalized();
 }
 
+//Rotate the player as an object
 void Player::turn_player(float angle){
 	Quaternion rotation = Quaternion(Vector3(0,1,0),angle);
     Quaternion new_quat = rotation * player_quat;
@@ -246,7 +244,7 @@ void Player::turn_player(float angle){
 
 //Initalizes all the Screen Effects
 void Player::init_screen_effects(){
-	create_and_add_as_child_of_Node<MeshInstance3D>(screen_quad_instance, "Screen Quad", main_camera);
+	create_or_add_child<MeshInstance3D>(screen_quad_instance, "Screen Quad", main_camera);
 
 	//Initalize Screen Mesh
 	screen_mesh = memnew(QuadMesh); 
@@ -258,24 +256,26 @@ void Player::init_screen_effects(){
 	for (String shader_name : effect_shaders){
 		Ref<Shader> tempShader = ResourceLoader::get_singleton()->load(vformat("shaders/%s.gdshader", shader_name), "Shader");
 		effect_array.push_back(tempShader);
-		UtilityFunctions::print(effect_array.size());
 	}
 }
 
+//Set active screen effect to given index in effect_array[]
 void Player::setEffectScreen(int shader_int){
 	screen_space_shader_material->set_shader(effect_array.get(shader_int));
 	screen_mesh->surface_set_material(0, screen_space_shader_material);
 }
 
+//Disable screen effects
 void Player::resetEffectScreen(){
 	screen_space_shader_material->set_shader(nullptr);
 	screen_mesh->surface_set_material(0, screen_space_shader_material);
 }
 
+//"Kill" the player and teleport them to spawn location, also activate heartbeat screen effect
 void Player::killPlayer(){
 	timer->start();
     set_position(Vector3(SPAWN_X, SPAWN_Y, SPAWN_Z));
-    setEffectScreen(1);
+    setEffectScreen(0);
 	screen_effect_on = true;
 }
 /*
