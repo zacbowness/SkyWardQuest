@@ -73,6 +73,10 @@ void Player::_process(double delta) {
 		resetEffectScreen();
 		screen_effect_on = false;
 	}
+
+	if (get_position().y <= -30){
+		killPlayer();
+	}
 }
 
 void Player::load_shaders() {
@@ -268,7 +272,7 @@ void Player::resetEffectScreen(){
 	screen_mesh->surface_set_material(0, screen_space_shader_material);
 }
 
-void Player::collidePlayer(){
+void Player::killPlayer(){
 	timer->start();
     set_position(Vector3(SPAWN_X, SPAWN_Y, SPAWN_Z));
     setEffectScreen(1);
