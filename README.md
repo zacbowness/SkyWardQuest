@@ -113,3 +113,9 @@ Contributors:
 
 # Bugs
 - for some reason 2 or 3 individual particles like to flicker between runes (its just wild magic I think)
+- Due to Look_At() Function not working the enemies do not face the direction they are moving
+
+# Animal Fact
+- Did you know that the axolotl (a type of salamander) can regenerate not just limbs, but also parts of its heart, spinal cord, and even brain? 🦎🧠
+
+- If an axolotl loses a limb or sustains damage to an organ, it can regenerate perfectly, without scarring. Even more impressively, they can regenerate the same limb up to 50 times in their lifetime! Scientists study axolotls to better understand regeneration, hoping to one day apply these findings to human medicine.
