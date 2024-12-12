@@ -23,6 +23,8 @@ class Map : public MeshInstance3D {  // Inherit from MeshInstance3D
     GDCLASS(Map, MeshInstance3D);
 
 private:
+
+    // Variables used to manipulate the generated heightfield and are passed in from an outside class
     int width, height;
     int octaves;
     float persistence;
@@ -30,7 +32,9 @@ private:
     float max_height;
     float mountain_scale;
     int random_seed;
-    Vector<Vector2>path_vertices;
+
+
+
     Vector<Vector<float>> heightfield;
 
 	CollisionShape3D* collision_shape;
@@ -45,7 +49,7 @@ private:
     float terrain_noise(float x, float y) const;
 
     void smooth_heightfield();
-    void advanced_smooth_heightfield();  // Advanced smoothing function (Gaussian blur)
+    void advanced_smooth_heightfield();
 
 
 protected:
@@ -62,8 +66,6 @@ public:
     // Terrain generation method with customizable parameters
     void generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale);
     void generate_mountain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, Vector3 start, Vector3 stop, float path_width, bool path);
-    void scatter_circles_on_mesh(int circle_count, float circle_radius);// function scatters circles across the mesh and can be replaced later
-    void print_heightfield() const;
 
     Vector<Vector3> scatter_props(const Vector<Vector<float>> &heightfield, int width, int height, float scale, int prop_count);
     void create_flat_path(Vector3 start, Vector3 stop, float path_width); 
@@ -75,18 +77,12 @@ public:
     void generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, float offset);
     void generate_heightfield(float offset);
     
-    //Getters
+    //Heightfield getter function
     const Vector<Vector<float>>& get_heightfield() const;
-    int get_width() const;
-    int get_height() const;
-    float get_scale() const;
-
-    // Add the function declaration for generating the 3D mesh
-    Ref<ArrayMesh> generate_3d_mesh();
 
     template <class T>
 	bool create_and_add_as_child(T* &pointer, String name);
-
+    
     template <class T>
 	bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent);
 };
@@ -94,14 +90,3 @@ public:
 } // namespace godot
 
 #endif // MAP_H
-
-/*
-Explanation of Parameters:
-p_width (int): The width of the terrain grid (number of horizontal tiles or vertices).
-p_height (int): The height of the terrain grid (number of vertical tiles or vertices).
-p_octaves (int): The number of layers of noise to generate for the terrain. More octaves generally result in more detailed terrain (higher values add more fine-grained features).
-p_persistence (float): A value between 0 and 1 that controls how much each successive octave (layer of noise) contributes to the final result. Lower values result in smoother terrain, and higher values create more detail.
-p_scale (float): A scaling factor that controls how stretched or compressed the terrain is. Larger values result in broader terrain features (e.g., mountains, valleys).
-p_max_height (float): The maximum height for the terrain's features. This will control how tall the mountains can be.
-p_mountain_scale (float): A scaling factor specifically for the height of the mountains. Higher values will result in taller mountains, and lower values will make the mountains shorter.
-*/
