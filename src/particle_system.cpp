@@ -39,13 +39,14 @@ void ParticleSystem::_process(double delta){
 	if (Engine::get_singleton()->is_editor_hint()) return; // Early return if we are in editor
 }
 
-void ParticleSystem::init_particle_system(String shader_name_in, String texture_name_in, Vector2 size_in, Vector3 pos, int32_t amount_in, double lifetime_in){
-	shader_name = shader_name_in;  
-	texture_name = texture_name_in;  
+void ParticleSystem::init_particle_system(String shader_name_in, String texture_name_in, Vector2 size_in, Vector3 pos, float angle_in, int32_t amount_in, double lifetime_in){
+	shader_name = shader_name_in;
+	texture_name = texture_name_in;
 	size = size_in;
 	position = pos;
 	amount = amount_in;
 	lifetime = lifetime_in;
+	angle = angle_in;
 }
 
 void ParticleSystem::update_particle_system(){
@@ -92,6 +93,7 @@ void ParticleSystem::update_particle_system(){
 	process_material->set_shader_parameter("num_particles", get_amount());
 
 	set_position(position);
+	set_rotation_degrees(Vector3(0,angle,0));
 }
 
 /*

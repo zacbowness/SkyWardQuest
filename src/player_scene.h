@@ -82,7 +82,6 @@ private:
 	Vector<Ref<Shader>> effect_array;
 
 	Vector<String> effect_shaders = {
-		"earthquake", //At Location 0...
 		"heartbeat"
 	};
 
@@ -176,25 +175,6 @@ public:
 			return false;
 		}
 	}
-
-	template <class T>
-	// returns true if pointer is brand-new; false if retrieved from SceneTree
-	bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent){
-	
-	Node* child = find_child(name);//find node with the given name
-
-	if(child == nullptr){//if child node was not found, create it
-		pointer = memnew(T);
-		pointer->set_name(name);
-		parent->add_child(pointer);
-		pointer->set_owner(get_tree()->get_edited_scene_root());
-		return true;
-	} else {
-		pointer = dynamic_cast<T*>(child);//if node with name already exists, assign it to pointer
-		return false;
-	}
-}
-
 };
 
 }

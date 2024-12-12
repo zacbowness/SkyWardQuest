@@ -106,13 +106,16 @@ private:
     void create_prop(Vector3 size, Vector3 pos, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);//Polymorph that takes rotation
     void create_terrain_prop(Vector3 size, Vector3 rotation, Node* parentNode, String obj_name, String mesh_filepath, Vector<String> texture_filepaths);
 	void update_terrain_props(Vector<Vector3> pos_vect);
-	void update_terrain_enemies(Vector<Vector3> pos_vect);
+	void update_terrain_enemies();
 
 	//Other Creation Functions
 	void createCollectable(Vector3 pos, String name);
 	void createPortal(Vector3 pos);
 	void create_npc(SpawnNPC type, Vector3 pos, Node* parentNode, String name);
 	void collectibles_in_scene();
+
+	//Takes in The Node Name, Name of the Shader File, Name of the Texture File, Size and Position to make a particle System
+	void create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos, float angle, int32_t amount_in, double lifetime_in);
 
 	Dictionary mesh_filepaths;//Hash Map for mesh filepaths
 	Dictionary texture_filepaths;//Hash Map for texture filepaths
@@ -134,8 +137,7 @@ public:
 	void _enter_tree ( ) override;
 	void _ready ( ) override;
 
-	//Takes in The Node Name, Name of the Shader File, Name of the Texture File, Size and Position to make a particle System
-	void create_particle_system(String node_name, String shader_name, String texture_name, Vector2 size, Vector3 pos, int32_t amount_in, double lifetime_in);
+	
 
 	template <class T>
 	bool create_or_add_child(T* &pointer, String name){

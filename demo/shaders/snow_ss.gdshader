@@ -49,7 +49,7 @@
         //Takes in the Random Direction Modifer 
         float dir = INSTANCE_CUSTOM.y; 
 
-        vec3 dir_vec = vec3((1.5*dir)*cos(t), -(1.5*dir)*cos(t), t);
+        vec3 dir_vec = vec3((2.5*dir)*cos(t), -(1.5*dir)*cos(t), t);
         vec3 offset = speed*dir_vec*accel*t*t + 1.5 * vec3(0,0,0) * speed*accel*t*t ; 
 
 

@@ -35,6 +35,8 @@ private:
 	double lifetime = 2.0;
 	Vector3 position = Vector3(0.0, 0.0, 0.0);
 
+	float angle;
+
 	
 	
 
@@ -49,7 +51,7 @@ public:
 	void _enter_tree() override;
 	void _ready() override;
 	void _process(double delta) override;
-	void init_particle_system(String shader_name, String texture_name, Vector2 size, Vector3 pos, int32_t amount_in, double lifetime_in);
+	void init_particle_system(String shader_name, String texture_name, Vector2 size, Vector3 pos, float angle, int32_t amount_in, double lifetime_in);
 	void update_particle_system();
 
 
