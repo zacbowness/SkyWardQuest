@@ -32,7 +32,7 @@ void  Mountain::_ready ( ){
     map->generate_terrain(
         70,    // Terrain width
         70,    // Terrain height
-        1,      // Octaves (not used here)
+        1,      // Octaves
         0.0f,   // Persistence
         1.0f,   // Scale
         20.0f,  // Maximum height
@@ -41,7 +41,7 @@ void  Mountain::_ready ( ){
     );
 
     Vector<Vector<float>> heightfield = map->get_heightfield();
-
+	//creates a mesh from the created heightfield and sets it's position and colour
     map->add_mesh(heightfield,Vector3(5, -18, 70),Color(0.506,0.522,0.537));
 	
 	//Call the update function of props (to update position, scale, and rotation data)

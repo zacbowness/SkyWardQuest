@@ -35,10 +35,10 @@
 #include "prop.h"
 
 
-// everything in gdextension is defined in this namespace
+
 namespace godot {
 class Mountain : public Node3D {
-    // this macro sets up a few internal things
+
 	GDCLASS(Mountain, Node3D);
 
 private:

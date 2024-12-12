@@ -13,13 +13,13 @@
 #include <godot_cpp/classes/collision_shape3d.hpp>
 #include <godot_cpp/classes/concave_polygon_shape3d.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
-#include <godot_cpp/classes/random_number_generator.hpp> // Random number generator
-#include <godot_cpp/classes/sphere_mesh.hpp> //Mesh for circles, can be removed for final implementation
-#include <godot_cpp/classes/resource_loader.hpp> //resource loader for textures
+#include <godot_cpp/classes/random_number_generator.hpp>
+#include <godot_cpp/classes/sphere_mesh.hpp>
+#include <godot_cpp/classes/resource_loader.hpp>
 
 namespace godot {
 
-class Map : public MeshInstance3D {  // Inherit from MeshInstance3D
+class Map : public MeshInstance3D {
     GDCLASS(Map, MeshInstance3D);
 
 private:
@@ -32,8 +32,6 @@ private:
     float max_height;
     float mountain_scale;
     int random_seed;
-
-
 
     Vector<Vector<float>> heightfield;
 
@@ -48,7 +46,7 @@ private:
     float multiscale_noise(float x, float y) const;
     float terrain_noise(float x, float y) const;
 
-    void smooth_heightfield();
+    //creates a smoothing effect for the heightfield
     void advanced_smooth_heightfield();
 
 
@@ -56,10 +54,13 @@ protected:
     static void _bind_methods();
 
 public:
+    //Default Constructor and Destructor
     Map();
     ~Map();
 
 	void _ready();
+
+    // Add's children to the Node
 	void _enter_tree();
 
 
@@ -67,22 +68,31 @@ public:
     void generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale);
     void generate_mountain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, Vector3 start, Vector3 stop, float path_width, bool path);
 
+    // Returns a collection of vectors that represent points on the heightfield
+    // Uses a set seed to calculate the positions on the heightfield
     Vector<Vector3> scatter_props(const Vector<Vector<float>> &heightfield, int width, int height, float scale, int prop_count);
-    void create_flat_path(Vector3 start, Vector3 stop, float path_width); 
 
+    // sets the mesh for heightfield
     void add_mesh(const Vector<Vector<float>> &heightfield, Vector3 position, Color colour);
+
+    // Creates mesh for a heightfield
     Ref<ArrayMesh> generate_3d_mesh(const Vector<Vector<float>> &heightfield, Color colour);
-    void generate_mountain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, float offset);
+
+    // Both create heightfields
     void generate_mountain_heightfield(float offset);
-    void generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, float offset);
     void generate_heightfield(float offset);
+
+    // Function called to initialiase values and determines generated heightfield based on the offset value
+    void generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, float offset);
     
-    //Heightfield getter function
+    // Heightfield getter function
     const Vector<Vector<float>>& get_heightfield() const;
 
+    // Template class used to add a node as a child of given parent node, returns bool if node was added
     template <class T>
 	bool create_and_add_as_child(T* &pointer, String name);
-    
+
+    // Template class used to add a node as a child of the map class, returns bool if node was added
     template <class T>
 	bool create_and_add_as_child_of_Node(T* &pointer, String name, Node* parent);
 };
