@@ -132,7 +132,7 @@ public:
 	inline int getCollectable(){return collectableAmount;}
 	inline void setCollectable(int newAmount){collectableAmount = newAmount;}
 
-	void collidePlayer();
+	void killPlayer();
 
 	//GETTER AND SETTER FUNCTIONS
 	CollisionShape3D* get_collider(){return player_body;}

@@ -49,8 +49,7 @@ private:
 	BeeLWing* wing1; 
 	BeeRWing* wing2; 
 	RayCast3D* RayCast;
-	//Vector of Every Flower
-	//std::vector<Flower*> flowerVector;
+	bool firstRun = true;
 
 	bool checkForPlayer();
 	void chasePlayer();
