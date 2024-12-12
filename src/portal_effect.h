@@ -14,29 +14,25 @@
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/texture2d.hpp>
 
+//This class will create a sphere and apply a shader so that the sphere has a moving spiral pattern
 namespace godot {
 
 class PortalEffect : public MeshInstance3D {
     GDCLASS(PortalEffect, MeshInstance3D);
 
 protected:
-    // Bind methods for exposing to GDScript
     static void _bind_methods();
 
-    // Offset to follow the player (if needed)
-    Vector3 offset;
-
 public:
-    // Constructor and Destructor
+    // Default Constructor and Destructor
     PortalEffect();
     ~PortalEffect();
 
     void update(const Vector3 position);
 
-    // Override the _enter_tree method
     void _enter_tree() override;
 };
 
-} // namespace godot
+}
 
 #endif // SKYBOX_H

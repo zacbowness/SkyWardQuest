@@ -25,23 +25,19 @@ void  Mountain::_enter_tree (){
 void  Mountain::_ready ( ){
 	if(DEBUG) UtilityFunctions::print("Ready - CustomScene3501.");
 
-    Vector3 start = Vector3(5.0f, 0.0f, 5.0f);
-	Vector3 stop= Vector3(25.0f, 0.0f, 100.0f);
-	float path_width = 15.0f;
-
     map->generate_terrain(
         70,    // Terrain width
         70,    // Terrain height
-        1,      // Octaves (not used here)
+        1,      // Octaves
         0.0f,   // Persistence
         1.0f,   // Scale
         20.0f,  // Maximum height
-        10.0f,    // Mountain scale
+        10.0f,   // Mountain scale
         0.8
     );
 
     Vector<Vector<float>> heightfield = map->get_heightfield();
-
+	//creates a mesh from the created heightfield and sets it's position and colour
     map->add_mesh(heightfield,Vector3(5, -18, 70),Color(0.4,0.2,0.7));
 	
 	//Call the update function of props (to update position, scale, and rotation data)

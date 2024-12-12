@@ -20,7 +20,6 @@ void Map::_enter_tree(){
 	create_and_add_as_child_of_Node<CollisionShape3D>(collision_shape, "Collider_Shape", static_body);
 }
 
-//Change initialized values used for the heightfield and call the generate heightfield function based on the offset value
 void Map::generate_terrain(int p_width, int p_height, int p_octaves, float p_persistence, float p_scale, float p_max_height, float p_mountain_scale, float offset){
     width = p_width;
     height = p_height;
@@ -48,11 +47,11 @@ void Map::add_mesh(const Vector<Vector<float>> &heightfield, Vector3 position, C
     set_position(position);
 }
 
-// Create a 3D mesh for a given heightfield
 Ref<ArrayMesh> Map::generate_3d_mesh(const Vector<Vector<float>> &heightfield, Color colour) {
     SurfaceTool* surface_tool = memnew(SurfaceTool);
     surface_tool->begin(Mesh::PRIMITIVE_TRIANGLES);
 
+// Iterates over the heightfield, calculating vertices and normals for each pair of adjacent columns, and adding them to the mesh
     for (int y = 0; y < height - 1; ++y) {
         for (int x = 0; x < width - 1; ++x) {
             Vector3 v0(x * scale, heightfield[y][x], y * scale);
@@ -92,6 +91,7 @@ float Map::perlin_noise(float x, float y) const {
 }
 
 float Map::interpolated_noise(float x, float y) const {
+    // Interpolates a noise value by combining four neighboring Perlin noise values.
     int ix = static_cast<int>(x);
     int iy = static_cast<int>(y);
     float fx = x - ix;
@@ -112,7 +112,7 @@ float Map::multiscale_noise(float x, float y) const {
     float frequency = 0.5f;
     float amplitude = 1.0f;
     float max_value = 0.0f;
-
+    // Summing and scaling Perlin noise values at different frequencies and amplitudes
     for (int i = 0; i < octaves; ++i) {
         total += interpolated_noise(x * frequency, y * frequency) * amplitude;
         max_value += amplitude;
@@ -125,6 +125,7 @@ float Map::multiscale_noise(float x, float y) const {
 }
 
 float Map::terrain_noise(float x, float y) const {
+    // Creates noise value that takes into account the elevation.
     float base_noise = perlin_noise(x * 0.05f, y * 0.05f);
     float detail_noise = multiscale_noise(x, y);
 
@@ -197,6 +198,7 @@ void Map::advanced_smooth_heightfield() {
         { 0.077847, 0.123317, 0.077847 }
     };
 
+    //Applies a smoothing filter to the heightfield by iterating over each cell using a kernal
     for (int y = 1; y < height - 1; ++y) {
         for (int x = 1; x < width - 1; ++x) {
             float smoothed_value = 0.0f;
@@ -215,27 +217,23 @@ void Map::advanced_smooth_heightfield() {
 Vector<Vector3> Map::scatter_props(const Vector<Vector<float>> &heightfield, int width, int height, float scale, int prop_count) {
     Vector<Vector3> positions;
 
+    // isNull check
     if (heightfield.is_empty() || heightfield[0].is_empty()) {
-        UtilityFunctions::print("Heightfield is not generated.");
-        return positions; // Return an empty list if the heightfield is invalid
+        return positions; 
     }
 
     RandomNumberGenerator *rng = memnew(RandomNumberGenerator);
-    //TODO - manipulate to not include areas that are part of the path
-    rng->set_seed(random_seed); // Set a fixed seed for reproducible results
-    //rng->randomize(); Use this line instead of the one above if you want seed to be randomized
+    rng->set_seed(random_seed); 
 
     for (int i = 0; i < prop_count; ++i) {
-        // Randomly select a position on the heightfield
+        // Randomly select a position on the heightfield using a set seed
         int x = rng->randf_range(0, width - 1);
-        int y = rng->randf_range(0, height - 1);
-        float terrain_height = heightfield[y][x];
+        int z = rng->randf_range(0, height - 1);
+        float terrain_height = heightfield[z][x];
 
-        // Calculate the world position for the prop
-        Vector3 position = Vector3(x * scale, terrain_height -0.15, y * scale);
-        positions.push_back(position); // Add the position to the list
+        // Calculate the world position for the prop and set y value to -0.15 to have props slightly under the mesh
+        Vector3 position = Vector3(x * scale, terrain_height -0.15, z * scale);
     }
-
     memdelete(rng);
     return positions;
 }

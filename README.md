@@ -33,7 +33,11 @@ Contributors:
 	collectable.cpp/.h
 		- Class for the collectible items that need to be picked up in order to complete the game
 	
+	portal classes {portal.cpp/h, portal_effect.cpp/h}
+		- portal.cpp creates a mesh for the portal, that when the player collides with it after c
 	
+	map.cpp/h
+		- Class used for the creation of the heightfield, creating a mesh given a heightfield, and for giving valid position where objects can be placed on the heightfield
 	
 	
 ### 
